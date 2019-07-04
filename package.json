@@ -36,7 +36,7 @@
     "cssnano": "^4.0.5",
     "csv-loader": "^3.0.2",
     "d3-time-format": "^2.0.5",
-    "dotenv": "^6.1.0",
+    "dotenv": "^6.2.0",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^17.0.0",
     "eslint-plugin-babel": "^5.1.0",
@@ -90,11 +90,16 @@
   },
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
+    "@deck.gl/core": "^7.1.7",
+    "@deck.gl/layers": "^7.1.7",
+    "@deck.gl/mapbox": "^7.1.7",
+    "@deck.gl/react": "^7.1.7",
     "@financial-times/g-components": "^2.2.2",
     "prop-types": "^15.6.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-helmet-async": "0.1.0-alpha",
+    "react-map-gl": "^5.0.3",
     "react-markdown": "^3.4.1",
     "remove-markdown": "^0.3.0"
   }
