@@ -7,11 +7,11 @@
 
 export default (environment = 'development') => ({
   // link file UUID
-  id: environment === 'development' ? '3a499586-b2e0-11e4-a058-00144feab7de' : '$UUID',
+  id: environment === 'development' ? '3a499586-b2e0-11e4-a058-00144feab7de' : '',
 
   // canonical URL of the published page
   // url below gets filled in by the ./configure script
-  url: '$URL',
+  url: 'https://ig.ft.com/ig-remittances',
 
   // To set an exact publish date do this:
   //       new Date('2016-05-17T17:11:22Z')
@@ -37,7 +37,7 @@ export default (environment = 'development') => ({
   mainImage: {
     title: 'Map of Esperanto groups in Europe in 1905',
     description:
-      '"Disvastiĝo de Esperanto". Mapo pri Esperanto-grupoj en Eŭropo, farita de la frankfurta grupo, en Germana Esperantisto, marto 1905',
+      'Disvastiĝo de Esperanto. Mapo pri Esperanto-grupoj en Eŭropo, farita de la frankfurta grupo, en Germana Esperantisto, marto 1905',
     credit: 'Wikipedia',
 
     // You can provide a UUID to an image and it was populate everything else
@@ -60,7 +60,7 @@ export default (environment = 'development') => ({
 
   /*
   TODO: Select Twitter card type -
-        "summary" or "summary_large_image"
+        summary or summary_large_image
 
         Twitter card docs:
         https://dev.twitter.com/cards/markup
@@ -84,7 +84,7 @@ export default (environment = 'development') => ({
   // twitterRelatedAccounts: ['authors_account_here', 'ftdata'],
 
   // Fill out the Facebook/Twitter metadata sections below if you want to
-  // override the "General social" options above
+  // override the General social options above
 
   // TWITTER METADATA (for Twitter cards)
   // twitterImage: '',
@@ -121,7 +121,7 @@ export default (environment = 'development') => ({
     /*
     Product name
 
-    This will usually default to "IG"
+    This will usually default to IG
     however another value may be needed
     */
     // product: '',
