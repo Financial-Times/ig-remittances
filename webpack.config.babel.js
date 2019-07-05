@@ -160,10 +160,9 @@ module.exports = async (env = 'development') => {
       new DefinePlugin({
         'window.BUILD_TIME': JSON.stringify(buildTime.toISOString()),
         'process.env.NODE_ENV': JSON.stringify(env),
+        'process.env.MAPBOX_TOKEN': JSON.stringify(process.env.MAPBOX_TOKEN),
       }),
-      env === 'production'
-        ? new ImageminWebpackPlugin({ test: /\.(jpe?g|png|gif|svg)$/i })
-        : undefined,
+      env === 'production' ? new ImageminWebpackPlugin({ test: /\.(jpe?g|png|gif|svg)$/i }) : undefined,
     ].filter(i => i),
   };
 };
