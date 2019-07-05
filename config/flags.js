@@ -8,12 +8,12 @@ export default (environment = 'development') => ({
   errorReporting: environment === 'production',
   analytics: environment === 'production',
   googleAnalytics: environment === 'production',
-  ads: true,
-  onwardjourney: true,
+  ads: false,
+  onwardjourney: false,
   shareButtons: true,
   header: true,
   footer: true,
-  dark: false, // Dark theme support requires g-components >= 2.2.x
+  dark: true, // Dark theme support requires g-components >= 2.2.x
   /*
     NOTE ABOUT COMMENTS:
 
