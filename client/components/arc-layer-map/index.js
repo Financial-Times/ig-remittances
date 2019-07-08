@@ -46,27 +46,35 @@ const ArcLayerMap = (props) => {
   const { gl } = state;
 
   return (
-    <DeckGL
-      ref={(ref) => {
-        deckRef.current = ref && ref.deck;
-      }}
-      layers={layers}
-      initialViewState={initialViewState}
-      controller
-      onWebGLInitialized={onWebGLInitialized}
-    >
-      {gl && ReactMapGL && (
-        <ReactMapGL
-          ref={(ref) => {
-            mapRef.current = ref && ref.getMap();
-          }}
-          gl={gl}
-          mapStyle="mapbox://styles/mapbox/dark-v9"
-          mapboxApiAccessToken={mapboxToken}
-          onLoad={onMapLoad}
-        />
-      )}
-    </DeckGL>
+    <div className="arc-layer-map__container">
+      <DeckGL
+        ref={(ref) => {
+          deckRef.current = ref && ref.deck;
+        }}
+        layers={layers}
+        initialViewState={initialViewState}
+        scrollZoom={false}
+        dragPan={false}
+        dragRotate={false}
+        doubleClickZoom={false}
+        touchZoom={false}
+        touchRotate={false}
+        touchAction="pan-y"
+        onWebGLInitialized={onWebGLInitialized}
+      >
+        {gl && ReactMapGL && (
+          <ReactMapGL
+            ref={(ref) => {
+              mapRef.current = ref && ref.getMap();
+            }}
+            gl={gl}
+            mapboxApiAccessToken={mapboxToken}
+            mapStyle="mapbox://styles/mapbox/dark-v9"
+            onLoad={onMapLoad}
+          />
+        )}
+      </DeckGL>
+    </div>
   );
 };
 
