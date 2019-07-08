@@ -94,7 +94,7 @@
     "@deck.gl/layers": "^7.1.7",
     "@deck.gl/mapbox": "^7.1.7",
     "@deck.gl/react": "^7.1.7",
-    "@financial-times/g-components": "^2.2.2",
+    "@financial-times/g-components": "^2.3.2",
     "prop-types": "^15.6.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
