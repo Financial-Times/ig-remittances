@@ -11,5 +11,3 @@ global.document.location = {
 };
 
 global.document.getElementsByTagName = () => [];
-
-global.SERVER = true;
