@@ -95,6 +95,7 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-helmet-async": "0.1.0-alpha",
+    "react-intersection-observer": "^8.23.0",
     "react-markdown": "^3.4.1",
     "remove-markdown": "^0.3.0"
   }
