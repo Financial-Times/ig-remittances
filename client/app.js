@@ -56,6 +56,7 @@ import { ContextPropType, ContextDefaultProps } from './util/prop-types';
 import FullBleedTopper from './components/full-bleed-topper';
 import LineChart from './components/line-chart';
 import ChordDiagram from './components/chord-diagram';
+import useWindowDimensions from './hooks/use-window-dimensions';
 
 const App = (context) => {
   // This sets the initial state of the application. We need
@@ -69,17 +70,22 @@ const App = (context) => {
       const { default: data } = await import('../data/example.csv');
       setState({ data });
     })();
-  });
+  }, []);
 
   const { data } = state;
 
   console.dir(data); // eslint-disable-line no-console
 
-  return (
-    <Layout {...context} defaultContainer={false} customArticleHead>
-      <FullBleedTopper {...context} />
+  const windowDimensions = useWindowDimensions();
 
-      <ChordDiagram />
+  return (
+    <Layout
+      {...context}
+      defaultContainer={false}
+      customArticleHead={<FullBleedTopper {...context} key="custom-article-head" />}
+      wrapArticleHead={false}
+    >
+      <ChordDiagram {...windowDimensions} />
 
       <GridContainer>
         <GridRow>
