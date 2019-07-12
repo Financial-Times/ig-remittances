@@ -1,10 +1,10 @@
 import React, { useRef, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import useWindowDimensions from '../../hooks/use-window-dimensions';
 
 let ctx;
 
-const ChordDiagram = (props) => {
-  const { width, height } = props;
+const ChordDiagram = () => {
+  const { width, height } = useWindowDimensions();
   const canvasRef = useRef(null);
 
   useEffect(() => {
@@ -13,9 +13,9 @@ const ChordDiagram = (props) => {
     if (canvas.getContext) {
       ctx = canvasRef.current.getContext('2d');
 
-      console.log('Canvas support detected'); // eslint-disable-line
+      console.log('Canvas support detected'); // eslint-disable-line no-console
     } else {
-      console.log('Canvas support not detected'); // eslint-disable-line
+      console.log('Canvas support not detected'); // eslint-disable-line no-console
     }
   }, []);
 
@@ -30,11 +30,6 @@ const ChordDiagram = (props) => {
       <canvas ref={canvasRef} width={width} height={height} />
     </div>
   );
-};
-
-ChordDiagram.propTypes = {
-  width: PropTypes.number.isRequired,
-  height: PropTypes.number.isRequired,
 };
 
 export default ChordDiagram;

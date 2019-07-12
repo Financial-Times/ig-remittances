@@ -56,7 +56,6 @@ import { ContextPropType, ContextDefaultProps } from './util/prop-types';
 import FullBleedTopper from './components/full-bleed-topper';
 import LineChart from './components/line-chart';
 import ChordDiagram from './components/chord-diagram';
-import useWindowDimensions from './hooks/use-window-dimensions';
 
 const App = (context) => {
   // This sets the initial state of the application. We need
@@ -72,11 +71,9 @@ const App = (context) => {
     })();
   }, []);
 
-  const { data } = state;
+  const { data } = state; // eslint-disable-line no-unused-vars
 
-  console.dir(data); // eslint-disable-line no-console
-
-  const windowDimensions = useWindowDimensions();
+  // console.dir(data); // eslint-disable-line no-console
 
   return (
     <Layout
@@ -85,7 +82,7 @@ const App = (context) => {
       customArticleHead={<FullBleedTopper {...context} key="custom-article-head" />}
       wrapArticleHead={false}
     >
-      <ChordDiagram {...windowDimensions} />
+      <ChordDiagram />
 
       <GridContainer>
         <GridRow>
