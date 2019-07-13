@@ -91,6 +91,7 @@
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
     "@financial-times/g-components": "^2.3.6",
+    "d3": "^5.9.7",
     "prop-types": "^15.6.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
