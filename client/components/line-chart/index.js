@@ -17,11 +17,13 @@ const line = d3.line();
 let pathDefinition;
 
 const LineChart = (props) => {
-  const { data, width, height } = props;
+  const { data, testdata, width, height } = props;
   const [containerRef, inView] = useInView({ threshold: 1, triggerOnce: true });
   const svgRef = useRef(null);
   const xAxisRef = useRef(null);
   const yAxisRef = useRef(null);
+
+  console.log(testdata);
 
   // Draw chart (run only on change to width or height prop)
   useEffect(() => {
@@ -47,24 +49,7 @@ const LineChart = (props) => {
 
   return (
     <div ref={containerRef} className="line-chart__container">
-      <h2>
-        {`Line chart 100% in view: ${inView}`}
-      </h2>
 
-      <svg ref={svgRef} viewBox={`0 0 ${width} ${height}`}>
-        <g ref={xAxisRef} transform={`translate(0, ${height - margin.bottom})`} />
-        <g ref={yAxisRef} transform={`translate(${margin.left}, 0)`} />
-        {inView && (
-          <path
-            d={pathDefinition}
-            fill="none"
-            stroke="steelblue"
-            strokeWidth={2}
-            strokeLinejoin="round"
-            strokeLinecap="round"
-          />
-        )}
-      </svg>
     </div>
   );
 };

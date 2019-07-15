@@ -67,11 +67,12 @@ const App = (context) => {
   useEffect(() => {
     (async () => {
       const { default: data } = await import('../data/example.csv');
-      setState({ data });
+      const { default: testdata } = await import('../data/remittances-line.csv');
+      setState({ data, testdata });
     })();
   }, []);
 
-  const { data } = state; // eslint-disable-line no-unused-vars
+  const {data, testdata} = state; // eslint-disable-line no-unused-vars
   const lineChartData = [0, 6, 4, 10];
 
   // console.dir(data); // eslint-disable-line no-console
@@ -94,7 +95,7 @@ const App = (context) => {
               multa ok, sur ðū īnfāno kæŭze. Om ene modō sekvanta proksimumecō, ānÞ sh tiele hiper defīnītive.
             </p>
 
-            <LineChart data={lineChartData} width={700} height={500} />
+            <LineChart data={lineChartData} testdata={testdata} width={700} height={500} />
 
             <p>
               Nk sola ēsperanÞiġo obl, mulÞō ipsilono nēdifīnita ien ed. Trīliono kōmpleksa co mil, kī āġā farī onin
