@@ -56,6 +56,7 @@ import { ContextPropType, ContextDefaultProps } from './util/prop-types';
 import FullBleedTopper from './components/full-bleed-topper';
 import LineChart from './components/line-chart';
 import ChordDiagram from './components/chord-diagram';
+import testdata from '../data/remittances-line.csv';
 
 const App = (context) => {
   // This sets the initial state of the application. We need
@@ -67,13 +68,13 @@ const App = (context) => {
   useEffect(() => {
     (async () => {
       const { default: data } = await import('../data/example.csv');
-      const { default: testdata } = await import('../data/remittances-line.csv');
-      setState({ data, testdata });
+      setState({ data });
     })();
   }, []);
 
-  const {data, testdata} = state; // eslint-disable-line no-unused-vars
+  const { data } = state; // eslint-disable-line no-unused-vars
   const lineChartData = [0, 6, 4, 10];
+
 
   // console.dir(data); // eslint-disable-line no-console
 
