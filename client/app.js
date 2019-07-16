@@ -56,7 +56,7 @@ import { ContextPropType, ContextDefaultProps } from './util/prop-types';
 import FullBleedTopper from './components/full-bleed-topper';
 import LineChart from './components/line-chart';
 import ChordDiagram from './components/chord-diagram';
-import testdata from '../data/remittances-line.csv';
+import lineChartData from '../data/remittances-line.csv';
 
 const App = (context) => {
   // This sets the initial state of the application. We need
@@ -73,8 +73,6 @@ const App = (context) => {
   }, []);
 
   const { data } = state; // eslint-disable-line no-unused-vars
-  const lineChartData = [0, 6, 4, 10];
-
 
   // console.dir(data); // eslint-disable-line no-console
 
@@ -96,7 +94,7 @@ const App = (context) => {
               multa ok, sur ðū īnfāno kæŭze. Om ene modō sekvanta proksimumecō, ānÞ sh tiele hiper defīnītive.
             </p>
 
-            <LineChart data={lineChartData} testdata={testdata} width={700} height={500} />
+            <LineChart data={lineChartData} width={700} height={500} />
 
             <p>
               Nk sola ēsperanÞiġo obl, mulÞō ipsilono nēdifīnita ien ed. Trīliono kōmpleksa co mil, kī āġā farī onin
