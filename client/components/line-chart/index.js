@@ -91,7 +91,7 @@ const LineChart = (props) => {
       .on('end', () => setLinesOpacity(1))
     }
 
-    // const path = d3.slect(linesRef.current).selectAll('path')
+    // const path = d3.select(linesRef.current).selectAll('path')
     // path.each((d, i) => {
       // how to select each path??? 
 
