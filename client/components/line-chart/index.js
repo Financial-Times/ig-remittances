@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useInView } from 'react-intersection-observer';
 import * as d3 from 'd3';
@@ -30,6 +30,7 @@ let pathDefinition;
 const LineChart = (props) => {
   const { data, width, height } = props;
   const [containerRef, inView] = useInView({ threshold: 1, triggerOnce: true });
+  const [linesOpacity, setLinesOpacity] = useState(0);
   const svgRef = useRef(null);
   const xAxisRef = useRef(null);
   const yAxisRef = useRef(null);
@@ -81,8 +82,17 @@ const LineChart = (props) => {
   useEffect(() => {
     console.log({inView}); // eslint-disable-line no-console
 
-    const path = d3.select(linesRef.current).selectAll('path')
-    path.each((d, i) => {
+    // testing transitions with opacity first
+    if(inView) {
+      d3.select(linesRef.current)
+      .transition()
+      .duration(2000)
+      .attr('opacity', 1)
+      .on('end', () => setLinesOpacity(1))
+    }
+
+    // const path = d3.slect(linesRef.current).selectAll('path')
+    // path.each((d, i) => {
       // how to select each path??? 
 
       // const sel = d3.select(`#line-${d.name}`);
@@ -93,7 +103,7 @@ const LineChart = (props) => {
       //   .transition()
       //     .duration(5000)
       //     .attr('stroke-dashoffset', 0)
-    })
+    // })
   }, [inView]);
 
   return (
@@ -103,11 +113,11 @@ const LineChart = (props) => {
       </h2>
       <svg ref={svgRef} width={width} height={height}>
 
-      {/* <svg ref={svgRef} viewBox={`0 0 ${width} ${height}`}> */}
         <g ref={xAxisRef} transform={`translate(0, ${height - margin.bottom})`} />
         <g ref={yAxisRef} transform={`translate(${margin.left}, 0)`} />
         <line x1={margin.left} x2={width - margin.right} y1={y(0)} y2={y(0)} fill='none' stroke='#000' strokeWidth='1px' shapeRendering='crispEdges' strokeDasharray='3, 3' />
-        <g ref={linesRef}>
+        
+        <g ref={linesRef} opacity={linesOpacity}>
         { inView && nestedData.map((d) => {
           // generate path definition
           pathDefinition = line(d.values);
