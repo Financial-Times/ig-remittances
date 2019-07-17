@@ -11,7 +11,6 @@ const margin = {
 };
 
 const HIGHLIGHT = 'Remittances';
-
 const parseDate = d3.timeParse('%Y');
 
 const x = d3.scaleTime();
@@ -19,8 +18,7 @@ const y = d3.scaleLinear();
 const colour = d3.scaleOrdinal(d3.schemeCategory10);
 
 const xAxis = d3.axisBottom()
-  .scale(x)
-  .ticks(5);
+  .scale(x);
 const yAxis = d3.axisLeft()
   .scale(y)
   .ticks(10);
@@ -60,13 +58,22 @@ const LineChart = (props) => {
     ]).nice()
       .range([height - margin.bottom, margin.top]);
 
+    xAxis.ticks(width < 400 ? 3 : 5);
+    
     // Configure line generator
     line.x(d => x(d.date))
       .y(d => y(d.value));
 
     // Let D3 render axes
     d3.select(xAxisRef.current).call(xAxis).select('.domain').remove();
-    d3.select(yAxisRef.current).call(yAxis).select('.domain').remove();
+    d3.select(yAxisRef.current).call(yAxis)
+      // add unit label for y axis
+      .call(g => g.select('.tick:last-of-type text').clone()
+      .attr('x', 3)
+      .attr('text-anchor', 'start')
+      .attr('font-weight', 600)
+      .text('$ billion'))
+      .select('.domain').remove();
   }, [width, height]);
 
   if (inView) {
@@ -78,8 +85,9 @@ const LineChart = (props) => {
       <h2>
         {`Line chart 100% in view: ${inView}`}
       </h2>
+      <svg ref={svgRef} width={width} height={height}>
 
-      <svg ref={svgRef} viewBox={`0 0 ${width} ${height}`}>
+      {/* <svg ref={svgRef} viewBox={`0 0 ${width} ${height}`}> */}
         <g ref={xAxisRef} transform={`translate(0, ${height - margin.bottom})`} />
         <g ref={yAxisRef} transform={`translate(${margin.left}, 0)`} />
         <line x1={margin.left} x2={width - margin.right} y1={y(0)} y2={y(0)} fill='none' stroke='#000' strokeWidth='1px' shapeRendering='crispEdges' strokeDasharray='3, 3' />
