@@ -24,7 +24,7 @@ const yAxis = d3
   .ticks(10);
 
 const line = d3.line().curve(d3.curveMonotoneX);
-let pathDefinition;
+let pathDefinitions;
 
 const LineChart = (props) => {
   const { data, width, height } = props;
@@ -58,8 +58,9 @@ const LineChart = (props) => {
 
     xAxis.ticks(width < 400 ? 3 : 5);
 
-    // Configure line generator
+    // Configure line generator and generate path definitions
     line.x(d => x(d.date)).y(d => y(d.value));
+    pathDefinitions = nestedData.map(d => line(d.values));
 
     // Let D3 render axes
     d3.select(xAxisRef.current)
@@ -130,10 +131,7 @@ const LineChart = (props) => {
 
         <g ref={linesRef} opacity={linesOpacity}>
           {inView
-            && nestedData.map((d) => {
-              // generate path definition
-              pathDefinition = line(d.values);
-
+            && nestedData.map((d, i) => {
               // line label placement
               const labelX = x(d.values[d.values.length - 1].date);
               const labelY = y(d.values[d.values.length - 1].value);
@@ -144,7 +142,7 @@ const LineChart = (props) => {
                 <g className="line" key={d.name}>
                   <path
                     id={`line-${d.name}`}
-                    d={pathDefinition}
+                    d={pathDefinitions[i]}
                     fill="none"
                     stroke={currentColour}
                     strokeWidth={d.name === HIGHLIGHT ? '2.5px' : '2px'}
