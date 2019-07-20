@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import * as d3 from 'd3';
-import useWindowDimensions from '../../hooks/use-window-dimensions';
 
 // D3 layout vars
 const tree = d3.cluster();
@@ -10,7 +9,6 @@ let map;
 
 // Canvas drawing vars
 let ctx;
-let scale = 1;
 const line = d3
   .radialLine()
   .curve(d3.curveBundle.beta(0.85))
@@ -19,11 +17,12 @@ const line = d3
 
 const RadialDendrogram = (props) => {
   // Props destructuring assignments
-  const { data, blurred } = props;
+  const {
+    data, width, height, scale, blurred,
+  } = props;
 
   // Hooks
   const [highlightCountry, setHighlightCountry] = useState('UKR');
-  const { width, height } = useWindowDimensions();
 
   // Refs
   const canvasRef = useRef(null);
@@ -34,7 +33,6 @@ const RadialDendrogram = (props) => {
 
     if (canvas.getContext) {
       ctx = canvas.getContext('2d');
-      scale = window.devicePixelRatio;
 
       console.log('Canvas support detected'); // eslint-disable-line no-console
     } else {
@@ -101,7 +99,7 @@ const RadialDendrogram = (props) => {
     });
 
     return () => ctx.clearRect(0, 0, width, height);
-  }, [width, height]);
+  }, [width, height, scale]);
 
   return (
     <div className="radial-dendrogram__container">
@@ -121,7 +119,14 @@ RadialDendrogram.propTypes = {
     name: PropTypes.string,
     children: PropTypes.array,
   }).isRequired,
+  width: PropTypes.number.isRequired,
+  height: PropTypes.number.isRequired,
+  scale: PropTypes.number,
   blurred: PropTypes.bool.isRequired,
+};
+
+RadialDendrogram.defaultProps = {
+  scale: 1,
 };
 
 export default RadialDendrogram;

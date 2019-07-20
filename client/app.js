@@ -56,6 +56,7 @@ import { ContextPropType, ContextDefaultProps } from './util/prop-types';
 import FullBleedTopper from './components/full-bleed-topper';
 import LineChart from './components/line-chart';
 import RadialDendrogram from './components/radial-dendrogram';
+import useWindowDimensions from './hooks/use-window-dimensions';
 
 const App = (context) => {
   // This sets the initial state of the application. We need
@@ -64,6 +65,9 @@ const App = (context) => {
     children: [],
   });
   const [blurred, setBlurred] = useState(false);
+
+  // Custom hooks
+  const { width, height } = useWindowDimensions();
 
   // Asynchronous effects should update state as per below
   useEffect(() => {
@@ -86,7 +90,13 @@ const App = (context) => {
       wrapArticleHead={false}
     >
       {remittancesData.children.length > 0 ? (
-        <RadialDendrogram data={remittancesData} blurred={blurred} />
+        <RadialDendrogram
+          data={remittancesData}
+          width={width}
+          height={height}
+          scale={window.devicePixelRatio}
+          blurred={blurred}
+        />
       ) : (
         <div className="loading">
           <p>
