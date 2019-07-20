@@ -19,7 +19,7 @@ const line = d3
 
 const RadialDendrogram = (props) => {
   // Props destructuring assignments
-  const { data } = props;
+  const { data, blurred } = props;
 
   // Hooks
   const [highlightCountry, setHighlightCountry] = useState('UKR');
@@ -110,6 +110,7 @@ const RadialDendrogram = (props) => {
         width={width * scale}
         height={height * scale}
         style={{ width: `${width}px`, height: `${height}px` }}
+        className={blurred ? 'blurred' : ''}
       />
     </div>
   );
@@ -120,6 +121,7 @@ RadialDendrogram.propTypes = {
     name: PropTypes.string,
     children: PropTypes.array,
   }).isRequired,
+  blurred: PropTypes.bool.isRequired,
 };
 
 export default RadialDendrogram;

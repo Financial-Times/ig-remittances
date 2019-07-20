@@ -9,6 +9,12 @@
       display: block;
       max-width: 100%;
       margin: auto;
+      transition: all 1s ease-out;
+
+      &.blurred {
+        opacity: 0.4;
+        filter: blur(12px);
+      }
     }
   }
 }

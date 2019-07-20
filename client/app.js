@@ -63,6 +63,7 @@ const App = (context) => {
     name: '',
     children: [],
   });
+  const [blurred, setBlurred] = useState(false);
 
   // Asynchronous effects should update state as per below
   useEffect(() => {
@@ -85,7 +86,7 @@ const App = (context) => {
       wrapArticleHead={false}
     >
       {remittancesData.children.length > 0 ? (
-        <RadialDendrogram data={remittancesData} />
+        <RadialDendrogram data={remittancesData} blurred={blurred} />
       ) : (
         <div className="loading">
           <p>
@@ -97,6 +98,10 @@ Loading data…
       <GridContainer>
         <GridRow>
           <GridChild>
+            <button type="button" onClick={() => setBlurred(!blurred)}>
+              Blur
+            </button>
+
             <p>
               Ik kie neġi æpude pōsÞpriskribo, anċ ēg tiel subtegmenÞo. Giga gārði esperǣntigo vi jes. Ċit plēj
               esceptīnte hu, ōl vola eksploðæ poǽ. Ōīð gh pǽƿjo s&apos;joro pronomeċa, mi paki vice fiksa vir. Trǣ kibi
