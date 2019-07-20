@@ -56,25 +56,24 @@ import { ContextPropType, ContextDefaultProps } from './util/prop-types';
 import FullBleedTopper from './components/full-bleed-topper';
 import LineChart from './components/line-chart';
 import RadialDendrogram from './components/radial-dendrogram';
-import remittances from '../data/remittances.json';
 
 const App = (context) => {
   // This sets the initial state of the application. We need
-  const [state, setState] = useState({
-    data: [],
+  const [remittancesData, setRemittancesData] = useState({
+    name: '',
+    children: [],
   });
 
   // Asynchronous effects should update state as per below
   useEffect(() => {
     (async () => {
-      const { default: data } = await import('../data/example.csv');
-      setState({ data });
+      const { default: groups } = await import('../data/remittances.json');
+
+      setRemittancesData({ name: 'remittances', children: groups });
     })();
   }, []);
 
-  const { data } = state; // eslint-disable-line no-unused-vars
   const lineChartData = [0, 6, 4, 10];
-  const remittancesData = { name: 'remittances', children: remittances };
 
   // console.dir(data); // eslint-disable-line no-console
 
@@ -85,7 +84,15 @@ const App = (context) => {
       customArticleHead={<FullBleedTopper {...context} key="custom-article-head" />}
       wrapArticleHead={false}
     >
-      <RadialDendrogram data={remittancesData} />
+      {remittancesData.children.length > 0 ? (
+        <RadialDendrogram data={remittancesData} />
+      ) : (
+        <div className="loading">
+          <p>
+Loading data…
+          </p>
+        </div>
+      )}
 
       <GridContainer>
         <GridRow>
