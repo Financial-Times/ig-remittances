@@ -55,7 +55,8 @@ import React, { useEffect, useState } from 'react';
 import { ContextPropType, ContextDefaultProps } from './util/prop-types';
 import FullBleedTopper from './components/full-bleed-topper';
 import LineChart from './components/line-chart';
-import ChordDiagram from './components/chord-diagram';
+import RadialDendrogram from './components/radial-dendrogram';
+import remittances from '../data/remittances.json';
 
 const App = (context) => {
   // This sets the initial state of the application. We need
@@ -73,6 +74,7 @@ const App = (context) => {
 
   const { data } = state; // eslint-disable-line no-unused-vars
   const lineChartData = [0, 6, 4, 10];
+  const remittancesData = { name: 'remittances', children: remittances };
 
   // console.dir(data); // eslint-disable-line no-console
 
@@ -83,7 +85,7 @@ const App = (context) => {
       customArticleHead={<FullBleedTopper {...context} key="custom-article-head" />}
       wrapArticleHead={false}
     >
-      <ChordDiagram />
+      <RadialDendrogram data={remittancesData} />
 
       <GridContainer>
         <GridRow>
