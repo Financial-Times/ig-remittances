@@ -21,7 +21,10 @@ const RadialDendrogram = (props) => {
     data, width, height, scale, blurred,
   } = props;
 
-  // Hooks
+  // State
+  const [rendered, setRendered] = useState(false);
+
+  // Custom hooks
   const [highlightCountry, setHighlightCountry] = useState('UKR');
 
   // Refs
@@ -96,6 +99,8 @@ const RadialDendrogram = (props) => {
           ctx.stroke();
         }
       });
+
+      setRendered(true);
     });
 
     return () => ctx.clearRect(0, 0, width, height);
@@ -103,6 +108,12 @@ const RadialDendrogram = (props) => {
 
   return (
     <div className="radial-dendrogram__container">
+      {!rendered && (
+      <p>
+Rendering graphic…
+      </p>
+      )}
+
       <canvas
         ref={canvasRef}
         width={width * scale}
