@@ -7,7 +7,7 @@ const margin = {
   top: 20,
   right: 130,
   bottom: 50,
-  left: 35,
+  left: 35
 };
 
 const HIGHLIGHT = 'Remittances';
@@ -26,10 +26,9 @@ const yAxis = d3
 const line = d3.line().curve(d3.curveMonotoneX);
 let pathDefinitions;
 
-const LineChart = (props) => {
+const LineChart = props => {
   const { data, width, height } = props;
   const [containerRef, inView] = useInView({ threshold: 1, triggerOnce: true });
-  const [linesOpacity, setLinesOpacity] = useState(0);
   const svgRef = useRef(null);
   const xAxisRef = useRef(null);
   const yAxisRef = useRef(null);
@@ -41,8 +40,11 @@ const LineChart = (props) => {
   const nestedData = keys.map(name => ({
     name,
     label: name.replace(/_/g, ' '),
-    values: data.map(d => ({ date: parseDate(d.year), value: +d[name] })),
+    values: data.map(d => ({ date: parseDate(d.year), value: +d[name] }))
   }));
+
+  const pathRefs = nestedData.map(d => useRef(null));
+  const labelRefs = nestedData.map(d => useRef(null));
 
   // Draw chart (run only on change to width or height prop)
   useEffect(() => {
@@ -51,7 +53,7 @@ const LineChart = (props) => {
     x.range([margin.left, width - margin.right]);
     y.domain([
       d3.min(nestedData, c => d3.min(c.values, v => v.value)),
-      d3.max(nestedData, c => d3.max(c.values, v => v.value)),
+      d3.max(nestedData, c => d3.max(c.values, v => v.value))
     ])
       .nice()
       .range([height - margin.bottom, margin.top]);
@@ -70,13 +72,15 @@ const LineChart = (props) => {
     d3.select(yAxisRef.current)
       .call(yAxis)
       // add unit label for y axis
-      .call(g => g
-        .select('.tick:last-of-type text')
-        .clone()
-        .attr('x', 3)
-        .attr('text-anchor', 'start')
-        .attr('font-weight', 600)
-        .text('$ billion'))
+      .call(g =>
+        g
+          .select('.tick:last-of-type text')
+          .clone()
+          .attr('x', 3)
+          .attr('text-anchor', 'start')
+          .attr('font-weight', 600)
+          .text('$ billion')
+      )
       .select('.domain')
       .remove();
   }, [width, height]);
@@ -85,37 +89,39 @@ const LineChart = (props) => {
   useEffect(() => {
     console.log({ inView }); // eslint-disable-line no-console
 
-    // testing transitions with opacity first
     if (inView) {
-      d3.select(linesRef.current)
-        .transition()
-        .duration(2000)
-        .attr('opacity', 1)
-        .on('end', () => setLinesOpacity(1));
+      pathRefs.forEach((d, i) => {
+        const sel = d3.select(pathRefs[i].current);
+        const length = sel.node().getTotalLength();
+        sel
+          .attr('visibility', 'visible')
+          .attr('stroke-dasharray', `${length} ${length}`)
+          .attr('stroke-dashoffset', length)
+          .transition()
+          .duration(5000)
+          .attr('stroke-dashoffset', 0);
+      });
+
+      labelRefs.forEach((d, i) => {
+        const sel = d3.select(labelRefs[i].current);
+        sel
+          .attr('opacity', 0)
+          .transition()
+          .delay(4000)
+          .duration(200)
+          .attr('opacity', 1);
+      });
     }
-
-    // const path = d3.select(linesRef.current).selectAll('path')
-    // path.each((d, i) => {
-    // how to select each path???
-
-    // const sel = d3.select(`#line-${d.name}`);
-    // const length = sel.node().getTotalLength();
-
-    // sel.attr('stroke-dasharray', `${length} ${length}`)
-    //   .attr('stroke-dashoffset', length)
-    //   .transition()
-    //     .duration(5000)
-    //     .attr('stroke-dashoffset', 0)
-    // })
   }, [inView]);
 
   return (
     <div ref={containerRef} className="line-chart__container">
-      <h2>
-        {`Line chart 100% in view: ${inView}`}
-      </h2>
+      <h2>{`Line chart 100% in view: ${inView}`}</h2>
       <svg ref={svgRef} width={width} height={height}>
-        <g ref={xAxisRef} transform={`translate(0, ${height - margin.bottom})`} />
+        <g
+          ref={xAxisRef}
+          transform={`translate(0, ${height - margin.bottom})`}
+        />
         <g ref={yAxisRef} transform={`translate(${margin.left}, 0)`} />
         <line
           x1={margin.left}
@@ -129,9 +135,9 @@ const LineChart = (props) => {
           strokeDasharray="3, 3"
         />
 
-        <g ref={linesRef} opacity={linesOpacity}>
-          {inView
-            && nestedData.map((d, i) => {
+        <g ref={linesRef}>
+          {inView &&
+            nestedData.map((d, i) => {
               // line label placement
               const labelX = x(d.values[d.values.length - 1].date);
               const labelY = y(d.values[d.values.length - 1].value);
@@ -143,20 +149,24 @@ const LineChart = (props) => {
                   <path
                     id={`line-${d.name}`}
                     d={pathDefinitions[i]}
+                    ref={pathRefs[i]}
                     fill="none"
                     stroke={currentColour}
                     strokeWidth={d.name === HIGHLIGHT ? '2.5px' : '2px'}
                     strokeLinejoin="round"
                     strokeLinecap="round"
                     opacity={d.name === HIGHLIGHT ? 1 : 0.5}
+                    visibility="hidden"
                   />
                   <text
                     className="line-label"
+                    ref={labelRefs[i]}
                     transform={`translate(${labelX}, ${labelY})`}
                     x={5}
                     dy={d.name === HIGHLIGHT ? '-.2em' : '.35em'}
                     fill={currentColour}
                     fontWeight={d.name === HIGHLIGHT ? 600 : 400}
+                    opacity={0}
                   >
                     {d.label}
                   </text>
@@ -172,7 +182,7 @@ const LineChart = (props) => {
 LineChart.propTypes = {
   data: PropTypes.arrayOf(PropTypes.any).isRequired,
   width: PropTypes.number.isRequired,
-  height: PropTypes.number.isRequired,
+  height: PropTypes.number.isRequired
 };
 
 export default LineChart;
