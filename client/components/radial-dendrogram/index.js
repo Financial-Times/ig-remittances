@@ -18,14 +18,11 @@ const line = d3
 const RadialDendrogram = (props) => {
   // Props destructuring assignments
   const {
-    data, width, height, scale, blurred,
+    data, width, height, scale, blurred, highlightCountry,
   } = props;
 
   // State
   const [rendered, setRendered] = useState(false);
-
-  // Custom hooks
-  const [highlightCountry, setHighlightCountry] = useState('UKR');
 
   // Refs
   const canvasRef = useRef(null);
@@ -54,10 +51,14 @@ const RadialDendrogram = (props) => {
 
   // Draw dendrogram
   useEffect(() => {
-    ctx.scale(scale, scale);
-    ctx.translate(width / 2, height / 2);
-    ctx.globalCompositeOperation = 'multiply';
-    line.context(ctx);
+    if (rendered) {
+      ctx.clearRect(-width / 2, -height / 2, width, height);
+    } else {
+      ctx.scale(scale, scale);
+      ctx.translate(width / 2, height / 2);
+      ctx.globalCompositeOperation = 'multiply';
+      line.context(ctx);
+    }
 
     // Draw leaf labels
     root.leaves().forEach((leaf) => {
@@ -81,7 +82,6 @@ const RadialDendrogram = (props) => {
     // Draw connections
     root.leaves().forEach((leaf) => {
       const { country_iso3: country, targets } = leaf.data;
-
       if (country === highlightCountry) {
         ctx.strokeStyle = 'rgba(255, 117, 163, 1)';
       } else {
@@ -104,7 +104,7 @@ const RadialDendrogram = (props) => {
     });
 
     return () => ctx.clearRect(0, 0, width, height);
-  }, [width, height, scale]);
+  }, [width, height, scale, highlightCountry]);
 
   return (
     <div className="radial-dendrogram__container">
@@ -134,6 +134,7 @@ RadialDendrogram.propTypes = {
   height: PropTypes.number.isRequired,
   scale: PropTypes.number,
   blurred: PropTypes.bool.isRequired,
+  highlightCountry: PropTypes.string.isRequired,
 };
 
 RadialDendrogram.defaultProps = {
