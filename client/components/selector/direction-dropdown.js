@@ -7,14 +7,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const DirectionDropdown = ({ setDirection, direction }) => (
-  <select value={direction} type="select" onChange={setDirection}>
-    <option value="sent">
+  <span className="o-forms-input o-forms-input--select">
+    <select className="selector__dropdown selector__dropdown--direction" value={direction} onChange={setDirection}>
+      <option value="sent">
 sent to
-    </option>
-    <option value="received">
+      </option>
+      <option value="received">
 received from
-    </option>
-  </select>
+      </option>
+    </select>
+  </span>
 );
 
 DirectionDropdown.propTypes = {
