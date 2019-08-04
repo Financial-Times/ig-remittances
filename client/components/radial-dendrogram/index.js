@@ -62,11 +62,17 @@ const RadialDendrogram = (props) => {
 
     // Draw leaf labels
     root.leaves().forEach((leaf) => {
-      ctx.save();
-      ctx.rotate(leaf.x - Math.PI / 2);
-      ctx.translate(leaf.y, 0);
+      const {
+        x,
+        y,
+        data: { country_name },
+      } = leaf;
 
-      if (leaf.x >= Math.PI) {
+      ctx.save();
+      ctx.rotate(x - Math.PI / 2);
+      ctx.translate(y, 0);
+
+      if (x >= Math.PI) {
         ctx.textAlign = 'right';
         ctx.rotate(Math.PI);
         ctx.translate(-3, 0);
@@ -75,15 +81,15 @@ const RadialDendrogram = (props) => {
         ctx.translate(3, 0);
       }
 
-      ctx.fillText(leaf.data.country_name, 0, 3);
+      ctx.fillText(country_name, 0, 3);
       ctx.restore();
     });
 
     // Draw connections
     root.leaves().forEach((leaf) => {
-      const { country_iso3: country, sources } = leaf.data;
+      const { country_iso3, sources } = leaf.data;
 
-      if (country === highlightCountry) {
+      if (country_iso3 === highlightCountry) {
         ctx.strokeStyle = 'rgba(255, 117, 163, 1)';
       } else {
         ctx.strokeStyle = 'rgba(217, 204, 195, 0.1)';
