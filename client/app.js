@@ -50,9 +50,7 @@
  *  See below for complete example.
  */
 
-import React, {
-  useEffect, useState, useReducer, Fragment,
-} from 'react';
+import React, { useEffect, useReducer, Fragment } from 'react';
 import Layout, { GridContainer, GridRow, GridChild } from '@financial-times/g-components';
 import { ContextPropType, ContextDefaultProps } from './util/prop-types';
 import FullBleedTopper from './components/full-bleed-topper';
@@ -72,11 +70,11 @@ const App = (context) => {
   // Asynchronous effects should update state as per below
   useEffect(() => {
     (async () => {
-      const { default: groups } = await import('../data/remittances.json');
+      const { default: remittances } = await import('../data/remittances.json');
 
       dispatch({
         type: 'SET_REMITTANCES_DATA',
-        data: { name: 'remittances', children: groups },
+        data: remittances,
       });
     })();
   }, []);

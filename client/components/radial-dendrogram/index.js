@@ -81,21 +81,22 @@ const RadialDendrogram = (props) => {
 
     // Draw connections
     root.leaves().forEach((leaf) => {
-      const { country_iso3: country, targets } = leaf.data;
+      const { country_iso3: country, sources } = leaf.data;
+
       if (country === highlightCountry) {
         ctx.strokeStyle = 'rgba(255, 117, 163, 1)';
       } else {
         ctx.strokeStyle = 'rgba(217, 204, 195, 0.1)';
       }
 
-      targets.forEach((target) => {
-        const targetNode = map.get(target);
+      sources.forEach((source) => {
+        const sourceNode = map.get(source);
 
-        if (targetNode) {
+        if (sourceNode) {
           // const group = targetNode.parent.data.group_name;
 
           ctx.beginPath();
-          line(leaf.path(targetNode));
+          line(leaf.path(sourceNode));
           ctx.stroke();
         }
       });
