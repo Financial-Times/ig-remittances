@@ -90,9 +90,9 @@ const RadialDendrogram = (props) => {
       const { country_iso3, sources } = leaf.data;
 
       if (country_iso3 === highlightCountry) {
-        ctx.strokeStyle = 'rgba(255, 117, 163, 1)';
+        ctx.strokeStyle = 'rgba(13, 118, 128, 0.9)';
       } else {
-        ctx.strokeStyle = 'rgba(217, 204, 195, 0.1)';
+        ctx.strokeStyle = 'rgba(242, 229, 218, 0.05)';
       }
 
       sources.forEach((source) => {
