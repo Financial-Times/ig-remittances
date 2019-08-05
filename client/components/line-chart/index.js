@@ -5,7 +5,7 @@ import * as d3 from 'd3';
 
 const margin = {
   top: 20,
-  right: 130,
+  right: 145,
   bottom: 50,
   left: 35
 };
@@ -15,7 +15,7 @@ const parseDate = d3.timeParse('%Y');
 
 const x = d3.scaleTime();
 const y = d3.scaleLinear();
-const colour = d3.scaleOrdinal(d3.schemeCategory10);
+const colour = d3.scaleOrdinal(['rgba(13, 118, 128)', 'rgba(102, 96, 92, 0.4)', 'rgba(102, 96, 92, 0.6)', 'rgba(102, 96, 92, 1)']);
 
 const xAxis = d3.axisBottom().scale(x);
 const yAxis = d3
@@ -78,8 +78,7 @@ const LineChart = props => {
           .clone()
           .attr('x', 3)
           .attr('text-anchor', 'start')
-          .attr('font-weight', 600)
-          .text('$ billion')
+          .text('$bn')
       )
       .select('.domain')
       .remove();
@@ -129,10 +128,10 @@ const LineChart = props => {
           y1={y(0)}
           y2={y(0)}
           fill="none"
-          stroke="#000"
+          stroke="rgba(0, 0, 0, 0.5)"
           strokeWidth="1px"
           shapeRendering="crispEdges"
-          strokeDasharray="3, 3"
+          strokeDasharray="7, 5"
         />
 
         <g ref={linesRef}>
@@ -152,10 +151,10 @@ const LineChart = props => {
                     ref={pathRefs[i]}
                     fill="none"
                     stroke={currentColour}
-                    strokeWidth={d.name === HIGHLIGHT ? '2.5px' : '2px'}
+                    strokeWidth={d.name === HIGHLIGHT ? '2.5px' : '1.5px'}
                     strokeLinejoin="round"
                     strokeLinecap="round"
-                    opacity={d.name === HIGHLIGHT ? 1 : 0.5}
+                    // opacity={d.name === HIGHLIGHT ? 1 : 0.5}
                     visibility="hidden"
                   />
                   <text

@@ -1,3 +1,20 @@
-.tick text {
-  font-size: 12px;
+.line-chart__container svg {
+  text {
+    font-family: MetricWeb, sans-serif;
+    font-size: 18px;
+  }
+
+  .tick {
+    
+    text {
+      font-size: 16px;
+      fill: rgba(0, 0, 0, 0.5);
+    }
+
+    line {
+      stroke: rgba(0, 0, 0, 0.5);
+    }
+  }
+  
 }
+
