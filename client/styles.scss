@@ -12,6 +12,8 @@
   )
 );
 @import "components/selector/main";
+@import 'components/chord-diagram/main';
+@import 'components/line-chart/styles';
 
 .loading {
   width: 100%;

@@ -59,6 +59,8 @@ import RadialDendrogram from './components/radial-dendrogram';
 import Selector from './components/selector';
 import useWindowDimensions from './hooks/use-window-dimensions';
 import { userStateContext, initialState, reducers } from './state';
+import ChordDiagram from './components/chord-diagram';
+import lineChartData from '../data/remittances-line.csv';
 
 const App = (context) => {
   const [state, dispatch] = useReducer(reducers, initialState);
@@ -80,6 +82,7 @@ const App = (context) => {
   }, []);
 
   const lineChartData = [0, 6, 4, 10];
+  const { data } = state; // eslint-disable-line no-unused-vars
 
   // console.dir(data); // eslint-disable-line no-console
 
