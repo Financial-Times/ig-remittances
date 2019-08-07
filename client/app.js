@@ -53,13 +53,10 @@
 import React, { useEffect, useReducer, Fragment } from 'react';
 import Layout, { GridContainer, GridRow, GridChild } from '@financial-times/g-components';
 import { ContextPropType, ContextDefaultProps } from './util/prop-types';
-import FullBleedTopper from './components/full-bleed-topper';
 import LineChart from './components/line-chart';
-import RadialDendrogram from './components/radial-dendrogram';
 import Selector from './components/selector';
 import useWindowDimensions from './hooks/use-window-dimensions';
 import { userStateContext, initialState, reducers } from './state';
-import ChordDiagram from './components/chord-diagram';
 import lineChartData from '../data/remittances-line.csv';
 
 const App = (context) => {
@@ -81,31 +78,15 @@ const App = (context) => {
     })();
   }, []);
 
-  const lineChartData = [0, 6, 4, 10];
   const { data } = state; // eslint-disable-line no-unused-vars
 
   // console.dir(data); // eslint-disable-line no-console
 
   return (
     <userStateContext.Provider value={[state, dispatch]}>
-      <Layout
-        {...context}
-        defaultContainer={false}
-        customArticleHead={<FullBleedTopper {...context} key="custom-article-head" />}
-        wrapArticleHead={false}
-      >
+      <Layout {...context} defaultContainer={false}>
         {remittancesData.children.length > 0 ? (
-          <Fragment>
-            <Selector />
-            <RadialDendrogram
-              data={remittancesData}
-              width={width}
-              height={height}
-              scale={window.devicePixelRatio}
-              blurred={blurred}
-              highlightCountry={highlightCountry}
-            />
-          </Fragment>
+          <Selector />
         ) : (
           <div className="loading">
             <p>

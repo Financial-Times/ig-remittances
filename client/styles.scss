@@ -1,18 +1,17 @@
-@import "o-colors/main";
-@import "o-grid/main.scss";
-@import "@financial-times/g-components/styles.css";
-@import "components/full-bleed-topper/main";
-@import "components/radial-dendrogram/main";
-@import "o-forms/main";
+@import 'o-colors/main';
+@import 'o-grid/main.scss';
+@import '@financial-times/g-components/styles.css';
+@import 'components/full-bleed-topper/main';
+@import 'components/radial-dendrogram/main';
+@import 'o-forms/main';
 @include oForms(
   $opts: (
-    "elements": (
-      "select"
-    )
+    'elements': (
+      'select',
+    ),
   )
 );
-@import "components/selector/main";
-@import 'components/chord-diagram/main';
+@import 'components/selector/main';
 @import 'components/line-chart/styles';
 
 .loading {
