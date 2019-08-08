@@ -4,14 +4,14 @@ import * as d3 from 'd3';
 
 // D3 layout vars
 const tree = d3.cluster();
+let radius;
 let root;
 let map;
 
 // Canvas drawing vars
 let ctx;
 const line = d3
-  .radialLine()
-  .curve(d3.curveBundle.beta(0.85))
+  .lineRadial()
   .radius(d => d.y)
   .angle(d => d.x);
 
@@ -42,7 +42,7 @@ const RadialDendrogram = (props) => {
 
   // Set up D3 dendrogram layout
   useEffect(() => {
-    const radius = Math.min(width / 2, height / 2);
+    radius = Math.min(width / 2, height / 2);
 
     tree.size([2 * Math.PI, radius - 100]);
     root = tree(d3.hierarchy(data));
@@ -99,11 +99,27 @@ const RadialDendrogram = (props) => {
         const sourceNode = map.get(source);
 
         if (sourceNode) {
-          // const group = targetNode.parent.data.group_name;
+          const currentGroup = leaf.parent.data.group_id;
+          const sourceGroup = sourceNode.parent.data.group_id;
+          const path = leaf.path(sourceNode);
 
-          ctx.beginPath();
-          line(leaf.path(sourceNode));
-          ctx.stroke();
+          // Put intra-group links outside the circumference
+          if (currentGroup === sourceGroup) {
+            const start = path[0];
+            const end = path[path.length - 1];
+            const mid = {
+              x: (start.x + end.x) / 2,
+              y: start.y + radius / 10, // How far outside the circumference the intra-group links should arc
+            };
+
+            ctx.beginPath();
+            line.curve(d3.curveCatmullRom)([start, mid, end]);
+            ctx.stroke();
+          } else {
+            ctx.beginPath();
+            line.curve(d3.curveBundle)(path);
+            ctx.stroke();
+          }
         }
       });
 
