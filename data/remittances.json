@@ -12767,13 +12767,7 @@
             "ZMB",
             "ZWE"
           ]
-        }
-      ]
-    },
-    {
-      "group_id": 999,
-      "group_name": "Unknown",
-      "children": [
+        },
         {
           "country_iso3": "KX",
           "country_name": "Kosovo",
