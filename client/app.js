@@ -1,59 +1,14 @@
 /**
  * @file
  * This is the root component for your project.
- *
- * It is imported by ../server to generate the first pass of the page, and
- * then later used by ./index to "hydrate" content on the client-side.
- *
- * This file is where you bootstrap your JS code.
- * For example import stuff here:
- *
- *    import { select } from 'd3-selection';
- *    import myComponent from './components/my-component';
- *
- * Split logical parts of you project into components e.g.
- *
- *    /client
- *      - /components
- *          - /component-name
- *              - styles.scss
- *              - index.js
- *
- * If you want to import some data, just import it like you would JavaScript:
- *
- *    import data from '../data/example.csv';
- *
- * Provided that you're loading a file ending in either .csv or .tsv, Webpack
- * will automatically parse it into an object via the header row. This behaviour
- * can be customised in webpack.config.babel.js.
- *
- * Note, however, that doing it this way will increase your bundle size, which
- * might slow down time to first render. A better way is to dynamically import
- * data inside of a component's `componentDidMount()` lifecycle method — this
- * way your application can load its UI components and then get data piped in
- * once all the components are on page:
- *
- *    async componentDidMount() {
- *      const { default: data } = await import('../data/example.csv');
- *      this.setState({ data });
- *    }
- *
- * A couple things to note:
- *   - `import()` returns a promise, so you have to either use `.then()` or
- *     the `await` keyword in an `async` function.
- *   - The equivalent ES6 import syntax is `import * as varname from 'module'`,
- *     meaning that you probably just want the `default` property in the resulting
- *     object. This is what's happening above with `const { default: data }`, it's
- *     destructuring the result of `import()` and assigning the default export
- *     to a constant named `data`.
- *
- *  See below for complete example.
  */
 
 import React, { useEffect, useReducer, Fragment } from 'react';
 import Layout, { GridContainer, GridRow, GridChild } from '@financial-times/g-components';
+import { hierarchy } from 'd3-hierarchy';
 import { ContextPropType, ContextDefaultProps } from './util/prop-types';
 import LineChart from './components/line-chart';
+import Treemap from './components/treemap';
 import Selector from './components/selector';
 import useWindowDimensions from './hooks/use-window-dimensions';
 import { userStateContext, initialState, reducers } from './state';
@@ -69,24 +24,28 @@ const App = (context) => {
   // Asynchronous effects should update state as per below
   useEffect(() => {
     (async () => {
-      const { default: remittances } = await import('../data/remittances.json');
+      // const { default: remittances } = await import('../data/remittances.json');
 
+      // @TODO replace with data for realsies
+      const { default: flareData } = await import('../data/flare.json');
+      const hierarchies = flareData.children.map(d => hierarchy(d)
+        .sum(({ value }) => value)
+        .sort((a, b) => b.value - a.value));
       dispatch({
         type: 'SET_REMITTANCES_DATA',
-        data: remittances,
+        data: hierarchies, // remittances,
       });
     })();
   }, []);
 
-  const { data } = state; // eslint-disable-line no-unused-vars
-
-  // console.dir(data); // eslint-disable-line no-console
-
   return (
     <userStateContext.Provider value={[state, dispatch]}>
       <Layout {...context} defaultContainer={false}>
-        {remittancesData.children.length > 0 ? (
-          <Selector />
+        {remittancesData.length ? (
+          <Fragment>
+            {/* <Selector /> */}
+            <Treemap width={width} height={height} hierarchies={remittancesData} />
+          </Fragment>
         ) : (
           <div className="loading">
             <p>
