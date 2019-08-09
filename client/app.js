@@ -24,11 +24,11 @@ const App = (context) => {
   // Asynchronous effects should update state as per below
   useEffect(() => {
     (async () => {
-      // const { default: remittances } = await import('../data/remittances.json');
+      const { default: remittances } = await import('../data/remittances.json');
 
       // @TODO replace with data for realsies
-      const { default: flareData } = await import('../data/flare.json');
-      const hierarchies = flareData.children.map(d => hierarchy(d)
+      // const { default: flareData } = await import('../data/flare.json');
+      const hierarchies = remittances.children.map(d => hierarchy(d)
         .sum(({ value }) => value)
         .sort((a, b) => b.value - a.value));
       dispatch({

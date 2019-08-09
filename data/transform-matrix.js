@@ -30,9 +30,16 @@ data
 writeFileSync(
   './remittances.json',
   JSON.stringify(
-    [...countries].map((k, v) => ({
-      name: k,
-      ...v,
-    })),
+    [...countries]
+      .map(([k, v]) => {
+        if (k) {
+          return {
+            name: k,
+            ...v,
+          };
+        }
+        return null;
+      })
+      .filter(d => d),
   ),
 );
