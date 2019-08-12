@@ -1,8 +1,6 @@
 @import 'o-colors/main';
 @import 'o-grid/main.scss';
 @import '@financial-times/g-components/styles.css';
-@import 'components/full-bleed-topper/main';
-@import 'components/radial-dendrogram/main';
 @import 'o-forms/main';
 @include oForms(
   $opts: (
@@ -13,6 +11,8 @@
 );
 @import 'components/selector/main';
 @import 'components/line-chart/styles';
+@import 'components/sticky/main';
+@import 'components/scroll-step/main';
 
 .loading {
   width: 100%;
