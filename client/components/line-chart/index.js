@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useInView } from 'react-intersection-observer';
 import * as d3 from 'd3';
@@ -48,8 +48,8 @@ const LineChart = (props) => {
     values: data.map(d => ({ date: parseDate(d.year), value: +d[name] })),
   }));
 
-  const pathRefs = nestedData.map(d => useRef(null));
-  const labelRefs = nestedData.map(d => useRef(null));
+  const pathRefs = nestedData.map(() => useRef(null));
+  const labelRefs = nestedData.map(() => useRef(null));
 
   // Draw chart (run only on change to width or height prop)
   useEffect(() => {
