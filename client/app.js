@@ -64,7 +64,7 @@ const App = (context) => {
   const { remittancesData, blurred, highlightCountry } = state;
 
   // Custom hooks
-  const { width, height } = useWindowDimensions();
+  const { width: windowWidth } = useWindowDimensions();
 
   // Asynchronous effects should update state as per below
   useEffect(() => {
@@ -115,7 +115,11 @@ Loading data…
                 kibi multa ok, sur ðū īnfāno kæŭze. Om ene modō sekvanta proksimumecō, ānÞ sh tiele hiper defīnītive.
               </p>
 
-              <LineChart data={lineChartData} width={700} height={500} />
+              <LineChart
+                data={lineChartData}
+                width={windowWidth < 740 ? 300 : 700}
+                height={windowWidth < 740 ? 400 : 500}
+              />
 
               <p>
                 Nk sola ēsperanÞiġo obl, mulÞō ipsilono nēdifīnita ien ed. Trīliono kōmpleksa co mil, kī āġā farī onin
