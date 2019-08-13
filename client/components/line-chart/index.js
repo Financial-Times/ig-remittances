@@ -7,7 +7,7 @@ const margin = {
   top: 20,
   right: 145,
   bottom: 50,
-  left: 35
+  left: 35,
 };
 
 const HIGHLIGHT = 'Remittances';
@@ -15,7 +15,12 @@ const parseDate = d3.timeParse('%Y');
 
 const x = d3.scaleTime();
 const y = d3.scaleLinear();
-const colour = d3.scaleOrdinal(['rgba(13, 118, 128)', 'rgba(102, 96, 92, 0.4)', 'rgba(102, 96, 92, 0.6)', 'rgba(102, 96, 92, 1)']);
+const colour = d3.scaleOrdinal([
+  'rgba(13, 118, 128)',
+  'rgba(102, 96, 92, 0.4)',
+  'rgba(102, 96, 92, 0.6)',
+  'rgba(102, 96, 92, 1)',
+]);
 
 const xAxis = d3.axisBottom().scale(x);
 const yAxis = d3
@@ -26,7 +31,7 @@ const yAxis = d3
 const line = d3.line().curve(d3.curveMonotoneX);
 let pathDefinitions;
 
-const LineChart = props => {
+const LineChart = (props) => {
   const { data, width, height } = props;
   const [containerRef, inView] = useInView({ threshold: 1, triggerOnce: true });
   const svgRef = useRef(null);
@@ -40,7 +45,7 @@ const LineChart = props => {
   const nestedData = keys.map(name => ({
     name,
     label: name.replace(/_/g, ' '),
-    values: data.map(d => ({ date: parseDate(d.year), value: +d[name] }))
+    values: data.map(d => ({ date: parseDate(d.year), value: +d[name] })),
   }));
 
   const pathRefs = nestedData.map(d => useRef(null));
@@ -53,7 +58,7 @@ const LineChart = props => {
     x.range([margin.left, width - margin.right]);
     y.domain([
       d3.min(nestedData, c => d3.min(c.values, v => v.value)),
-      d3.max(nestedData, c => d3.max(c.values, v => v.value))
+      d3.max(nestedData, c => d3.max(c.values, v => v.value)),
     ])
       .nice()
       .range([height - margin.bottom, margin.top]);
@@ -72,14 +77,12 @@ const LineChart = props => {
     d3.select(yAxisRef.current)
       .call(yAxis)
       // add unit label for y axis
-      .call(g =>
-        g
-          .select('.tick:last-of-type text')
-          .clone()
-          .attr('x', 3)
-          .attr('text-anchor', 'start')
-          .text('$bn')
-      )
+      .call(g => g
+        .select('.tick:last-of-type text')
+        .clone()
+        .attr('x', 3)
+        .attr('text-anchor', 'start')
+        .text('$bn'))
       .select('.domain')
       .remove();
   }, [width, height]);
@@ -115,12 +118,11 @@ const LineChart = props => {
 
   return (
     <div ref={containerRef} className="line-chart__container">
-      <h2>{`Line chart 100% in view: ${inView}`}</h2>
+      <h2>
+        {`Line chart 100% in view: ${inView}`}
+      </h2>
       <svg ref={svgRef} width={width} height={height}>
-        <g
-          ref={xAxisRef}
-          transform={`translate(0, ${height - margin.bottom})`}
-        />
+        <g ref={xAxisRef} transform={`translate(0, ${height - margin.bottom})`} />
         <g ref={yAxisRef} transform={`translate(${margin.left}, 0)`} />
         <line
           x1={margin.left}
@@ -135,8 +137,8 @@ const LineChart = props => {
         />
 
         <g ref={linesRef}>
-          {inView &&
-            nestedData.map((d, i) => {
+          {inView
+            && nestedData.map((d, i) => {
               // line label placement
               const labelX = x(d.values[d.values.length - 1].date);
               const labelY = y(d.values[d.values.length - 1].value);
@@ -181,7 +183,7 @@ const LineChart = props => {
 LineChart.propTypes = {
   data: PropTypes.arrayOf(PropTypes.any).isRequired,
   width: PropTypes.number.isRequired,
-  height: PropTypes.number.isRequired
+  height: PropTypes.number.isRequired,
 };
 
 export default LineChart;
