@@ -53,18 +53,23 @@
 import React, { useEffect, useReducer, Fragment } from 'react';
 import Layout, { GridContainer, GridRow, GridChild } from '@financial-times/g-components';
 import { ContextPropType, ContextDefaultProps } from './util/prop-types';
+import svgDimensions from './util/svg-dimensions';
 import LineChart from './components/line-chart';
 import Selector from './components/selector';
+import Sticky from './components/sticky';
+import ScrollStep from './components/scroll-step';
 import useWindowDimensions from './hooks/use-window-dimensions';
 import { userStateContext, initialState, reducers } from './state';
 import lineChartData from '../data/remittances-line.csv';
 
 const App = (context) => {
   const [state, dispatch] = useReducer(reducers, initialState);
-  const { remittancesData, blurred, highlightCountry } = state;
+  const {
+    remittancesData, blurred, highlightCountry, activeStep,
+  } = state;
 
   // Custom hooks
-  const { width, height } = useWindowDimensions();
+  const { width: windowWidth } = useWindowDimensions();
 
   // Asynchronous effects should update state as per below
   useEffect(() => {
@@ -79,6 +84,7 @@ const App = (context) => {
   }, []);
 
   const { data } = state; // eslint-disable-line no-unused-vars
+  const treemapSteps = ['Zero', 'One', 'Two', 'Three'];
 
   // console.dir(data); // eslint-disable-line no-console
 
@@ -136,7 +142,26 @@ Loading data…
                 alimǣnierē. Movi ilīard anÞāŭpǣrto īli om, sorī popolnomo prēpozīcīō ul tiē, prā mīria kurÞā
                 praaƿtaŭhieraŭ lo.
               </p>
+            </GridChild>
+          </GridRow>
+        </GridContainer>
 
+        <section>
+          <Sticky activeStep={activeStep} svgDimensions={svgDimensions(windowWidth)} />
+
+          {treemapSteps.map((step, i) => (
+            <ScrollStep
+              key={`step-${i}`} // eslint-disable-line react/no-array-index-key
+              stepIndex={i}
+              content={step}
+              onInView={stepIndex => dispatch({ type: 'SET_ACTIVE_STEP', activeStep: stepIndex })}
+            />
+          ))}
+        </section>
+
+        <GridContainer>
+          <GridRow>
+            <GridChild>
               <p>
                 Prōto rōlfīnaĵo posÞpostmorgæŭ vol je, ve kelkē inkluzive siƿ. Ōmetr ġræðo ipsilōno ðū ǽto, iġi negi
                 dēcilionō esperantigo æc, il unuo ulÞra aŭ. Milo fini iufoje dis be, ænt ēl hēkto hǣlÞōsÞreko, hot ab
