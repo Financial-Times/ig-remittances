@@ -2,6 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useInView } from 'react-intersection-observer';
 import * as d3 from 'd3';
+import ChartHead from '../chart-head';
 
 const margin = {
   top: 20,
@@ -76,13 +77,6 @@ const LineChart = (props) => {
       .remove();
     d3.select(yAxisRef.current)
       .call(yAxis)
-      // add unit label for y axis
-      .call(g => g
-        .select('.tick:last-of-type text')
-        .clone()
-        .attr('x', 3)
-        .attr('text-anchor', 'start')
-        .text('$bn'))
       .select('.domain')
       .remove();
   }, [width, height]);
@@ -118,9 +112,8 @@ const LineChart = (props) => {
 
   return (
     <div ref={containerRef} className="line-chart__container">
-      <h2>
-        {`Line chart 100% in view: ${inView}`}
-      </h2>
+      <ChartHead title="Remittances have overtaken FDI as…" subHead="$bn" />
+
       <svg ref={svgRef} width={width} height={height}>
         <g ref={xAxisRef} transform={`translate(0, ${height - margin.bottom})`} />
         <g ref={yAxisRef} transform={`translate(${margin.left}, 0)`} />
