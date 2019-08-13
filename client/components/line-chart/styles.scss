@@ -1,4 +1,7 @@
 .line-chart__container svg {
+  display: block;
+  margin: 0 auto;
+
   text {
     font-family: MetricWeb, sans-serif;
     font-size: 18px;
