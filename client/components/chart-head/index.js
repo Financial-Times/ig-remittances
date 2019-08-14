@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const ChartHead = ({ title, subHead }) => (
-  <div className="chart-head">
+const ChartHead = ({ title, subHead, width }) => (
+  <div className="chart-head" style={{ width }}>
     <div className="stab-rule" />
 
     <h2 className="o-typography-heading-level-2">
@@ -16,9 +16,9 @@ const ChartHead = ({ title, subHead }) => (
 );
 
 ChartHead.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.oneOfType([PropTypes.string, PropTypes.node]).isRequired,
   subHead: PropTypes.string.isRequired,
-  // width: PropTypes.number.isRequired,
+  width: PropTypes.number.isRequired,
 };
 
 export default ChartHead;

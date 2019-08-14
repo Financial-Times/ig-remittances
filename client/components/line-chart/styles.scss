@@ -1,20 +1,49 @@
-.line-chart__container svg {
-  display: block;
-  margin: 0 auto;
+.line-chart__container {
+  margin-bottom: oGridGutter();
 
-  text {
-    font-family: MetricWeb, sans-serif;
-    font-size: 18px;
+  @include oGridRespondTo(M) {
+    margin-bottom: oGridGutter(M);
   }
 
-  .tick {
-    text {
-      font-size: 16px;
-      fill: rgba(0, 0, 0, 0.5);
+  svg {
+    display: block;
+    margin: 0 auto;
+
+    .tick {
+      text {
+        font-family: MetricWeb, sans-serif;
+        font-size: 14px;
+        fill: oColorsGetPaletteColor('black-60');
+        font-feature-settings: 'tnum';
+
+        @include oGridRespondTo(M) {
+          font-size: 16px;
+        }
+      }
+
+      line {
+        stroke: oColorsGetPaletteColor('black-20');
+      }
+    }
+  }
+
+  h2 span {
+    font-weight: 600;
+
+    &.pink {
+      color: #ef5c91;
     }
 
-    line {
-      stroke: rgba(0, 0, 0, 0.5);
+    &.blue {
+      color: #0f5499;
+    }
+
+    &.teal {
+      color: #009aa8;
+    }
+
+    &.green {
+      color: #799600;
     }
   }
 }

@@ -115,11 +115,7 @@ Loading data…
                 kibi multa ok, sur ðū īnfāno kæŭze. Om ene modō sekvanta proksimumecō, ānÞ sh tiele hiper defīnītive.
               </p>
 
-              <LineChart
-                data={lineChartData}
-                width={windowWidth < 740 ? 300 : 700}
-                height={windowWidth < 740 ? 400 : 500}
-              />
+              <LineChart data={lineChartData} isMobile={windowWidth < 980} />
 
               <p>
                 Nk sola ēsperanÞiġo obl, mulÞō ipsilono nēdifīnita ien ed. Trīliono kōmpleksa co mil, kī āġā farī onin
