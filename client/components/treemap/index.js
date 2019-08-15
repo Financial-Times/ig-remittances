@@ -12,7 +12,7 @@ import { OTHER_CATEGORY_LABEL } from '../../util/constants';
 
 // import
 const Treemap = ({
-  width, height, remittances, selected, zoomed = true,
+  width, height, remittances, selected, zoomed,
 }) => {
   const maxDepth = zoomed ? Infinity : 1;
   const collapse = (d) => {
@@ -25,21 +25,20 @@ const Treemap = ({
     }
   };
 
-  const tree = treemap()
-    .tile(treemapResquarify)
-    .size([width / 2, height / 2])
-    .padding(1)
-    .round(true);
-  // console.dir(hierarchies.find(d => d.data.name === selected));
-
   const country = remittances.find(d => d.name === selected);
   country.children.forEach(collapse);
   const [firstChild] = country.children;
+
   const hierarchy = createHierarchy(zoomed ? firstChild : country)
     .sum(({ net_mdollars, remainderGdp }) => net_mdollars || remainderGdp)
     .sort((a, b) => (b.net_mdollars || b.remainderGdp) - (a.net_mdollars || a.remainderGdp));
-  const root = tree(hierarchy);
-  const leaves = root.leaves();
+  const leaves = treemap()
+    .tile(treemapResquarify)
+    .size([width / 2, height / 2])
+    .padding(1)
+    .round(true)(hierarchy)
+    .leaves();
+
   const transitions = useTransition(leaves, d => d.data.name, {
     from: ({ x1, y1 }) => ({ transform: [x1, y1, 0] }),
     update: ({ x0, y0 }) => ({ transform: [x0, y0, 1] }),
@@ -64,16 +63,18 @@ const Treemap = ({
                 width={d.x1 - d.x0}
                 height={d.y1 - d.y0}
               />
-              <text>
-                {d.data.name
-                  .split(/(?=[A-Z][^A-Z])/g)
-                  .concat(d.value)
-                  .map((line, i, nodes) => (
-                    <tspan x={3} y={`${(i === nodes.length - 1) * 0.3 + 1.1 + i * 0.9}em`}>
-                      {line}
-                    </tspan>
-                  ))}
-              </text>
+              {d.x1 - d.x0 > 50 ? (
+                <text>
+                  {d.data.name
+                    .split(/(?=[A-Z][^A-Z])/g)
+                    .concat(d.value)
+                    .map((line, i, nodes) => (
+                      <tspan x={3} y={`${(i === nodes.length - 1) * 0.3 + 1.1 + i * 0.9}em`}>
+                        {line}
+                      </tspan>
+                    ))}
+                </text>
+              ) : null}
             </animated.g>
           ))}
         </g>
