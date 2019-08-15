@@ -94,6 +94,20 @@ const LineChart = ({ data, isMobile }) => {
       .call(yAxis)
       .select('.domain')
       .remove();
+
+    if (inView) {
+      pathRefs.forEach((d, i) => {
+        const sel = d3.select(pathRefs[i].current);
+
+        sel.attr('visibility', 'visible').attr('stroke-dashoffset', 0);
+      });
+
+      circleRefs.forEach((d, i) => {
+        const sel = d3.select(circleRefs[i].current);
+
+        sel.attr('opacity', 1);
+      });
+    }
   }, [isMobile]);
 
   // Watch for inView changes to transition lines
