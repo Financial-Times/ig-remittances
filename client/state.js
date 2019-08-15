@@ -33,6 +33,11 @@ export const reducers = (state, { type, ...action }) => {
         ...state,
         direction: action.target.value,
       };
+    case 'TOGGLE_TREEMAP_ZOOM':
+      return {
+        ...state,
+        treemapIsZoomed: !state.treemapIsZoomed,
+      };
     default:
       return { ...state };
   }
@@ -42,4 +47,5 @@ export const initialState = {
   direction: 'sent',
   remittancesData: [],
   blurred: false,
+  treemapIsZoomed: false,
 };

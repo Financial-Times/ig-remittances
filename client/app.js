@@ -5,7 +5,7 @@
 
 import React, { useEffect, useReducer, Fragment } from 'react';
 import Layout, { GridContainer, GridRow, GridChild } from '@financial-times/g-components';
-import { hierarchy } from 'd3-hierarchy';
+import useInterval from '@use-it/interval';
 import { ContextPropType, ContextDefaultProps } from './util/prop-types';
 import LineChart from './components/line-chart';
 import Treemap from './components/treemap';
@@ -13,10 +13,15 @@ import Selector from './components/selector';
 import useWindowDimensions from './hooks/use-window-dimensions';
 import { userStateContext, initialState, reducers } from './state';
 import lineChartData from '../data/remittances-line.csv';
+import { OTHER_CATEGORY_LABEL } from './util/constants';
+
+const DEBUG = 'Tonga';
 
 const App = (context) => {
   const [state, dispatch] = useReducer(reducers, initialState);
-  const { remittancesData, blurred, highlightCountry } = state;
+  const {
+    remittancesData, blurred, highlightCountry, treemapIsZoomed,
+  } = state;
 
   // Custom hooks
   const { width, height } = useWindowDimensions();
@@ -25,26 +30,55 @@ const App = (context) => {
   useEffect(() => {
     (async () => {
       const { default: remittances } = await import('../data/remittances.json');
-
       // @TODO replace with data for realsies
       // const { default: flareData } = await import('../data/flare.json');
-      const hierarchies = remittances.children.map(d => hierarchy(d)
-        .sum(({ value }) => value)
-        .sort((a, b) => b.value - a.value));
+      const segmented = remittances.map(d => ({
+        name: d.name,
+        children: [
+          {
+            name: 'Incoming remittances',
+            children: d.children.filter(g => +g.net_mdollars > 0),
+          },
+          {
+            name: OTHER_CATEGORY_LABEL,
+            children: [],
+            remainderGdp: Number(d.total_mdollars) / Number(d.total_gdppct),
+            // children: d.children
+            //   .filter(g => +g.net_mdollars < 0)
+            //   .map(({ net_mdollars, ...g }) => ({
+            //     ...g,
+            //     net_mdollars: Math.abs(net_mdollars),
+            //   })),
+          },
+        ],
+      }));
+
       dispatch({
         type: 'SET_REMITTANCES_DATA',
-        data: hierarchies, // remittances,
+        data: segmented,
       });
     })();
   }, []);
 
+  useInterval(() => {
+    dispatch({
+      type: 'TOGGLE_TREEMAP_ZOOM',
+    });
+  }, 2500);
+
   return (
     <userStateContext.Provider value={[state, dispatch]}>
       <Layout {...context} defaultContainer={false}>
-        {remittancesData.length ? (
+        {remittancesData && remittancesData.length ? (
           <Fragment>
             {/* <Selector /> */}
-            <Treemap width={width} height={height} hierarchies={remittancesData} />
+            <Treemap
+              zoomed={treemapIsZoomed}
+              selected={DEBUG}
+              width={width}
+              height={height}
+              remittances={remittancesData}
+            />
           </Fragment>
         ) : (
           <div className="loading">

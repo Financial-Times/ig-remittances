@@ -18,18 +18,17 @@ const useWindowDimensions = () => {
     return height;
   };
 
-  useEffect(() => {
-    const handleResize = () => {
-      setWindowDimensions({ width: getWidth(), height: getHeight() });
-    };
+  const handleResize = () => {
+    setWindowDimensions({ width: getWidth(), height: getHeight() });
+    console.log(`Window resize detected: ${getWidth()} x ${getHeight()}`); // eslint-disable-line
+  };
 
+  useEffect(() => {
     handleResize();
     window.addEventListener('resize', handleResize);
 
     return () => window.removeEventListener('resize', handleResize);
   }, []);
-
-  console.log(`Window resize detected: ${windowDimensions.width} x ${windowDimensions.height}`); // eslint-disable-line
 
   return windowDimensions;
 };
