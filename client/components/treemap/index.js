@@ -56,7 +56,7 @@ const Treemap = ({
           {transitions.map(({ item: d, props: { transform }, key }) => (
             <animated.g
               key={key}
-              style={{ transform: transform.interpolate((x, y, scale) => `translate(${x}px, ${y}px) scale(${scale})`) }}
+              transform={transform.interpolate((x, y, scale) => `translate(${x}, ${y}) scale(${scale})`)}
             >
               <rect
                 fill={d.data.name === OTHER_CATEGORY_LABEL ? colors[1] : colors[0]}
