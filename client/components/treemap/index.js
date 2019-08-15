@@ -39,12 +39,14 @@ const Treemap = ({
     .sum(({ net_mdollars, remainderGdp }) => net_mdollars || remainderGdp)
     .sort((a, b) => (b.net_mdollars || b.remainderGdp) - (a.net_mdollars || a.remainderGdp));
   const root = tree(hierarchy);
-
-  const transitions = useTransition(root.leaves(), d => d.data.name, {
-    enter: ({ x0, y0 }) => ({ x0, y0 }),
-    leave: ({ x0, y0 }) => ({ x0, y0 }),
-    update: ({ x0, y0 }) => ({ x0, y0 }),
+  const leaves = root.leaves();
+  const transitions = useTransition(leaves, d => d.data.name, {
+    from: ({ x1, y1 }) => ({ transform: [x1, y1, 0] }),
+    update: ({ x0, y0 }) => ({ transform: [x0, y0, 1] }),
+    enter: ({ x0, y0 }) => ({ transform: [x0, y0, 1] }),
+    leave: ({ x1, y1 }) => ({ transform: [x1, y1, 0] }),
   });
+
   return (
     <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
       <h3>
@@ -52,18 +54,17 @@ const Treemap = ({
       </h3>
       <svg width={width / 2} height={height / 2}>
         <g>
-          {transitions.map(({ item: d, props: { x0, y0, ...props }, key }) => {
-            return (
-              <g
-                key={key}
-                style={{ transform: `translate(${d.x0}, ${d.y0})`, ...props }}
-              >
-                <rect
-                  fill={d.data.name === OTHER_CATEGORY_LABEL ? colors[1] : colors[0]}
-                  width={d.x1 - d.x0}
-                  height={d.y1 - d.y0}
-                />
-                <text>
+          {transitions.map(({ item: d, props: { transform }, key }) => (
+            <animated.g
+              key={key}
+              style={{ transform: transform.interpolate((x, y, scale) => `translate(${x}px, ${y}px) scale(${scale})`) }}
+            >
+              <rect
+                fill={d.data.name === OTHER_CATEGORY_LABEL ? colors[1] : colors[0]}
+                width={d.x1 - d.x0}
+                height={d.y1 - d.y0}
+              />
+              <text>
                 {d.data.name
                   .split(/(?=[A-Z][^A-Z])/g)
                   .concat(d.value)
@@ -73,9 +74,8 @@ const Treemap = ({
                     </tspan>
                   ))}
               </text>
-              </g>
-            );
-          })}
+            </animated.g>
+          ))}
         </g>
         )
       </svg>

@@ -64,7 +64,7 @@ const App = (context) => {
     dispatch({
       type: 'TOGGLE_TREEMAP_ZOOM',
     });
-  }, 2500);
+  }, 5000);
 
   return (
     <userStateContext.Provider value={[state, dispatch]}>
