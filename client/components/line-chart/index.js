@@ -88,6 +88,8 @@ const LineChart = ({ data, isMobile }) => {
         return formatTime(d);
       });
 
+    yAxis.tickSize(-(nextWidth - nextMargin.right - nextMargin.left));
+
     // Configure line generator and generate path definitions
     line.x(d => x(d.date)).y(d => y(d.value));
     pathDefinitions = nestedData.map(d => line(d.values));
@@ -99,11 +101,14 @@ const LineChart = ({ data, isMobile }) => {
       .remove();
     d3.select(xAxisRef.current)
       .selectAll('g.tick')
-      .style('text-anchor', (d, i) => i === 0 && 'start');
+      .attr('class', (d, i) => (i === 0 ? 'tick x first' : 'tick x'));
     d3.select(yAxisRef.current)
       .call(yAxis)
       .select('.domain')
       .remove();
+    d3.select(yAxisRef.current)
+      .selectAll('g.tick')
+      .attr('class', d => (d === 0 ? 'tick zero' : 'tick'));
 
     if (inView) {
       pathRefs.forEach((d, i) => {
@@ -185,17 +190,6 @@ as the largest inflow of capital to emerging economies
         <g ref={xAxisRef} transform={`translate(0, ${height - margin.bottom})`} />
 
         <g ref={yAxisRef} transform={`translate(${margin.left}, 0)`} />
-
-        <line
-          x1={margin.left}
-          x2={width - margin.right}
-          y1={y(0)}
-          y2={y(0)}
-          fill="none"
-          stroke="#cbc0b6"
-          strokeWidth="1px"
-          shapeRendering="crispEdges"
-        />
 
         <g>
           {inView

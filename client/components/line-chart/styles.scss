@@ -22,7 +22,29 @@
       }
 
       line {
-        stroke: oColorsGetPaletteColor('black-20');
+        stroke: oColorsGetPaletteColor('black-10');
+        stroke-width: 1px;
+        shape-rendering: 'crispEdges';
+      }
+
+      &.first {
+        text {
+          text-anchor: start;
+        }
+      }
+
+      &.zero,
+      &.x {
+        line {
+          stroke: oColorsGetPaletteColor('black-20');
+        }
+      }
+    }
+
+    .line {
+      path {
+        stroke-width: 3px;
+        fill: none;
       }
     }
   }
