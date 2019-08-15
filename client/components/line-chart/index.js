@@ -56,7 +56,7 @@ const LineChart = ({ data, isMobile }) => {
   // Draw chart (run only on change to isMobile prop)
   useEffect(() => {
     const nextWidth = isMobile ? 300 : 680;
-    const nextHeight = isMobile ? 400 : 500;
+    const nextHeight = isMobile ? 244 : 378;
     const nextMargin = isMobile
       ? {
         top: 10,
@@ -114,7 +114,7 @@ const LineChart = ({ data, isMobile }) => {
       pathRefs.forEach((d, i) => {
         const sel = d3.select(pathRefs[i].current);
 
-        sel.attr('visibility', 'visible').attr('stroke-dashoffset', 0);
+        sel.attr('visibility', 'visible').attr('stroke-dasharray', 'none');
       });
 
       circleRefs.forEach((d, i) => {
@@ -197,16 +197,13 @@ as the largest inflow of capital to emerging economies
               const currentColour = colour(d.name);
 
               return (
-                <g className="line" key={d.name}>
+                <g className="line" key={d.name} opacity={d.name === 'Remittances' ? 1 : 0.6}>
                   <path
                     id={`line-${d.name}`}
                     d={pathDefinitions[i]}
                     ref={pathRefs[i]}
-                    fill="none"
                     stroke={currentColour}
-                    strokeWidth="3px"
-                    strokeLinejoin="round"
-                    strokeLinecap="round"
+                    strokeWidth={d.name === 'Remittances' ? '3px' : '2px'}
                     visibility="hidden"
                   />
 
