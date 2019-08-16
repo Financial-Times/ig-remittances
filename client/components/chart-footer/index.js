@@ -21,8 +21,7 @@ const ChartFooter = ({ source, credit, width }) => (
 
 ChartFooter.propTypes = {
   source: PropTypes.string.isRequired,
-  credit: PropTypes.element.isRequired,
-  width: PropTypes.number.isRequired,
+  credit: PropTypes.string.isRequired,
 };
 
 export default ChartFooter;
