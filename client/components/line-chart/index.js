@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { useInView } from 'react-intersection-observer';
 import * as d3 from 'd3';
 import ChartHead from '../chart-head';
+import ChartFooter from '../chart-footer';
 
 const parseDate = d3.timeParse('%Y');
 
@@ -219,6 +220,8 @@ as the largest inflow of capital to emerging economies
             })}
         </g>
       </svg>
+
+      <ChartFooter source="World Bank; International Monetary Fund" credit="David Blood" width={width} />
     </div>
   );
 };

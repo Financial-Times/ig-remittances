@@ -1,0 +1,16 @@
+.chart-footer {
+  margin: 28px auto 0;
+  max-width: 100%;
+
+  .o-typography-footer {
+    font-family: MetricWeb, sans-serif;
+    font-size: 12px;
+    line-height: 12px;
+    color: oColorsGetPaletteColor('black-60');
+
+    @include oGridRespondTo(L) {
+      font-size: 14px;
+      line-height: 14px;
+    }
+  }
+}
