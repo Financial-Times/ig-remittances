@@ -197,13 +197,12 @@ as the largest inflow of capital to emerging economies
               const currentColour = colour(d.name);
 
               return (
-                <g className="line" key={d.name} opacity={d.name === 'Remittances' ? 1 : 0.6}>
+                <g className="line" key={d.name} opacity={d.name === 'Remittances' ? 1 : 0.4}>
                   <path
                     id={`line-${d.name}`}
                     d={pathDefinitions[i]}
                     ref={pathRefs[i]}
                     stroke={currentColour}
-                    strokeWidth={d.name === 'Remittances' ? '3px' : '2px'}
                     visibility="hidden"
                   />
 
