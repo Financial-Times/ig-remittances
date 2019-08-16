@@ -26,10 +26,10 @@ const LineChart = ({ data, isMobile }) => {
   const [width, setWidth] = useState(300);
   const [height, setHeight] = useState(400);
   const [margin, setMargin] = useState({
-    top: 10,
+    top: 6,
     right: 8,
-    bottom: 22,
-    left: 36,
+    bottom: 20,
+    left: 30,
   });
 
   // Hooks
@@ -59,16 +59,16 @@ const LineChart = ({ data, isMobile }) => {
     const nextHeight = isMobile ? 244 : 378;
     const nextMargin = isMobile
       ? {
-        top: 10,
+        top: 6,
         right: 8,
-        bottom: 22,
-        left: 36,
+        bottom: 20,
+        left: 30,
       }
       : {
-        top: 20,
+        top: 6,
         right: 10,
-        bottom: 24,
-        left: 38,
+        bottom: 22,
+        left: 34,
       };
 
     // Configure scales
@@ -182,7 +182,7 @@ aid
 as the largest inflow of capital to emerging economies
           </Fragment>
 )}
-        subHead="Capital inflows, $bn"
+        subHead="Capital inflows ($bn)"
         width={width}
       />
 
