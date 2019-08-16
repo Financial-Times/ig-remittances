@@ -160,7 +160,7 @@ const LineChart = ({ data, isMobile }) => {
   }, [inView]);
 
   return (
-    <div ref={containerRef} className="line-chart__container">
+    <div ref={containerRef} className="line-chart__container" style={{ width: `${width}px` }}>
       <ChartHead
         title={(
           <Fragment>
