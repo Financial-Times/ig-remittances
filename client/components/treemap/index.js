@@ -12,8 +12,9 @@ import { OTHER_CATEGORY_LABEL } from '../../util/constants';
 
 // import
 const Treemap = ({
-  width, height, remittances, selected, zoomed,
+  width, height: containerHeight, remittances, selected, zoomed,
 }) => {
+  const height = containerHeight - 200;
   const maxDepth = zoomed ? Infinity : 1;
   const collapse = (d) => {
     if (d.depth >= maxDepth) {
@@ -27,6 +28,7 @@ const Treemap = ({
 
   const country = remittances.find(d => d.name === selected);
   country.children.forEach(collapse);
+
   const [firstChild] = country.children;
 
   const hierarchy = createHierarchy(zoomed ? firstChild : country)
@@ -34,7 +36,7 @@ const Treemap = ({
     .sort((a, b) => (b.net_mdollars || b.remainderGdp) - (a.net_mdollars || a.remainderGdp));
   const leaves = treemap()
     .tile(treemapResquarify)
-    .size([width / 2, height / 2])
+    .size([width, height])
     .padding(1)
     .round(true)(hierarchy)
     .leaves();
@@ -47,11 +49,11 @@ const Treemap = ({
   });
 
   return (
-    <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+    <div style={{ display: 'flex', flexDirection: 'column' }}>
       <h3>
         {country.name}
       </h3>
-      <svg width={width / 2} height={height / 2}>
+      <svg width={width} height={height}>
         <g>
           {transitions.map(({ item: d, props: { transform }, key }) => (
             <animated.g
