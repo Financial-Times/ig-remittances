@@ -1,21 +1,17 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, {
+  useState, useEffect, useRef, Fragment,
+} from 'react';
 import PropTypes from 'prop-types';
 import { useInView } from 'react-intersection-observer';
 import * as d3 from 'd3';
+import ChartHead from '../chart-head';
+import ChartFooter from '../chart-footer';
 
-const margin = {
-  top: 20,
-  right: 145,
-  bottom: 50,
-  left: 35
-};
-
-const HIGHLIGHT = 'Remittances';
 const parseDate = d3.timeParse('%Y');
 
 const x = d3.scaleTime();
 const y = d3.scaleLinear();
-const colour = d3.scaleOrdinal(['rgba(13, 118, 128)', 'rgba(102, 96, 92, 0.4)', 'rgba(102, 96, 92, 0.6)', 'rgba(102, 96, 92, 1)']);
+const colour = d3.scaleOrdinal(['#eb5e8d', '#9dbf57', '#70dce6', '#0f5499']);
 
 const xAxis = d3.axisBottom().scale(x);
 const yAxis = d3
@@ -26,39 +22,74 @@ const yAxis = d3
 const line = d3.line().curve(d3.curveMonotoneX);
 let pathDefinitions;
 
-const LineChart = props => {
-  const { data, width, height } = props;
+const LineChart = ({ data, isMobile }) => {
+  // Local state
+  const [width, setWidth] = useState(300);
+  const [height, setHeight] = useState(400);
+  const [margin, setMargin] = useState({
+    top: 6,
+    right: 8,
+    bottom: 20,
+    left: 30,
+  });
+
+  // Hooks
   const [containerRef, inView] = useInView({ threshold: 1, triggerOnce: true });
+
+  // Refs
   const svgRef = useRef(null);
   const xAxisRef = useRef(null);
   const yAxisRef = useRef(null);
-  const linesRef = useRef(null);
 
+  // Misc.
   const keys = d3.keys(data[0]).filter(key => key !== 'year');
   colour.domain(keys);
 
-  const nestedData = keys.map(name => ({
-    name,
-    label: name.replace(/_/g, ' '),
-    values: data.map(d => ({ date: parseDate(d.year), value: +d[name] }))
-  }));
+  const nestedData = keys
+    .map(name => ({
+      name,
+      values: data.map(d => ({ date: parseDate(d.year), value: +d[name] })),
+    }))
+    .sort((a, b) => (a.values[a.values.length - 1].value > b.values[b.values.length - 1].value ? 1 : -1));
+  const pathRefs = nestedData.map(() => useRef(null));
+  const circleRefs = nestedData.map(() => useRef(null));
 
-  const pathRefs = nestedData.map(d => useRef(null));
-  const labelRefs = nestedData.map(d => useRef(null));
-
-  // Draw chart (run only on change to width or height prop)
+  // Draw chart (run only on change to isMobile prop)
   useEffect(() => {
+    const nextWidth = isMobile ? 300 : 680;
+    const nextHeight = isMobile ? 244 : 378;
+    const nextMargin = isMobile
+      ? {
+        top: 6,
+        right: 8,
+        bottom: 20,
+        left: 30,
+      }
+      : {
+        top: 6,
+        right: 10,
+        bottom: 22,
+        left: 34,
+      };
+
     // Configure scales
-    x.domain(d3.extent(data, d => parseDate(d.year)));
-    x.range([margin.left, width - margin.right]);
+    x.domain(d3.extent(data, d => parseDate(d.year))).range([nextMargin.left, nextWidth - nextMargin.right]);
     y.domain([
       d3.min(nestedData, c => d3.min(c.values, v => v.value)),
-      d3.max(nestedData, c => d3.max(c.values, v => v.value))
+      d3.max(nestedData, c => d3.max(c.values, v => v.value)),
     ])
       .nice()
-      .range([height - margin.bottom, margin.top]);
+      .range([nextHeight - nextMargin.bottom, nextMargin.top]);
 
-    xAxis.ticks(width < 400 ? 3 : 5);
+    xAxis
+      .tickValues(data.map(d => parseDate(d.year)).filter(d => d.getFullYear() % 5 === 0 || d.getFullYear() === 2019))
+      .tickFormat((d) => {
+        const formatTime = d.getFullYear() === 1990 ? d3.timeFormat('%Y') : d3.timeFormat('%y');
+
+        return formatTime(d);
+      });
+
+    yAxis.tickSize(-(nextWidth - nextMargin.right - nextMargin.left));
 
     // Configure line generator and generate path definitions
     line.x(d => x(d.date)).y(d => y(d.value));
@@ -69,119 +100,135 @@ const LineChart = props => {
       .call(xAxis)
       .select('.domain')
       .remove();
+    d3.select(xAxisRef.current)
+      .selectAll('g.tick')
+      .attr('class', (d, i) => (i === 0 ? 'tick x first' : 'tick x'));
     d3.select(yAxisRef.current)
       .call(yAxis)
-      // add unit label for y axis
-      .call(g =>
-        g
-          .select('.tick:last-of-type text')
-          .clone()
-          .attr('x', 3)
-          .attr('text-anchor', 'start')
-          .text('$bn')
-      )
       .select('.domain')
       .remove();
-  }, [width, height]);
-
-  // Watch for inView changes to transition lines
-  useEffect(() => {
-    console.log({ inView }); // eslint-disable-line no-console
+    d3.select(yAxisRef.current)
+      .selectAll('g.tick')
+      .attr('class', d => (d === 0 ? 'tick zero' : 'tick'));
 
     if (inView) {
       pathRefs.forEach((d, i) => {
         const sel = d3.select(pathRefs[i].current);
+
+        sel.attr('visibility', 'visible').attr('stroke-dasharray', 'none');
+      });
+
+      circleRefs.forEach((d, i) => {
+        const sel = d3.select(circleRefs[i].current);
+
+        sel.attr('opacity', 1);
+      });
+    }
+
+    setWidth(nextWidth);
+    setHeight(nextHeight);
+    setMargin(nextMargin);
+  }, [isMobile]);
+
+  // Watch for inView changes to transition lines
+  useEffect(() => {
+    if (inView) {
+      pathRefs.forEach((d, i) => {
+        const sel = d3.select(pathRefs[i].current);
         const length = sel.node().getTotalLength();
+
         sel
           .attr('visibility', 'visible')
           .attr('stroke-dasharray', `${length} ${length}`)
           .attr('stroke-dashoffset', length)
           .transition()
-          .duration(5000)
-          .attr('stroke-dashoffset', 0);
+          .duration(3000)
+          .attr('stroke-dashoffset', 0)
+          .ease(d3.easeLinear);
       });
 
-      labelRefs.forEach((d, i) => {
-        const sel = d3.select(labelRefs[i].current);
+      circleRefs.forEach((d, i) => {
+        const sel = d3.select(circleRefs[i].current);
+
         sel
-          .attr('opacity', 0)
           .transition()
-          .delay(4000)
-          .duration(200)
+          .delay(3000)
+          .duration(0)
           .attr('opacity', 1);
       });
     }
   }, [inView]);
 
   return (
-    <div ref={containerRef} className="line-chart__container">
-      <h2>{`Line chart 100% in view: ${inView}`}</h2>
+    <div ref={containerRef} className="line-chart__container" style={{ width: `${width}px` }}>
+      <ChartHead
+        title={(
+          <Fragment>
+            <span className="pink">
+Remittances
+            </span>
+            {' have overtaken '}
+            <span className="blue">
+FDI
+            </span>
+            {', '}
+            <span className="teal">
+private capital flows
+            </span>
+            {' and '}
+            <span className="green">
+aid
+            </span>
+            {' '}
+as the largest inflow of capital to emerging economies
+          </Fragment>
+)}
+        subHead="Capital inflows ($bn)"
+        width={width}
+      />
+
       <svg ref={svgRef} width={width} height={height}>
-        <g
-          ref={xAxisRef}
-          transform={`translate(0, ${height - margin.bottom})`}
-        />
+        <g ref={xAxisRef} transform={`translate(0, ${height - margin.bottom})`} />
+
         <g ref={yAxisRef} transform={`translate(${margin.left}, 0)`} />
-        <line
-          x1={margin.left}
-          x2={width - margin.right}
-          y1={y(0)}
-          y2={y(0)}
-          fill="none"
-          stroke="rgba(0, 0, 0, 0.5)"
-          strokeWidth="1px"
-          shapeRendering="crispEdges"
-          strokeDasharray="7, 5"
-        />
 
-        <g ref={linesRef}>
-          {inView &&
-            nestedData.map((d, i) => {
-              // line label placement
-              const labelX = x(d.values[d.values.length - 1].date);
-              const labelY = y(d.values[d.values.length - 1].value);
-
+        <g>
+          {inView
+            && nestedData.map((d, i) => {
               const currentColour = colour(d.name);
 
               return (
-                <g className="line" key={d.name}>
+                <g className="line" key={d.name} opacity={d.name === 'Remittances' ? 1 : 0.4}>
                   <path
                     id={`line-${d.name}`}
                     d={pathDefinitions[i]}
                     ref={pathRefs[i]}
-                    fill="none"
                     stroke={currentColour}
-                    strokeWidth={d.name === HIGHLIGHT ? '2.5px' : '1.5px'}
-                    strokeLinejoin="round"
-                    strokeLinecap="round"
-                    // opacity={d.name === HIGHLIGHT ? 1 : 0.5}
                     visibility="hidden"
                   />
-                  <text
-                    className="line-label"
-                    ref={labelRefs[i]}
-                    transform={`translate(${labelX}, ${labelY})`}
-                    x={5}
-                    dy={d.name === HIGHLIGHT ? '-.2em' : '.35em'}
+
+                  <circle
+                    ref={circleRefs[i]}
+                    cx={x(d.values[d.values.length - 1].date)}
+                    cy={y(d.values[d.values.length - 1].value)}
+                    r={!isMobile ? 4 : 3.5}
                     fill={currentColour}
-                    fontWeight={d.name === HIGHLIGHT ? 600 : 400}
                     opacity={0}
-                  >
-                    {d.label}
-                  </text>
+                  />
                 </g>
               );
             })}
         </g>
       </svg>
+
+      <ChartFooter source="World Bank; International Monetary Fund" width={width} />
     </div>
   );
 };
 
 LineChart.propTypes = {
   data: PropTypes.arrayOf(PropTypes.any).isRequired,
-  width: PropTypes.number.isRequired,
-  height: PropTypes.number.isRequired
+  isMobile: PropTypes.bool.isRequired,
 };
 
 export default LineChart;

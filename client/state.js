@@ -38,6 +38,11 @@ export const reducers = (state, { type, ...action }) => {
         ...state,
         treemapIsZoomed: !state.treemapIsZoomed,
       };
+    case 'SET_ACTIVE_STEP':
+      return {
+        ...state,
+        activeStep: action.activeStep,
+      };
     default:
       return { ...state };
   }
@@ -48,4 +53,5 @@ export const initialState = {
   remittancesData: [],
   blurred: false,
   treemapIsZoomed: false,
+  activeStep: 0,
 };

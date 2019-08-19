@@ -7,9 +7,12 @@ import React, { useEffect, useReducer, Fragment } from 'react';
 import Layout, { GridContainer, GridRow, GridChild } from '@financial-times/g-components';
 import useInterval from '@use-it/interval';
 import { ContextPropType, ContextDefaultProps } from './util/prop-types';
+import svgDimensions from './util/svg-dimensions';
 import LineChart from './components/line-chart';
 import Treemap from './components/treemap';
 import Selector from './components/selector';
+import Sticky from './components/sticky';
+import ScrollStep from './components/scroll-step';
 import useWindowDimensions from './hooks/use-window-dimensions';
 import { userStateContext, initialState, reducers } from './state';
 import lineChartData from '../data/remittances-line.csv';
@@ -20,11 +23,11 @@ const DEBUG = 'Tonga';
 const App = (context) => {
   const [state, dispatch] = useReducer(reducers, initialState);
   const {
-    remittancesData, blurred, highlightCountry, treemapIsZoomed,
+    remittancesData, blurred, highlightCountry, treemapIsZoomed, activeStep,
   } = state;
 
   // Custom hooks
-  const { width, height } = useWindowDimensions();
+  const { width: windowWidth } = useWindowDimensions();
 
   // Asynchronous effects should update state as per below
   useEffect(() => {
@@ -60,11 +63,8 @@ const App = (context) => {
     })();
   }, []);
 
-  useInterval(() => {
-    dispatch({
-      type: 'TOGGLE_TREEMAP_ZOOM',
-    });
-  }, 5000);
+  const { data } = state; // eslint-disable-line no-unused-vars
+  const treemapSteps = ['Zero', 'One', 'Two', 'Three'];
 
   return (
     <userStateContext.Provider value={[state, dispatch]}>
@@ -108,7 +108,7 @@ Loading data…
                 kibi multa ok, sur ðū īnfāno kæŭze. Om ene modō sekvanta proksimumecō, ānÞ sh tiele hiper defīnītive.
               </p>
 
-              <LineChart data={lineChartData} width={700} height={500} />
+              <LineChart data={lineChartData} isMobile={windowWidth < 980} />
 
               <p>
                 Nk sola ēsperanÞiġo obl, mulÞō ipsilono nēdifīnita ien ed. Trīliono kōmpleksa co mil, kī āġā farī onin
@@ -129,31 +129,117 @@ Loading data…
                 alimǣnierē. Movi ilīard anÞāŭpǣrto īli om, sorī popolnomo prēpozīcīō ul tiē, prā mīria kurÞā
                 praaƿtaŭhieraŭ lo.
               </p>
+            </GridChild>
 
+            <div data-o-grid-colspan="hide L12 Lcenter">
+              <figure className="graphic inline">
+                <img alt="" src="https://via.placeholder.com/1180x1180.png" />
+
+                <figcaption className="o-typography-caption">
+                  Graphic: TKTK
+                  <br />
+                  <em>
+&#xA9;&nbsp;FT
+                  </em>
+                </figcaption>
+              </figure>
+            </div>
+
+            <div data-o-grid-colspan="12 S11 Scenter M9 Lhide">
+              <figure className="graphic inline">
+                {windowWidth <= 490 && <img alt="" src="https://via.placeholder.com/300x400.png" />}
+                {windowWidth > 490 && windowWidth < 980 && <img alt="" src="https://via.placeholder.com/700x500.png" />}
+
+                <figcaption className="o-typography-caption">
+                  Graphic: TKTK
+                  <br />
+                  <em>
+&#xA9;&nbsp;FT
+                  </em>
+                </figcaption>
+              </figure>
+            </div>
+
+            <GridChild>
               <p>
                 Prōto rōlfīnaĵo posÞpostmorgæŭ vol je, ve kelkē inkluzive siƿ. Ōmetr ġræðo ipsilōno ðū ǽto, iġi negi
                 dēcilionō esperantigo æc, il unuo ulÞra aŭ. Milo fini iufoje dis be, ænt ēl hēkto hǣlÞōsÞreko, hot ab
                 mēġā sūbfrǣzo. Rō āpuð kiloġrāmo mal, ties kromakċento iƿÞerogatīvo ot nur. Kunskribo profitænÞo
                 prǽantæŭlǽsÞa ǣs plue, tǣgō tiūdirekten ni neā.
               </p>
+            </GridChild>
 
+            <div data-o-grid-colspan="12 S11 Scenter M9 Lhide">
+              <figure className="graphic inline">
+                {windowWidth <= 490 && <img alt="" src="https://via.placeholder.com/300x400.png" />}
+                {windowWidth > 490 && windowWidth < 980 && <img alt="" src="https://via.placeholder.com/700x500.png" />}
+
+                <figcaption className="o-typography-caption">
+                  Graphic: TKTK
+                  <br />
+                  <em>
+&#xA9;&nbsp;FT
+                  </em>
+                </figcaption>
+              </figure>
+            </div>
+
+            <GridChild>
               <p>
                 U Þrā hodiæŭa dupunkto proƿōmecǽ, aliām difinǣ pentēkosto āb frī. Ist it kūne dēcīliono moƿtrovorÞo.
                 Huræ sēkvinbero prepoziciæĵo jh iam, mīnca fontōj renkōntēƿ ƿe dev. Nǽŭ vǣtto pri ge. Hurā franjo sēn
                 em.
               </p>
+            </GridChild>
 
+            <div data-o-grid-colspan="12 S11 Scenter M9 Lhide">
+              <figure className="graphic inline">
+                {windowWidth <= 490 && <img alt="" src="https://via.placeholder.com/300x400.png" />}
+                {windowWidth > 490 && windowWidth < 980 && <img alt="" src="https://via.placeholder.com/700x500.png" />}
+
+                <figcaption className="o-typography-caption">
+                  Graphic: TKTK
+                  <br />
+                  <em>
+&#xA9;&nbsp;FT
+                  </em>
+                </figcaption>
+              </figure>
+            </div>
+
+            <GridChild>
               <p>
                 Egālo nenīo kapæbl ej sep. Uƿt ed pægo sepen faras, ia perē mālsuperǣ mīs. Ǽt vēō aviō kuƿīgi preÞerito.
                 Kiǣ us vendo kiomæs sezōnonōmo, for si vidalvīde punkÞōkomo geiƿsÞrūisto.
               </p>
+            </GridChild>
 
+            <GridChild>
               <p>
                 Land vēaði bv īng, hēlpi alīġi dividostrēkō hāv jo. Dek supēr ǽntǣŭtægmēzo ū. Oj mini ǽrkī sǽmideǽno
                 fin, eg plej nēnī āga, tīmī disskribædō sh fri. Hiper rēalǣ fonÞoj Þs ahǣ. Deċīmala līternomo
                 koƿdicioƿalo ōÞ ses, enð nj pæko reciproke.
               </p>
+            </GridChild>
+          </GridRow>
+        </GridContainer>
 
+        <section>
+          <Sticky activeStep={activeStep} svgDimensions={svgDimensions(windowWidth)} />
+
+          {treemapSteps.map((step, i) => (
+            <ScrollStep
+              key={`step-${i}`} // eslint-disable-line react/no-array-index-key
+              stepIndex={i}
+              content={step}
+              onInView={stepIndex => dispatch({ type: 'SET_ACTIVE_STEP', activeStep: stepIndex })}
+            />
+          ))}
+        </section>
+
+        <GridContainer>
+          <GridRow>
+            <GridChild>
               <p>
                 Atō iz velā disðē, ālīo ōkej&apos; neoficiālæ for al, āliom ælīel kioma unū kv. Intere nēniæĵō eksteren
                 mia is, pako mīloj demanðosignō vir je, grupǽ kromakcento iu meƿ. Ido Þiǽl kōmbi fræto po, ko iēs vǽto
