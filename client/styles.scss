@@ -4,9 +4,9 @@
 @import 'o-forms/main';
 @include oForms(
   $opts: (
-    'elements': (
-      'select',
-    ),
+    "elements": (
+      "select"
+    )
   )
 );
 @import 'components/selector/main';
