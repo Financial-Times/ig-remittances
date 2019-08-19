@@ -1,0 +1,14 @@
+.chart-footer {
+  margin: 28px 0 0;
+
+  .o-typography-footer {
+    font-size: 12px;
+    line-height: 12px;
+    color: oColorsGetPaletteColor('black-60');
+
+    @include oGridRespondTo(L) {
+      font-size: 14px;
+      line-height: 14px;
+    }
+  }
+}
