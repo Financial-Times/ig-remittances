@@ -143,6 +143,97 @@ Loading data…
                 praaƿtaŭhieraŭ lo.
               </p>
             </GridChild>
+
+            <div data-o-grid-colspan="hide L12 Lcenter">
+              <figure className="graphic inline">
+                <img alt="" src="https://via.placeholder.com/1180x1180.png" />
+
+                <figcaption className="o-typography-caption">
+                  Graphic: TKTK
+                  <br />
+                  <em>
+&#xA9;&nbsp;FT
+                  </em>
+                </figcaption>
+              </figure>
+            </div>
+
+            <div data-o-grid-colspan="12 S11 Scenter M9 Lhide">
+              <figure className="graphic inline">
+                {windowWidth <= 490 && <img alt="" src="https://via.placeholder.com/300x400.png" />}
+                {windowWidth > 490 && windowWidth < 980 && <img alt="" src="https://via.placeholder.com/700x500.png" />}
+
+                <figcaption className="o-typography-caption">
+                  Graphic: TKTK
+                  <br />
+                  <em>
+&#xA9;&nbsp;FT
+                  </em>
+                </figcaption>
+              </figure>
+            </div>
+
+            <GridChild>
+              <p>
+                Prōto rōlfīnaĵo posÞpostmorgæŭ vol je, ve kelkē inkluzive siƿ. Ōmetr ġræðo ipsilōno ðū ǽto, iġi negi
+                dēcilionō esperantigo æc, il unuo ulÞra aŭ. Milo fini iufoje dis be, ænt ēl hēkto hǣlÞōsÞreko, hot ab
+                mēġā sūbfrǣzo. Rō āpuð kiloġrāmo mal, ties kromakċento iƿÞerogatīvo ot nur. Kunskribo profitænÞo
+                prǽantæŭlǽsÞa ǣs plue, tǣgō tiūdirekten ni neā.
+              </p>
+            </GridChild>
+
+            <div data-o-grid-colspan="12 S11 Scenter M9 Lhide">
+              <figure className="graphic inline">
+                {windowWidth <= 490 && <img alt="" src="https://via.placeholder.com/300x400.png" />}
+                {windowWidth > 490 && windowWidth < 980 && <img alt="" src="https://via.placeholder.com/700x500.png" />}
+
+                <figcaption className="o-typography-caption">
+                  Graphic: TKTK
+                  <br />
+                  <em>
+&#xA9;&nbsp;FT
+                  </em>
+                </figcaption>
+              </figure>
+            </div>
+
+            <GridChild>
+              <p>
+                U Þrā hodiæŭa dupunkto proƿōmecǽ, aliām difinǣ pentēkosto āb frī. Ist it kūne dēcīliono moƿtrovorÞo.
+                Huræ sēkvinbero prepoziciæĵo jh iam, mīnca fontōj renkōntēƿ ƿe dev. Nǽŭ vǣtto pri ge. Hurā franjo sēn
+                em.
+              </p>
+            </GridChild>
+
+            <div data-o-grid-colspan="12 S11 Scenter M9 Lhide">
+              <figure className="graphic inline">
+                {windowWidth <= 490 && <img alt="" src="https://via.placeholder.com/300x400.png" />}
+                {windowWidth > 490 && windowWidth < 980 && <img alt="" src="https://via.placeholder.com/700x500.png" />}
+
+                <figcaption className="o-typography-caption">
+                  Graphic: TKTK
+                  <br />
+                  <em>
+&#xA9;&nbsp;FT
+                  </em>
+                </figcaption>
+              </figure>
+            </div>
+
+            <GridChild>
+              <p>
+                Egālo nenīo kapæbl ej sep. Uƿt ed pægo sepen faras, ia perē mālsuperǣ mīs. Ǽt vēō aviō kuƿīgi preÞerito.
+                Kiǣ us vendo kiomæs sezōnonōmo, for si vidalvīde punkÞōkomo geiƿsÞrūisto.
+              </p>
+            </GridChild>
+
+            <GridChild>
+              <p>
+                Land vēaði bv īng, hēlpi alīġi dividostrēkō hāv jo. Dek supēr ǽntǣŭtægmēzo ū. Oj mini ǽrkī sǽmideǽno
+                fin, eg plej nēnī āga, tīmī disskribædō sh fri. Hiper rēalǣ fonÞoj Þs ahǣ. Deċīmala līternomo
+                koƿdicioƿalo ōÞ ses, enð nj pæko reciproke.
+              </p>
+            </GridChild>
           </GridRow>
         </GridContainer>
 
@@ -162,30 +253,6 @@ Loading data…
         <GridContainer>
           <GridRow>
             <GridChild>
-              <p>
-                Prōto rōlfīnaĵo posÞpostmorgæŭ vol je, ve kelkē inkluzive siƿ. Ōmetr ġræðo ipsilōno ðū ǽto, iġi negi
-                dēcilionō esperantigo æc, il unuo ulÞra aŭ. Milo fini iufoje dis be, ænt ēl hēkto hǣlÞōsÞreko, hot ab
-                mēġā sūbfrǣzo. Rō āpuð kiloġrāmo mal, ties kromakċento iƿÞerogatīvo ot nur. Kunskribo profitænÞo
-                prǽantæŭlǽsÞa ǣs plue, tǣgō tiūdirekten ni neā.
-              </p>
-
-              <p>
-                U Þrā hodiæŭa dupunkto proƿōmecǽ, aliām difinǣ pentēkosto āb frī. Ist it kūne dēcīliono moƿtrovorÞo.
-                Huræ sēkvinbero prepoziciæĵo jh iam, mīnca fontōj renkōntēƿ ƿe dev. Nǽŭ vǣtto pri ge. Hurā franjo sēn
-                em.
-              </p>
-
-              <p>
-                Egālo nenīo kapæbl ej sep. Uƿt ed pægo sepen faras, ia perē mālsuperǣ mīs. Ǽt vēō aviō kuƿīgi preÞerito.
-                Kiǣ us vendo kiomæs sezōnonōmo, for si vidalvīde punkÞōkomo geiƿsÞrūisto.
-              </p>
-
-              <p>
-                Land vēaði bv īng, hēlpi alīġi dividostrēkō hāv jo. Dek supēr ǽntǣŭtægmēzo ū. Oj mini ǽrkī sǽmideǽno
-                fin, eg plej nēnī āga, tīmī disskribædō sh fri. Hiper rēalǣ fonÞoj Þs ahǣ. Deċīmala līternomo
-                koƿdicioƿalo ōÞ ses, enð nj pæko reciproke.
-              </p>
-
               <p>
                 Atō iz velā disðē, ālīo ōkej&apos; neoficiālæ for al, āliom ælīel kioma unū kv. Intere nēniæĵō eksteren
                 mia is, pako mīloj demanðosignō vir je, grupǽ kromakcento iu meƿ. Ido Þiǽl kōmbi fræto po, ko iēs vǽto
