@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { GridContainer, GridRow } from '@financial-times/g-components';
 
-const Sticky = ({ activeStep, svgDimensions }) => {
+const Sticky = ({ activeStep, svgDimensions, children }) => {
   const { width, height } = svgDimensions;
 
   return (
@@ -11,13 +11,14 @@ const Sticky = ({ activeStep, svgDimensions }) => {
         <GridRow>
           <div data-o-grid-colspan="12 S11 Scenter">
             <div className="graphic-container">
-              <div className="graphic-placeholder" style={{ width, height }}>
-                <h2>
+              <div className="graphic-placeholder" style={{ width, height, display: "flex", alignItems: "center" }}>
+                {/* <h2>
                   {`Step ${activeStep}`}
                 </h2>
                 <h2>
                   {`SVG dimensions: width ${width}, height ${height}`}
-                </h2>
+                </h2> */}
+                {children}
               </div>
             </div>
           </div>

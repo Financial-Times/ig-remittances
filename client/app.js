@@ -5,7 +5,6 @@
 
 import React, { useEffect, useReducer, Fragment } from 'react';
 import Layout, { GridContainer, GridRow, GridChild } from '@financial-times/g-components';
-import useInterval from '@use-it/interval';
 import { ContextPropType, ContextDefaultProps } from './util/prop-types';
 import svgDimensions from './util/svg-dimensions';
 import LineChart from './components/line-chart';
@@ -27,7 +26,7 @@ const App = (context) => {
   } = state;
 
   // Custom hooks
-  const { width: windowWidth } = useWindowDimensions();
+  const { width: windowWidth, height: windowHeight } = useWindowDimensions();
 
   // Asynchronous effects should update state as per below
   useEffect(() => {
@@ -69,29 +68,10 @@ const App = (context) => {
   return (
     <userStateContext.Provider value={[state, dispatch]}>
       <Layout {...context} defaultContainer={false}>
-        {remittancesData && remittancesData.length ? (
-          <Fragment>
-            {/* <Selector /> */}
-            <Treemap
-              zoomed={treemapIsZoomed}
-              selected={DEBUG}
-              width={width}
-              height={height}
-              remittances={remittancesData}
-            />
-          </Fragment>
-        ) : (
-          <div className="loading">
-            <p>
-Loading data…
-            </p>
-          </div>
-        )}
-
         <GridContainer>
           <GridRow>
             <GridChild>
-              <button
+              {/* <button
                 type="button"
                 onClick={() => dispatch({
                   type: 'SET_BLUR',
@@ -100,7 +80,7 @@ Loading data…
                 }
               >
                 Blur
-              </button>
+              </button> */}
 
               <p>
                 Ik kie neġi æpude pōsÞpriskribo, anċ ēg tiel subtegmenÞo. Giga gārði esperǣntigo vi jes. Ċit plēj
@@ -225,7 +205,26 @@ Loading data…
         </GridContainer>
 
         <section>
-          <Sticky activeStep={activeStep} svgDimensions={svgDimensions(windowWidth)} />
+          <Sticky activeStep={activeStep} svgDimensions={svgDimensions(windowWidth)}>
+            {remittancesData && remittancesData.length ? (
+              <Fragment>
+                {/* <Selector /> */}
+                <Treemap
+                  zoomed={activeStep > 1}
+                  selected={DEBUG}
+                  width={svgDimensions(windowWidth).width}
+                  height={svgDimensions(windowWidth).height}
+                  remittances={remittancesData}
+                />
+              </Fragment>
+            ) : (
+              <div className="loading">
+                <p>
+Loading data…
+                </p>
+              </div>
+            )}
+          </Sticky>
 
           {treemapSteps.map((step, i) => (
             <ScrollStep
