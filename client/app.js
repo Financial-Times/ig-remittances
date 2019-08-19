@@ -27,7 +27,7 @@ const App = (context) => {
   } = state;
 
   // Custom hooks
-  const { width: windowWidth } = useWindowDimensions();
+  const { width: windowWidth, height } = useWindowDimensions();
 
   // Asynchronous effects should update state as per below
   useEffect(() => {
@@ -75,7 +75,7 @@ const App = (context) => {
             <Treemap
               zoomed={treemapIsZoomed}
               selected={DEBUG}
-              width={width}
+              width={windowWidth}
               height={height}
               remittances={remittancesData}
             />
