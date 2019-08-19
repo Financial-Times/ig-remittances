@@ -33,6 +33,11 @@ export const reducers = (state, { type, ...action }) => {
         ...state,
         direction: action.target.value,
       };
+    case 'SET_ACTIVE_STEP':
+      return {
+        ...state,
+        activeStep: action.activeStep,
+      };
     default:
       return { ...state };
   }
@@ -45,4 +50,5 @@ export const initialState = {
     children: [],
   },
   blurred: false,
+  activeStep: 0,
 };
