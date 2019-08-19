@@ -49,7 +49,7 @@ const Treemap = ({
   });
 
   return (
-    <div style={{ display: 'flex', alignItems: 'flex-end', flexDirection: 'column' }}>
+    <div style={{ display: 'flex', flexDirection: 'column' }}>
       <h3>
         {country.name}
       </h3>

@@ -71,17 +71,6 @@ const App = (context) => {
         <GridContainer>
           <GridRow>
             <GridChild>
-              {/* <button
-                type="button"
-                onClick={() => dispatch({
-                  type: 'SET_BLUR',
-                  blurred: !blurred,
-                })
-                }
-              >
-                Blur
-              </button> */}
-
               <p>
                 Ik kie neġi æpude pōsÞpriskribo, anċ ēg tiel subtegmenÞo. Giga gārði esperǣntigo vi jes. Ċit plēj
                 esceptīnte hu, ōl vola eksploðæ poǽ. Ōīð gh pǽƿjo s&apos;joro pronomeċa, mi paki vice fiksa vir. Trǣ
