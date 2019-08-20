@@ -20,6 +20,7 @@ import { OTHER_CATEGORY_LABEL } from './util/constants';
 const DEBUG = 'Tonga';
 
 const App = (context) => {
+  const { scrollSteps } = context;
   const [state, dispatch] = useReducer(reducers, initialState);
   const {
     remittancesData, blurred, highlightCountry, treemapIsZoomed, activeStep,
@@ -61,9 +62,6 @@ const App = (context) => {
       });
     })();
   }, []);
-
-  const { data } = state; // eslint-disable-line no-unused-vars
-  const treemapSteps = ['Zero', 'One', 'Two', 'Three'];
 
   return (
     <userStateContext.Provider value={[state, dispatch]}>
@@ -215,11 +213,11 @@ Loading data…
             )}
           </Sticky>
 
-          {treemapSteps.map((step, i) => (
+          {scrollSteps.map(({ content }, i) => (
             <ScrollStep
               key={`step-${i}`} // eslint-disable-line react/no-array-index-key
               stepIndex={i}
-              content={step}
+              content={content}
               onInView={stepIndex => dispatch({ type: 'SET_ACTIVE_STEP', activeStep: stepIndex })}
             />
           ))}
