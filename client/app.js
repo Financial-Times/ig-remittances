@@ -23,11 +23,11 @@ const App = (context) => {
   const { copy } = context;
   const [state, dispatch] = useReducer(reducers, initialState);
   const {
-    remittancesData, blurred, highlightCountry, treemapIsZoomed, activeStep,
+    remittancesData, highlightCountry, treemapIsZoomed, activeStep,
   } = state;
 
   // Custom hooks
-  const { width: windowWidth, height: windowHeight } = useWindowDimensions();
+  const { width: windowWidth } = useWindowDimensions();
 
   // Asynchronous effects should update state as per below
   useEffect(() => {
@@ -63,7 +63,6 @@ const App = (context) => {
     })();
   }, []);
 
-  const { data } = state; // eslint-disable-line no-unused-vars
   const treemapSteps = ['Zero', 'One', 'Two', 'Three'];
   const matrixIndex = copy.indexOf('MATRIXMOBILE1');
   const treemapIndex = copy.indexOf('INTERACTIVETREEMAP');
@@ -86,7 +85,7 @@ const App = (context) => {
                 if (p === 'LINECHART') {
                   return (
                     <LineChart
-                      key={`graphic-1-${i}`} // eslint-disable-line react/no-array-index-key
+                      key={`graphic-1-${i + 1}`} // eslint-disable-line react/no-array-index-key
                       data={lineChartData}
                       isMobile={windowWidth < 980}
                     />
@@ -95,7 +94,7 @@ const App = (context) => {
 
                 return (
                   <p
-                    key={`par-1-${i}`} // eslint-disable-line react/no-array-index-key
+                    key={`par-1-${i + 1}`} // eslint-disable-line react/no-array-index-key
                     dangerouslySetInnerHTML={{ __html: p }}
                   />
                 );
@@ -122,7 +121,7 @@ const App = (context) => {
 
                 return (
                   <div
-                    key={`graphic-2-${i}`} // eslint-disable-line react/no-array-index-key
+                    key={`graphic-2-${i + 1}`} // eslint-disable-line react/no-array-index-key
                     data-o-grid-colspan="12 S11 Scenter M9 Lhide"
                   >
                     <figure className="graphic inline">
@@ -142,12 +141,11 @@ const App = (context) => {
               }
 
               return (
-                <GridChild>
-                  <p
-                    key={`par-2-${i}`} // eslint-disable-line react/no-array-index-key
-                    dangerouslySetInnerHTML={{ __html: p }}
-                  />
+                /* eslint-disable react/no-array-index-key */
+                <GridChild key={`par-2-${i + 1}`}>
+                  <p dangerouslySetInnerHTML={{ __html: p }} />
                 </GridChild>
+                /* eslint-enable react/no-array-index-key */
               );
             })}
           </GridRow>
@@ -190,7 +188,7 @@ Loading data…
             <GridChild>
               {section3Pars.map((p, i) => (
                 <p
-                  key={`par-3-${i}`} // eslint-disable-line react/no-array-index-key
+                  key={`par-3-${i + 1}`} // eslint-disable-line react/no-array-index-key
                   dangerouslySetInnerHTML={{ __html: p }}
                 />
               ))}
