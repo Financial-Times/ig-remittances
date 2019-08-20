@@ -1,14 +1,17 @@
+$o-topper-is-silent: false;
+
 @import 'o-colors/main';
 @import 'o-grid/main.scss';
 @import '@financial-times/g-components/styles.css';
 @import 'o-forms/main';
 @include oForms(
   $opts: (
-    "elements": (
-      "select"
-    )
+    'elements': (
+      'select',
+    ),
   )
 );
+@import 'o-topper/main';
 @import 'components/selector/main';
 @import 'components/line-chart/styles';
 @import 'components/chart-head/main';

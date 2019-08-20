@@ -13,6 +13,7 @@ import Treemap from './components/treemap';
 import Selector from './components/selector';
 import Sticky from './components/sticky';
 import ScrollStep from './components/scroll-step';
+import FullBleedOffsetTopper from './components/full-bleed-offset-topper';
 import useWindowDimensions from './hooks/use-window-dimensions';
 import { userStateContext, initialState, reducers } from './state';
 import lineChartData from '../data/remittances-line.csv';
@@ -68,7 +69,12 @@ const App = (context) => {
 
   return (
     <userStateContext.Provider value={[state, dispatch]}>
-      <Layout {...context} defaultContainer={false}>
+      <Layout
+        {...context}
+        defaultContainer={false}
+        wrapArticleHead={false}
+        customArticleHead={<FullBleedOffsetTopper />}
+      >
         {remittancesData && remittancesData.length ? (
           <Fragment>
             {/* <Selector /> */}
