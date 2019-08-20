@@ -18,9 +18,7 @@ const ScrollStep = ({ stepIndex, content, onInView }) => {
         <GridRow>
           <GridChild>
             <div ref={cardRef} className="card">
-              <h2>
-                {content}
-              </h2>
+              <h2 dangerouslySetInnerHTML={{ __html: content }} />
             </div>
           </GridChild>
         </GridRow>
