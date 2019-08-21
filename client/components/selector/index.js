@@ -33,7 +33,7 @@ const Selector = () => {
           $
           {highlightCountryData.children
             .find(d => d.name === 'Incoming remittances')
-            .children.reduce((a, { net_mdollars }) => a + Number(net_mdollars) * 1000000, 0)
+            .children.reduce((a, { net_mdollars }) => a + Number(net_mdollars), 0)
             .toLocaleString('en', {
               minimumFractionDigits: 0,
               maximumFractionDigits: 0,

@@ -86,7 +86,7 @@ const Treemap = ({
         )
       </svg>
       <figcaption className="o-typography-caption">
-        Graphic: Ændrew Rininsland, FT
+        Source: World Bank data
         <br />
         <em>
 &#xA9;&nbsp;FT
