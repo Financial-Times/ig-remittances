@@ -4,9 +4,9 @@
 @import 'o-forms/main';
 @include oForms(
   $opts: (
-    'elements': (
-      'select',
-    ),
+    "elements": (
+      "select"
+    )
   )
 );
 @import 'components/selector/main';
@@ -19,4 +19,8 @@
 .loading {
   width: 100%;
   height: 100vh;
+}
+
+.graphic.inline {
+  margin: 0 auto oGridGutter();
 }

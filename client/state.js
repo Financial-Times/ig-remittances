@@ -33,6 +33,11 @@ export const reducers = (state, { type, ...action }) => {
         ...state,
         direction: action.target.value,
       };
+    case 'TOGGLE_TREEMAP_ZOOM':
+      return {
+        ...state,
+        treemapIsZoomed: !state.treemapIsZoomed,
+      };
     case 'SET_ACTIVE_STEP':
       return {
         ...state,
@@ -45,10 +50,8 @@ export const reducers = (state, { type, ...action }) => {
 export const initialState = {
   highlightCountry: 'UKR',
   direction: 'sent',
-  remittancesData: {
-    name: '',
-    children: [],
-  },
+  remittancesData: [],
   blurred: false,
+  treemapIsZoomed: false,
   activeStep: 0,
 };
