@@ -239,7 +239,7 @@ as the largest inflow of capital to emerging economies
         </g>
       </svg>
 
-      <ChartFooter source="World Bank; International Monetary Fund" width={width} />
+      <ChartFooter source="World Bank; IMF" width={width} />
     </div>
   );
 };
