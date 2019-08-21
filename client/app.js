@@ -70,9 +70,9 @@ const App = (context) => {
   const section2Pars = copy.slice(matrixIndex, treemapIndex);
   const section3Pars = copy.slice(treemapIndex + 1);
   const mobileImages = [
-    { small: 'https://via.placeholder.com/300x400.png', medium: 'https://via.placeholder.com/700x500.png' },
-    { small: 'https://via.placeholder.com/300x400.png', medium: 'https://via.placeholder.com/700x500.png' },
-    { small: 'https://via.placeholder.com/300x400.png', medium: 'https://via.placeholder.com/700x500.png' },
+    { s: 'https://via.placeholder.com/300x400.png', m: 'https://via.placeholder.com/700x500.png' },
+    { s: 'https://via.placeholder.com/300x400.png', m: 'https://via.placeholder.com/700x500.png' },
+    { s: 'https://via.placeholder.com/300x400.png', m: 'https://via.placeholder.com/700x500.png' },
   ];
 
   return (
@@ -125,8 +125,8 @@ const App = (context) => {
                     data-o-grid-colspan="12 S11 Scenter M9 Lhide"
                   >
                     <figure className="graphic inline">
-                      {windowWidth <= 490 && <img alt="" src={mobileImages[imgIndex].small} />}
-                      {windowWidth > 490 && <img alt="" src={mobileImages[imgIndex].medium} />}
+                      {windowWidth <= 490 && <img alt="" src={mobileImages[imgIndex].s} />}
+                      {windowWidth > 490 && <img alt="" src={mobileImages[imgIndex].m} />}
 
                       <figcaption className="o-typography-caption">
                         Graphic: TKTK
