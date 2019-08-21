@@ -7,11 +7,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useTransition, animated } from 'react-spring';
 import { treemap, treemapResquarify, hierarchy as createHierarchy } from 'd3-hierarchy';
-import { diverging_3 as colors } from 'g-chartcolour';
+import { categorical_bar } from 'g-chartcolour';
 import Selector from '../selector';
 import { OTHER_CATEGORY_LABEL } from '../../util/constants';
 
-// import
+const colors = [categorical_bar[4], categorical_bar[5]];
+
 const Treemap = ({
   width, height: containerHeight, remittances, selected, zoomed, showSelector,
 }) => {
@@ -106,6 +107,8 @@ Treemap.propTypes = {
   height: PropTypes.number.isRequired,
   remittances: PropTypes.arrayOf(PropTypes.any).isRequired,
   showSelector: PropTypes.bool,
+  selected: PropTypes.string.isRequired,
+  zoomed: PropTypes.bool.isRequired,
 };
 
 Treemap.defaultProps = {

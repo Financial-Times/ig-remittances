@@ -17,17 +17,15 @@ import { userStateContext, initialState, reducers } from './state';
 import lineChartData from '../data/remittances-line.csv';
 import { OTHER_CATEGORY_LABEL } from './util/constants';
 
-const DEBUG = 'Tonga';
-
 const App = (context) => {
   const { scrollSteps } = context;
   const [state, dispatch] = useReducer(reducers, initialState);
   const {
-    remittancesData, blurred, highlightCountry, treemapIsZoomed, activeStep,
+    remittancesData, userCountry, articleCountry, treemapIsZoomed,
   } = state;
 
   // Custom hooks
-  const { width: windowWidth, height: windowHeight } = useWindowDimensions();
+  const { width: windowWidth } = useWindowDimensions();
 
   // Asynchronous effects should update state as per below
   useEffect(() => {
@@ -192,12 +190,12 @@ const App = (context) => {
         </GridContainer>
 
         <section>
-          <Sticky activeStep={activeStep} svgDimensions={svgDimensions(windowWidth)}>
+          <Sticky svgDimensions={svgDimensions(windowWidth)}>
             {remittancesData && remittancesData.length ? (
               <Fragment>
                 <Treemap
-                  zoomed={activeStep > 1}
-                  selected={highlightCountry}
+                  zoomed={treemapIsZoomed}
+                  selected={articleCountry}
                   showSelector={false}
                   width={svgDimensions(windowWidth).width}
                   height={svgDimensions(windowWidth).height}
@@ -218,7 +216,30 @@ Loading data…
               key={`step-${i}`} // eslint-disable-line react/no-array-index-key
               stepIndex={i}
               content={content}
-              onInView={stepIndex => dispatch({ type: 'SET_ACTIVE_STEP', activeStep: stepIndex })}
+              onInView={(stepIndex) => {
+                switch (stepIndex) {
+                  case 0:
+                  default:
+                    dispatch({ type: 'SET_TREEMAP_ZOOM', zoomed: false });
+                    dispatch({ type: 'SET_ARTICLE_COUNTRY', articleCountry: 'Tonga' });
+                    break;
+                  case 1:
+                    dispatch({ type: 'TOGGLE_TREEMAP_ZOOM' });
+                    break;
+                  case 2:
+                    dispatch({ type: 'SET_TREEMAP_ZOOM', zoomed: false });
+                    dispatch({ type: 'SET_ARTICLE_COUNTRY', articleCountry: 'Brazil' });
+                    break;
+                  case 3:
+                    dispatch({ type: 'TOGGLE_TREEMAP_ZOOM' });
+                    break;
+                  case 4:
+                    dispatch({ type: 'SET_TREEMAP_ZOOM', zoomed: false });
+                    dispatch({ type: 'SET_ARTICLE_COUNTRY', articleCountry: 'Congo' });
+                    break;
+                }
+                // dispatch({ type: 'SET_ACTIVE_STEP', activeStep: stepIndex });
+              }}
             />
           ))}
         </section>
@@ -245,8 +266,8 @@ Loading data…
         <section style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
           {remittancesData && remittancesData.length && (
             <Treemap
-              zoomed={false}
-              selected={highlightCountry}
+              zoomed
+              selected={userCountry}
               showSelector
               width={svgDimensions(windowWidth).width}
               height={svgDimensions(windowWidth).height}

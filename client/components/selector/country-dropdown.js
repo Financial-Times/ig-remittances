@@ -21,16 +21,7 @@ const CountrySelector = ({ country, countries, setHighlighted }) => (
 CountrySelector.propTypes = {
   country: PropTypes.string.isRequired,
   setHighlighted: PropTypes.func.isRequired,
-  countries: PropTypes.arrayOf(
-    PropTypes.shape({
-      country_iso3: PropTypes.string.isRequired,
-      country_name: PropTypes.string.isRequired,
-    }),
-  ),
-};
-
-CountrySelector.defaultProps = {
-  countries: [],
+  countries: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default CountrySelector;
