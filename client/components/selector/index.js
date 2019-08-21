@@ -57,6 +57,7 @@ const Selector = () => {
           })
           }
         />
+        {' '}
         received from other countries was
         {' '}
         <strong>

@@ -9,6 +9,8 @@ import { useTransition, animated } from 'react-spring';
 import { treemap, treemapResquarify, hierarchy as createHierarchy } from 'd3-hierarchy';
 import { categorical_bar } from 'g-chartcolour';
 import Selector from '../selector';
+import ChartHead from '../chart-head';
+import ChartFooter from '../chart-footer';
 import { OTHER_CATEGORY_LABEL } from '../../util/constants';
 
 const colors = [categorical_bar[4], categorical_bar[5]];
@@ -54,9 +56,7 @@ const Treemap = ({
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
       {showSelector && <Selector />}
-      <h3>
-        {country.name}
-      </h3>
+      <ChartHead title={country.name} subHead="Incoming remittances in 2017 USD" />
       <svg width={width} height={height}>
         <g>
           {transitions.map(({ item: d, props: { transform }, key }) => (
@@ -68,9 +68,13 @@ const Treemap = ({
                 fill={d.data.name === OTHER_CATEGORY_LABEL ? colors[1] : colors[0]}
                 width={d.x1 - d.x0}
                 height={d.y1 - d.y0}
+                id={`rect-${key}`}
               />
+              <clipPath id={`clip-${key}`}>
+                <use href={`#rect-${key}`} />
+              </clipPath>
               {d.x1 - d.x0 > 50 ? (
-                <text>
+                <text clipPath={`url(#clip-${key})`}>
                   {d.data.name
                     .split(/(?=[A-Z][^A-Z])/g)
                     .concat(d.value)
@@ -91,13 +95,7 @@ const Treemap = ({
         </g>
         )
       </svg>
-      <figcaption className="o-typography-caption">
-        Source: World Bank data
-        <br />
-        <em>
-&#xA9;&nbsp;FT
-        </em>
-      </figcaption>
+      <ChartFooter source="World Bank" />
     </div>
   );
 };
