@@ -99,7 +99,7 @@ const LineChart = ({ data, layout }) => {
     xAxis
       .tickValues(data.map(d => parseDate(d.year)).filter(d => d.getFullYear() % 5 === 0 || d.getFullYear() === 2019))
       .tickFormat((d) => {
-        const formatTime = d.getFullYear() === 1990 ? d3.timeFormat('%Y') : d3.timeFormat('%y');
+        const formatTime = [1990, 2000].includes(d.getFullYear()) ? d3.timeFormat('%Y') : d3.timeFormat('%y');
 
         return formatTime(d);
       });
@@ -221,6 +221,7 @@ as the largest inflow of capital to emerging economies
                     d={pathDefinitions[i]}
                     ref={pathRefs[i]}
                     stroke={currentColour}
+                    strokeWidth={d.name === 'Remittances' ? '4px' : '3px'}
                     visibility="hidden"
                   />
 
