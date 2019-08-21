@@ -5,6 +5,7 @@
 
 import React, { useEffect, useReducer, Fragment } from 'react';
 import Layout, { GridContainer, GridRow, GridChild } from '@financial-times/g-components';
+import { getCurrentLayout } from 'o-grid/main'; // eslint-disable-line import/no-unresolved
 import { ContextPropType, ContextDefaultProps } from './util/prop-types';
 import svgDimensions from './util/svg-dimensions';
 import LineChart from './components/line-chart';
@@ -75,7 +76,7 @@ const App = (context) => {
                 kibi multa ok, sur ðū īnfāno kæŭze. Om ene modō sekvanta proksimumecō, ānÞ sh tiele hiper defīnītive.
               </p>
 
-              <LineChart data={lineChartData} isMobile={windowWidth < 980} />
+              <LineChart data={lineChartData} layout={getCurrentLayout()} />
 
               <p>
                 Nk sola ēsperanÞiġo obl, mulÞō ipsilono nēdifīnita ien ed. Trīliono kōmpleksa co mil, kī āġā farī onin
