@@ -52,10 +52,10 @@ const Treemap = ({
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
+      {showSelector && <Selector />}
       <h3>
         {country.name}
       </h3>
-      {showSelector && <Selector />}
       <svg width={width} height={height}>
         <g>
           {transitions.map(({ item: d, props: { transform }, key }) => (
