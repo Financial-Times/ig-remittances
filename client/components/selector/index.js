@@ -6,14 +6,12 @@
 import React, { useContext } from 'react';
 import { userStateContext } from '../../state';
 import CountryDropdown from './country-dropdown';
-import DirectionDropdown from './direction-dropdown';
-import Preset from './preset';
 
 const Selector = () => {
   const [state, dispatch] = useContext(userStateContext);
-  const { highlightCountry, remittancesData, direction } = state;
-  const flatCountries = remittancesData.children.flatMap(({ children }) => children);
-  const hightlightCountryData = flatCountries.find(d => d.country_iso3 === highlightCountry);
+  const { highlightCountry, remittancesData } = state;
+  const countryNames = remittancesData.map(({ name }) => name);
+  const highlightCountryData = remittancesData.find(d => d.name === highlightCountry);
 
   return (
     <section className="selector">
@@ -21,7 +19,7 @@ const Selector = () => {
         In 2018, the total of remittances
         {' '}
         <CountryDropdown
-          countries={flatCountries}
+          countries={countryNames}
           country={highlightCountry}
           setHighlighted={({ target }) => dispatch({
             type: 'SET_COUNTRY_FILTER',
@@ -29,33 +27,19 @@ const Selector = () => {
           })
           }
         />
-        {' '}
-        <DirectionDropdown
-          direction={direction}
-          setDirection={({ target }) => dispatch({
-            type: 'SET_FILTER_DIRECTION',
-            target,
-          })
-          }
-        />
-        {' '}
-        other countries was
+        received from other countries was
         {' '}
         <strong>
           $
-          {hightlightCountryData.value.toLocaleString('en', {
-            minimumFractionDigits: 0,
-            maximumFractionDigits: 0,
-          })}
+          {highlightCountryData.children
+            .find(d => d.name === 'Incoming remittances')
+            .children.reduce((a, { net_mdollars }) => a + Number(net_mdollars), 0)
+            .toLocaleString('en', {
+              minimumFractionDigits: 0,
+              maximumFractionDigits: 0,
+            })}
           m
         </strong>
-      </div>
-      <div className="selector__preset-holder">
-        See example:
-        {' '}
-        <Preset country="Ukraine" country_iso3="UKR" direction="sent" dispatch={dispatch} />
-        {', '}
-        <Preset country="Greece" country_iso3="GRC" direction="received" dispatch={dispatch} />
       </div>
     </section>
   );
