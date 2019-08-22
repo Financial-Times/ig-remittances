@@ -3,7 +3,7 @@
   "private": true,
   "dependencies": {
     "o-colors": "^4.1.5",
-    "o-grid": "^4.3.7",
+    "o-grid": "^4.5.3",
     "mathsass": "^0.10.1",
     "o-typography": "^5.9.0",
     "o-forms": "^7.0.11"

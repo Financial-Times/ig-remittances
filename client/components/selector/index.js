@@ -6,14 +6,42 @@
 import React, { useContext } from 'react';
 import { userStateContext } from '../../state';
 import CountryDropdown from './country-dropdown';
-import DirectionDropdown from './direction-dropdown';
-import Preset from './preset';
+
+// These are countries has no incoming remittance data
+const NO_INCOMING_DATA = [
+  'United Arab Emirates',
+  'Libya',
+  'Gabon',
+  'Puerto Rico',
+  'Singapore',
+  'Equatorial Guinea',
+  'Bahrain',
+  'Chad',
+  'Brunei',
+  'Central African Republic',
+  'Eritrea',
+  'Somalia',
+  'San Marino',
+  'Andorra',
+  'Guam',
+  'Monaco',
+  'Cayman Islands',
+  'Channel Islands',
+  'Northern Mariana Islands',
+  'US Virgin Islands',
+  'Cuba',
+  'American Samoa',
+  'Liechtenstein',
+  'Sint Maarten (Dutch part)',
+  'Isle of Man',
+  'Greenland',
+];
 
 const Selector = () => {
   const [state, dispatch] = useContext(userStateContext);
-  const { highlightCountry, remittancesData, direction } = state;
-  const flatCountries = remittancesData.children.flatMap(({ children }) => children);
-  const hightlightCountryData = flatCountries.find(d => d.country_iso3 === highlightCountry);
+  const { userCountry, remittancesData } = state;
+  const countryNames = remittancesData.map(({ name }) => name).filter(d => !NO_INCOMING_DATA.includes(d));
+  const highlightCountryData = remittancesData.find(d => d.name === userCountry);
 
   return (
     <section className="selector">
@@ -21,8 +49,8 @@ const Selector = () => {
         In 2018, the total of remittances
         {' '}
         <CountryDropdown
-          countries={flatCountries}
-          country={highlightCountry}
+          countries={countryNames}
+          country={userCountry}
           setHighlighted={({ target }) => dispatch({
             type: 'SET_COUNTRY_FILTER',
             target,
@@ -30,32 +58,19 @@ const Selector = () => {
           }
         />
         {' '}
-        <DirectionDropdown
-          direction={direction}
-          setDirection={({ target }) => dispatch({
-            type: 'SET_FILTER_DIRECTION',
-            target,
-          })
-          }
-        />
-        {' '}
-        other countries was
+        received from other countries was
         {' '}
         <strong>
           $
-          {hightlightCountryData.value.toLocaleString('en', {
-            minimumFractionDigits: 0,
-            maximumFractionDigits: 0,
-          })}
+          {highlightCountryData.children
+            .find(d => d.name === 'Incoming remittances')
+            .children.reduce((a, { net_mdollars }) => a + Number(net_mdollars), 0)
+            .toLocaleString('en', {
+              minimumFractionDigits: 0,
+              maximumFractionDigits: 0,
+            })}
           m
         </strong>
-      </div>
-      <div className="selector__preset-holder">
-        See example:
-        {' '}
-        <Preset country="Ukraine" country_iso3="UKR" direction="sent" dispatch={dispatch} />
-        {', '}
-        <Preset country="Greece" country_iso3="GRC" direction="received" dispatch={dispatch} />
       </div>
     </section>
   );

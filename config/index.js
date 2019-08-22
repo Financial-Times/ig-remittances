@@ -10,7 +10,6 @@ import article from './article';
 import getFlags from './flags';
 import getOnwardJourney from './onward-journey';
 
-const BILATERAL_BERTHA = 'http://bertha.ig.ft.com/view/publish/gss/1CDRVnjEDTV7eXnYxM0FoabpC9O6LlyyMci1lzLmWX2w/total,bilateral';
 const COPY_BERTHA = '12TyuigeVMv5ut8YW-qVsQdtkLKraH0t43BqBFLfu4Rk';
 async function loadCopy(id) {
   const content = await StructuredGoogleDocsClient(id);
@@ -25,6 +24,10 @@ async function loadCopy(id) {
 
   return contentClean;
 }
+/* eslint-disable max-len */
+const BILATERAL_BERTHA = 'http://bertha.ig.ft.com/view/publish/gss/1CDRVnjEDTV7eXnYxM0FoabpC9O6LlyyMci1lzLmWX2w/total,bilateral';
+const SLIDES_BERTHA = 'http://bertha.ig.ft.com/view/publish/gss/1Km6vyUJPWGyr9uI7osQikXESyKHeuxheMS04EbOgXbE/data';
+/* eslint-enable max-len */
 
 export default async (environment = 'development') => {
   const articleData = await article(environment);
@@ -33,6 +36,7 @@ export default async (environment = 'development') => {
   const {
     data: { bilateral: bilateralData, total: gdps },
   } = await axios(BILATERAL_BERTHA);
+  const { data: scrollSteps } = await axios(SLIDES_BERTHA);
   const countries = new Map(
     bilateralData.filter(d => d.source === 'WORLD').map(({ target, source, ...d }) => [target, { ...d, children: [] }]),
   );
@@ -48,7 +52,7 @@ export default async (environment = 'development') => {
           ...d,
         });
       } else {
-        console.log(target);
+        // console.log(target);
       }
     });
 
@@ -57,6 +61,7 @@ export default async (environment = 'development') => {
     flags,
     relatedContent,
     gdps,
+    scrollSteps,
     bilateralData: [...countries]
       .map(([k, v]) => {
         if (k) {

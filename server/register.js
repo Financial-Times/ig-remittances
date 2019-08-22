@@ -11,3 +11,4 @@ global.document.location = {
 };
 
 global.document.getElementsByTagName = () => [];
+global.document.getElementById = () => [];

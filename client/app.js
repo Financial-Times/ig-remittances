@@ -5,11 +5,11 @@
 
 import React, { useEffect, useReducer, Fragment } from 'react';
 import Layout, { GridContainer, GridRow, GridChild } from '@financial-times/g-components';
+import { getCurrentLayout } from 'o-grid/main'; // eslint-disable-line import/no-unresolved
 import { ContextPropType, ContextDefaultProps } from './util/prop-types';
 import svgDimensions from './util/svg-dimensions';
 import LineChart from './components/line-chart';
 import Treemap from './components/treemap';
-import Selector from './components/selector';
 import Sticky from './components/sticky';
 import ScrollStep from './components/scroll-step';
 import useWindowDimensions from './hooks/use-window-dimensions';
@@ -17,13 +17,11 @@ import { userStateContext, initialState, reducers } from './state';
 import lineChartData from '../data/remittances-line.csv';
 import { OTHER_CATEGORY_LABEL } from './util/constants';
 
-const DEBUG = 'Tonga';
-
 const App = (context) => {
-  const { copy } = context;
+  const { copy, scrollSteps } = context;
   const [state, dispatch] = useReducer(reducers, initialState);
   const {
-    remittancesData, highlightCountry, treemapIsZoomed, activeStep,
+    remittancesData, userCountry, articleCountry, highlightCountry, treemapIsZoomed, activeStep,
   } = state;
 
   // Custom hooks
@@ -152,13 +150,13 @@ const App = (context) => {
         </GridContainer>
 
         <section>
-          <Sticky activeStep={activeStep} svgDimensions={svgDimensions(windowWidth)}>
+          <Sticky svgDimensions={svgDimensions(windowWidth)}>
             {remittancesData && remittancesData.length ? (
               <Fragment>
-                {/* <Selector /> */}
                 <Treemap
-                  zoomed={activeStep > 1}
-                  selected={DEBUG}
+                  zoomed={treemapIsZoomed}
+                  selected={articleCountry}
+                  showSelector={false}
                   width={svgDimensions(windowWidth).width}
                   height={svgDimensions(windowWidth).height}
                   remittances={remittancesData}
@@ -173,12 +171,35 @@ Loading data…
             )}
           </Sticky>
 
-          {treemapSteps.map((step, i) => (
+          {scrollSteps.map(({ content }, i) => (
             <ScrollStep
               key={`step-${i}`} // eslint-disable-line react/no-array-index-key
               stepIndex={i}
-              content={step}
-              onInView={stepIndex => dispatch({ type: 'SET_ACTIVE_STEP', activeStep: stepIndex })}
+              content={content}
+              onInView={(stepIndex) => {
+                switch (stepIndex) {
+                  case 0:
+                  default:
+                    dispatch({ type: 'SET_TREEMAP_ZOOM', zoomed: false });
+                    dispatch({ type: 'SET_ARTICLE_COUNTRY', articleCountry: 'Tonga' });
+                    break;
+                  case 1:
+                    dispatch({ type: 'TOGGLE_TREEMAP_ZOOM' });
+                    break;
+                  case 2:
+                    dispatch({ type: 'SET_TREEMAP_ZOOM', zoomed: false });
+                    dispatch({ type: 'SET_ARTICLE_COUNTRY', articleCountry: 'Brazil' });
+                    break;
+                  case 3:
+                    dispatch({ type: 'TOGGLE_TREEMAP_ZOOM' });
+                    break;
+                  case 4:
+                    dispatch({ type: 'SET_TREEMAP_ZOOM', zoomed: false });
+                    dispatch({ type: 'SET_ARTICLE_COUNTRY', articleCountry: 'Congo' });
+                    break;
+                }
+                // dispatch({ type: 'SET_ACTIVE_STEP', activeStep: stepIndex });
+              }}
             />
           ))}
         </section>
@@ -195,6 +216,18 @@ Loading data…
             </GridChild>
           </GridRow>
         </GridContainer>
+        <section style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+          {remittancesData && remittancesData.length && (
+            <Treemap
+              zoomed
+              selected={userCountry}
+              showSelector
+              width={svgDimensions(windowWidth).width}
+              height={svgDimensions(windowWidth).height}
+              remittances={remittancesData}
+            />
+          )}
+        </section>
       </Layout>
     </userStateContext.Provider>
   );
