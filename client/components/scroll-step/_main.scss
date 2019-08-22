@@ -11,4 +11,16 @@
       padding: oGridGutter(M);
     }
   }
+
+  &:last-of-type {
+    padding-bottom: 100vh;
+
+    .card {
+      padding-right: 0;
+      padding-left: 0;
+      background: none;
+      backdrop-filter: none;
+      box-shadow: none;
+    }
+  }
 }
