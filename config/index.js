@@ -36,7 +36,7 @@ export default async (environment = 'development') => {
           ...d,
         });
       } else {
-        console.log(target);
+        // console.log(target);
       }
     });
 

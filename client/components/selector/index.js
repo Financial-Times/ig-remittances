@@ -7,11 +7,41 @@ import React, { useContext } from 'react';
 import { userStateContext } from '../../state';
 import CountryDropdown from './country-dropdown';
 
+// These are countries has no incoming remittance data
+const NO_INCOMING_DATA = [
+  'United Arab Emirates',
+  'Libya',
+  'Gabon',
+  'Puerto Rico',
+  'Singapore',
+  'Equatorial Guinea',
+  'Bahrain',
+  'Chad',
+  'Brunei',
+  'Central African Republic',
+  'Eritrea',
+  'Somalia',
+  'San Marino',
+  'Andorra',
+  'Guam',
+  'Monaco',
+  'Cayman Islands',
+  'Channel Islands',
+  'Northern Mariana Islands',
+  'US Virgin Islands',
+  'Cuba',
+  'American Samoa',
+  'Liechtenstein',
+  'Sint Maarten (Dutch part)',
+  'Isle of Man',
+  'Greenland',
+];
+
 const Selector = () => {
   const [state, dispatch] = useContext(userStateContext);
-  const { highlightCountry, remittancesData } = state;
-  const countryNames = remittancesData.map(({ name }) => name);
-  const highlightCountryData = remittancesData.find(d => d.name === highlightCountry);
+  const { userCountry, remittancesData } = state;
+  const countryNames = remittancesData.map(({ name }) => name).filter(d => !NO_INCOMING_DATA.includes(d));
+  const highlightCountryData = remittancesData.find(d => d.name === userCountry);
 
   return (
     <section className="selector">
@@ -20,13 +50,14 @@ const Selector = () => {
         {' '}
         <CountryDropdown
           countries={countryNames}
-          country={highlightCountry}
+          country={userCountry}
           setHighlighted={({ target }) => dispatch({
             type: 'SET_COUNTRY_FILTER',
             target,
           })
           }
         />
+        {' '}
         received from other countries was
         {' '}
         <strong>
