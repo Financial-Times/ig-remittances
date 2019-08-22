@@ -23,8 +23,8 @@ export default (environment = 'development') => ({
   summary: 'Growth of migration turns trickle of funds from workers around the world into a flood',
 
   topic: {
-    name: 'Starter Kit',
-    url: '/foo',
+    name: 'Global remittances',
+    url: 'https://www.ft.com/stream/c36f737a-91f6-4b69-99de-2124f3dee680',
   },
 
   relatedArticle: {
