@@ -8,11 +8,12 @@ import PropTypes from 'prop-types';
 import { useTransition, animated } from 'react-spring';
 import { treemap, treemapResquarify, hierarchy as createHierarchy } from 'd3-hierarchy';
 import { diverging_3 as colors } from 'g-chartcolour';
+import Selector from '../selector';
 import { OTHER_CATEGORY_LABEL } from '../../util/constants';
 
 // import
 const Treemap = ({
-  width, height: containerHeight, remittances, selected, zoomed,
+  width, height: containerHeight, remittances, selected, zoomed, showSelector,
 }) => {
   const height = containerHeight - 200;
   const maxDepth = zoomed ? Infinity : 1;
@@ -34,6 +35,7 @@ const Treemap = ({
   const hierarchy = createHierarchy(zoomed ? firstChild : country)
     .sum(({ net_mdollars, remainderGdp }) => net_mdollars || remainderGdp)
     .sort((a, b) => (b.net_mdollars || b.remainderGdp) - (a.net_mdollars || a.remainderGdp));
+
   const leaves = treemap()
     .tile(treemapResquarify)
     .size([width, height])
@@ -50,6 +52,7 @@ const Treemap = ({
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
+      {showSelector && <Selector />}
       <h3>
         {country.name}
       </h3>
@@ -72,7 +75,12 @@ const Treemap = ({
                     .concat(d.value)
                     .map((line, i, nodes) => (
                       <tspan x={3} y={`${(i === nodes.length - 1) * 0.3 + 1.1 + i * 0.9}em`}>
-                        {line}
+                        {i === nodes.length - 1
+                          ? `$${line.toLocaleString('en', {
+                            minimumFractionDigits: 0,
+                            maximumFractionDigits: 0,
+                          })}m`
+                          : line}
                       </tspan>
                     ))}
                 </text>
@@ -82,6 +90,13 @@ const Treemap = ({
         </g>
         )
       </svg>
+      <figcaption className="o-typography-caption">
+        Source: World Bank data
+        <br />
+        <em>
+&#xA9;&nbsp;FT
+        </em>
+      </figcaption>
     </div>
   );
 };
@@ -90,10 +105,11 @@ Treemap.propTypes = {
   width: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired,
   remittances: PropTypes.arrayOf(PropTypes.any).isRequired,
+  showSelector: PropTypes.bool,
 };
 
 Treemap.defaultProps = {
-  maxDepth: 1,
+  showSelector: false,
 };
 
 export default Treemap;

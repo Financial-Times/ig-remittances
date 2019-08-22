@@ -48,7 +48,7 @@ export const reducers = (state, { type, ...action }) => {
   }
 };
 export const initialState = {
-  highlightCountry: 'UKR',
+  highlightCountry: 'Tonga',
   direction: 'sent',
   remittancesData: [],
   blurred: false,

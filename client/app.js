@@ -10,7 +10,6 @@ import { ContextPropType, ContextDefaultProps } from './util/prop-types';
 import svgDimensions from './util/svg-dimensions';
 import LineChart from './components/line-chart';
 import Treemap from './components/treemap';
-import Selector from './components/selector';
 import Sticky from './components/sticky';
 import ScrollStep from './components/scroll-step';
 import useWindowDimensions from './hooks/use-window-dimensions';
@@ -196,10 +195,10 @@ const App = (context) => {
           <Sticky activeStep={activeStep} svgDimensions={svgDimensions(windowWidth)}>
             {remittancesData && remittancesData.length ? (
               <Fragment>
-                {/* <Selector /> */}
                 <Treemap
                   zoomed={activeStep > 1}
-                  selected={DEBUG}
+                  selected={highlightCountry}
+                  showSelector={false}
                   width={svgDimensions(windowWidth).width}
                   height={svgDimensions(windowWidth).height}
                   remittances={remittancesData}
@@ -243,6 +242,18 @@ Loading data…
             </GridChild>
           </GridRow>
         </GridContainer>
+        <section style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+          {remittancesData && remittancesData.length && (
+            <Treemap
+              zoomed={false}
+              selected={highlightCountry}
+              showSelector
+              width={svgDimensions(windowWidth).width}
+              height={svgDimensions(windowWidth).height}
+              remittances={remittancesData}
+            />
+          )}
+        </section>
       </Layout>
     </userStateContext.Provider>
   );
