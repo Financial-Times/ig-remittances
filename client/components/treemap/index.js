@@ -10,6 +10,8 @@ import { treemap, treemapResquarify, hierarchy as createHierarchy } from 'd3-hie
 import { diverging_3 as colors } from 'g-chartcolour';
 import Selector from '../selector';
 import { OTHER_CATEGORY_LABEL } from '../../util/constants';
+import ChartHead from '../chart-head';
+import ChartFooter from '../chart-footer';
 
 // import
 const Treemap = ({
@@ -53,9 +55,8 @@ const Treemap = ({
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
       {showSelector && <Selector />}
-      <h3>
-        {country.name}
-      </h3>
+      <ChartHead title={`Remittances to ${country.name}`} subHead="$USm" width={width} />
+
       <svg width={width} height={height}>
         <g>
           {transitions.map(({ item: d, props: { transform }, key }) => (
@@ -90,13 +91,7 @@ const Treemap = ({
         </g>
         )
       </svg>
-      <figcaption className="o-typography-caption">
-        Source: World Bank data
-        <br />
-        <em>
-&#xA9;&nbsp;FT
-        </em>
-      </figcaption>
+      <ChartFooter sources={['World Bank']} width={width} />
     </div>
   );
 };

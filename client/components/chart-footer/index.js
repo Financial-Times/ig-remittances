@@ -1,13 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const ChartFooter = ({ source }) => (
+const ChartFooter = ({ sources }) => (
   <div className="chart-footer">
     <footer className="o-typography-footer">
-      Sources:
-      {' '}
-      {source}
+      {sources.length > 1 ? 'Sources: ' : 'Source: '}
+
+      {sources.map((s, i) => (sources.length > 1 && i < sources.length - 1 ? `${s}; ` : s))}
+
       <br />
+
       <em>
 © FT
       </em>
@@ -16,7 +18,7 @@ const ChartFooter = ({ source }) => (
 );
 
 ChartFooter.propTypes = {
-  source: PropTypes.string.isRequired,
+  sources: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default ChartFooter;
