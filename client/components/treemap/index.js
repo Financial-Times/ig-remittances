@@ -7,13 +7,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useTransition, animated } from 'react-spring';
 import { treemap, treemapResquarify, hierarchy as createHierarchy } from 'd3-hierarchy';
-import { diverging_3 as colors } from 'g-chartcolour';
+import { categorical_bar } from 'g-chartcolour';
 import Selector from '../selector';
 import { OTHER_CATEGORY_LABEL } from '../../util/constants';
 import ChartHead from '../chart-head';
 import ChartFooter from '../chart-footer';
 
-// import
+const colors = [categorical_bar[4], categorical_bar[5]];
+
 const Treemap = ({
   width, height: containerHeight, remittances, selected, zoomed, showSelector,
 }) => {
@@ -68,9 +69,13 @@ const Treemap = ({
                 fill={d.data.name === OTHER_CATEGORY_LABEL ? colors[1] : colors[0]}
                 width={d.x1 - d.x0}
                 height={d.y1 - d.y0}
+                id={`rect-${key}`}
               />
+              <clipPath id={`clip-${key}`}>
+                <use href={`#rect-${key}`} />
+              </clipPath>
               {d.x1 - d.x0 > 50 ? (
-                <text>
+                <text clipPath={`url(#clip-${key})`}>
                   {d.data.name
                     .split(/(?=[A-Z][^A-Z])/g)
                     .concat(d.value)
@@ -101,6 +106,8 @@ Treemap.propTypes = {
   height: PropTypes.number.isRequired,
   remittances: PropTypes.arrayOf(PropTypes.any).isRequired,
   showSelector: PropTypes.bool,
+  selected: PropTypes.string.isRequired,
+  zoomed: PropTypes.bool.isRequired,
 };
 
 Treemap.defaultProps = {
