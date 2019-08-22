@@ -12,7 +12,7 @@
     line-height: 20px;
     color: oColorsGetPaletteColor('black');
 
-    @include oGridRespondTo(L) {
+    @include oGridRespondTo(M) {
       font-size: 24px;
       line-height: 24px;
     }

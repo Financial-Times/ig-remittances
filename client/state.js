@@ -12,12 +12,6 @@ export const reducers = (state, { type, ...action }) => {
         ...state,
         remittancesData: action.data,
       };
-    case 'SET_PRESET':
-      return {
-        ...state,
-        highlightCountry: action.country,
-        direction: action.direction,
-      };
     case 'SET_BLUR':
       return {
         ...state,
@@ -26,17 +20,22 @@ export const reducers = (state, { type, ...action }) => {
     case 'SET_COUNTRY_FILTER':
       return {
         ...state,
-        highlightCountry: action.target.value,
+        userCountry: action.target.value,
       };
-    case 'SET_FILTER_DIRECTION':
+    case 'SET_ARTICLE_COUNTRY':
       return {
         ...state,
-        direction: action.target.value,
+        articleCountry: action.articleCountry,
       };
     case 'TOGGLE_TREEMAP_ZOOM':
       return {
         ...state,
         treemapIsZoomed: !state.treemapIsZoomed,
+      };
+    case 'SET_TREEMAP_ZOOM':
+      return {
+        ...state,
+        treemapIsZoomed: action.zoomed,
       };
     case 'SET_ACTIVE_STEP':
       return {
@@ -48,7 +47,8 @@ export const reducers = (state, { type, ...action }) => {
   }
 };
 export const initialState = {
-  highlightCountry: 'UKR',
+  userCountry: 'Tonga',
+  articleCountry: 'Tonga',
   direction: 'sent',
   remittancesData: [],
   blurred: false,

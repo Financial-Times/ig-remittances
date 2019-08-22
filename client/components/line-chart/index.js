@@ -22,10 +22,10 @@ const yAxis = d3
 const line = d3.line().curve(d3.curveMonotoneX);
 let pathDefinitions;
 
-const LineChart = ({ data, isMobile }) => {
+const LineChart = ({ data, layout }) => {
   // Local state
   const [width, setWidth] = useState(300);
-  const [height, setHeight] = useState(400);
+  const [height, setHeight] = useState(192);
   const [margin, setMargin] = useState({
     top: 6,
     right: 8,
@@ -54,23 +54,38 @@ const LineChart = ({ data, isMobile }) => {
   const pathRefs = nestedData.map(() => useRef(null));
   const circleRefs = nestedData.map(() => useRef(null));
 
-  // Draw chart (run only on change to isMobile prop)
+  // Draw chart (run only on change to layout prop)
   useEffect(() => {
-    const nextWidth = isMobile ? 300 : 680;
-    const nextHeight = isMobile ? 244 : 378;
-    const nextMargin = isMobile
-      ? {
-        top: 6,
-        right: 8,
-        bottom: 20,
-        left: 30,
-      }
-      : {
+    let nextWidth = 300;
+    let nextHeight = 192;
+    let nextMargin = {
+      top: 6,
+      right: 8,
+      bottom: 20,
+      left: 30,
+    };
+
+    if (['M', 'L'].includes(layout)) {
+      nextWidth = 520;
+      nextHeight = 298;
+      nextMargin = {
         top: 6,
         right: 10,
         bottom: 22,
         left: 34,
       };
+    }
+
+    if (layout === 'XL') {
+      nextWidth = 680;
+      nextHeight = 322;
+      nextMargin = {
+        top: 6,
+        right: 10,
+        bottom: 22,
+        left: 34,
+      };
+    }
 
     // Configure scales
     x.domain(d3.extent(data, d => parseDate(d.year))).range([nextMargin.left, nextWidth - nextMargin.right]);
@@ -89,7 +104,9 @@ const LineChart = ({ data, isMobile }) => {
         return formatTime(d);
       });
 
-    yAxis.tickSize(-(nextWidth - nextMargin.right - nextMargin.left));
+    yAxis
+      .tickValues(y.ticks(['M', 'L', 'XL'].includes(layout) ? 10 : 5).concat(y.domain()))
+      .tickSize(-(nextWidth - nextMargin.right - nextMargin.left));
 
     // Configure line generator and generate path definitions
     line.x(d => x(d.date)).y(d => y(d.value));
@@ -128,7 +145,7 @@ const LineChart = ({ data, isMobile }) => {
     setWidth(nextWidth);
     setHeight(nextHeight);
     setMargin(nextMargin);
-  }, [isMobile]);
+  }, [layout]);
 
   // Watch for inView changes to transition lines
   useEffect(() => {
@@ -211,7 +228,7 @@ as the largest inflow of capital to emerging economies
                     ref={circleRefs[i]}
                     cx={x(d.values[d.values.length - 1].date)}
                     cy={y(d.values[d.values.length - 1].value)}
-                    r={!isMobile ? 4 : 3.5}
+                    r={['M', 'L', 'XL'].includes(layout) ? 4 : 3.5}
                     fill={currentColour}
                     opacity={0}
                   />
@@ -228,7 +245,7 @@ as the largest inflow of capital to emerging economies
 
 LineChart.propTypes = {
   data: PropTypes.arrayOf(PropTypes.any).isRequired,
-  isMobile: PropTypes.bool.isRequired,
+  layout: PropTypes.string.isRequired,
 };
 
 export default LineChart;
