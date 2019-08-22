@@ -14,6 +14,7 @@ import Selector from './components/selector';
 import Sticky from './components/sticky';
 import ScrollStep from './components/scroll-step';
 import FullBleedOffsetTopper from './components/full-bleed-offset-topper';
+import SeriesNavbar from './components/series-navbar';
 import useWindowDimensions from './hooks/use-window-dimensions';
 import { userStateContext, initialState, reducers } from './state';
 import lineChartData from '../data/remittances-line.csv';
@@ -73,7 +74,12 @@ const App = (context) => {
         {...context}
         defaultContainer={false}
         wrapArticleHead={false}
-        customArticleHead={<FullBleedOffsetTopper />}
+        customArticleHead={(
+          <Fragment>
+            <SeriesNavbar series={{ name: 'Cash Trails', url: 'https://www.ft.com/cash-trails' }} isSticky />
+            <FullBleedOffsetTopper {...context} />
+          </Fragment>
+)}
       >
         {remittancesData && remittancesData.length ? (
           <Fragment>

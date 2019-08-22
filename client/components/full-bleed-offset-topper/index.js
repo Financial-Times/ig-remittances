@@ -1,20 +1,20 @@
 import React from 'react';
 
-const FullBleedOffsetTopper = () => (
+const FullBleedOffsetTopper = ({ headline, summary, topic }) => (
   <div className="o-topper o-topper--full-bleed-offset o-topper--color-slate">
     <div className="o-topper__content">
       <div className="o-topper__tags">
-        <a href="https://www.ft.com/cash-trails" className="o-topper__topic">
-          Global remittances
+        <a href={topic.url} className="o-topper__topic">
+          {topic.name}
         </a>
       </div>
       <h1 className="o-topper__headline o-topper__headline--large">
         <span className="article-classifier__gap">
-Headline TKTK
+          {headline}
         </span>
       </h1>
       <div className="o-topper__standfirst">
-Standfirst TKTK
+        {summary}
       </div>
     </div>
 
