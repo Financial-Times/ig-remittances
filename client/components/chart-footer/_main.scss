@@ -3,12 +3,12 @@
 
   .o-typography-footer {
     font-size: 12px;
-    line-height: 12px;
+    line-height: 14px;
     color: oColorsGetPaletteColor('black-60');
 
     @include oGridRespondTo(M) {
       font-size: 14px;
-      line-height: 14px;
+      line-height: 16px;
     }
   }
 }
