@@ -12,6 +12,8 @@ import LineChart from './components/line-chart';
 import Treemap from './components/treemap';
 import Sticky from './components/sticky';
 import ScrollStep from './components/scroll-step';
+import FullBleedOffsetTopper from './components/full-bleed-offset-topper';
+import SeriesNavbar from './components/series-navbar';
 import useWindowDimensions from './hooks/use-window-dimensions';
 import { userStateContext, initialState, reducers } from './state';
 import lineChartData from '../data/remittances-line.csv';
@@ -25,7 +27,7 @@ const App = (context) => {
   } = state;
 
   // Custom hooks
-  const { width: windowWidth } = useWindowDimensions();
+  const { width: windowWidth, height } = useWindowDimensions();
 
   // Asynchronous effects should update state as per below
   useEffect(() => {
@@ -75,7 +77,17 @@ const App = (context) => {
 
   return (
     <userStateContext.Provider value={[state, dispatch]}>
-      <Layout {...context} defaultContainer={false}>
+      <Layout
+        {...context}
+        defaultContainer={false}
+        wrapArticleHead={false}
+        customArticleHead={(
+          <Fragment>
+            <SeriesNavbar series={{ name: 'Cash Trails', url: 'https://www.ft.com/cash-trails' }} isSticky />
+            <FullBleedOffsetTopper {...context} />
+          </Fragment>
+)}
+      >
         <GridContainer>
           <GridRow>
             <GridChild>

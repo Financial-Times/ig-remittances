@@ -1,0 +1,61 @@
+.series-navbar-container {
+  background-color: #262a33;
+
+  .o-grid-container {
+    @include oGridRespondTo(M) {
+      max-width: 740px;
+    }
+
+    @include oGridRespondTo(L) {
+      max-width: 980px;
+    }
+
+    @include oGridRespondTo(XL) {
+      max-width: 1220px;
+    }
+  }
+
+  &--sticky {
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 5;
+
+    transform: translateY(0);
+    box-shadow: 0 1px 3px rgba(77, 72, 69, 0.2), 0 6px 10px rgba(77, 72, 69, 0.15);
+  }
+}
+
+.series-navbar {
+  box-sizing: border-box;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+
+  &__inner {
+    padding-left: 20px;
+    min-height: 40px;
+  }
+
+  &__title {
+    padding: 8px 0 8px 0;
+    box-sizing: border-box;
+
+    font-family: MetricWeb, sans-serif;
+    font-size: 16px;
+    line-height: 24px;
+    color: #ffec1a;
+
+    a {
+      margin-left: 4px;
+      color: inherit;
+      border-bottom: 0;
+      text-decoration: none;
+      cursor: pointer;
+      font-weight: 600;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
