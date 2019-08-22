@@ -97,7 +97,7 @@ const App = (context) => {
                     <LineChart
                       key={`graphic-1-${i + 1}`} // eslint-disable-line react/no-array-index-key
                       data={lineChartData}
-                      isMobile={windowWidth < 980}
+                      layout={getCurrentLayout()}
                     />
                   );
                 }

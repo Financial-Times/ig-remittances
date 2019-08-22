@@ -2,8 +2,25 @@
   height: 100vh;
 
   .card {
-    padding: 20px;
+    padding: oGridGutter();
     background-color: rgba(255, 241, 229, 0.8);
     backdrop-filter: blur(12px);
+    box-shadow: 0 0 oGridGutter() rgba(38, 42, 51, 0.4);
+
+    @include oGridRespondTo(M) {
+      padding: oGridGutter(M);
+    }
+  }
+
+  &:last-of-type {
+    padding-bottom: 100vh;
+
+    .card {
+      padding-right: 0;
+      padding-left: 0;
+      background: none;
+      backdrop-filter: none;
+      box-shadow: none;
+    }
   }
 }

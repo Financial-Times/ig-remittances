@@ -17,12 +17,10 @@ export default (environment = 'development') => ({
   //       new Date('2016-05-17T17:11:22Z')
   publishedDate: new Date(),
 
-  headline: 'Ik kie neġi æpude pōsÞpriskribo',
+  headline: 'Remittances become biggest capital flow into emerging economies',
 
   // summary === standfirst (Summary is what the content API calls it)
-  summary:
-    'Ik kie neġi æpude pōsÞpriskribo, anċ ēg tiel subtegmenÞo.'
-    + 'Giga gārði esperǣntigo vi jes. Ċit plēj esceptīnte hu, ōl vola eksploðæ poǽ.',
+  summary: 'Growth of migration turns trickle of funds from workers around the world into a flood',
 
   topic: {
     name: 'Starter Kit',
