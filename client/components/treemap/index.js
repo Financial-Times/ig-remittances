@@ -8,10 +8,12 @@ import PropTypes from 'prop-types';
 import { useTransition, animated } from 'react-spring';
 import { treemap, treemapResquarify, hierarchy as createHierarchy } from 'd3-hierarchy';
 import { categorical_bar } from 'g-chartcolour';
+import Country from '@financial-times/countries';
 import Selector from '../selector';
 import { OTHER_CATEGORY_LABEL } from '../../util/constants';
 import ChartHead from '../chart-head';
 import ChartFooter from '../chart-footer';
+import abbr from '../../util/formatted-names';
 
 const colors = [categorical_bar[4], categorical_bar[5]];
 
@@ -31,6 +33,7 @@ const Treemap = ({
   };
 
   const country = remittances.find(d => d.name === selected);
+  const countryFormattedName = new Country(country.code).name;
   country.children.forEach(collapse);
 
   const [firstChild] = country.children;
@@ -56,7 +59,7 @@ const Treemap = ({
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
       {showSelector && <Selector />}
-      <ChartHead title={`Remittances to ${country.name}`} subHead="$USm" width={width} />
+      {!showSelector && <ChartHead title={`Remittances to ${countryFormattedName}`} subHead="$USm" width={width} />}
 
       <svg width={width} height={height}>
         <g>
@@ -66,7 +69,7 @@ const Treemap = ({
               transform={transform.interpolate((x, y, scale) => `translate(${x}, ${y}) scale(${scale})`)}
             >
               <rect
-                fill={d.data.name === OTHER_CATEGORY_LABEL ? colors[1] : colors[0]}
+                fill={d.data.name === OTHER_CATEGORY_LABEL ? colors[1] : '#f65d8b'}
                 width={d.x1 - d.x0}
                 height={d.y1 - d.y0}
                 id={`rect-${key}`}
@@ -75,9 +78,18 @@ const Treemap = ({
                 <use href={`#rect-${key}`} />
               </clipPath>
               {d.x1 - d.x0 > 50 ? (
-                <text clipPath={`url(#clip-${key})`}>
-                  {d.data.name
-                    .split(/(?=[A-Z][^A-Z])/g)
+                <text fill="white" clipPath={`url(#clip-${key})`}>
+                  {// I'm sorry, this code makes me cry too. :'(
+                  (d.data.name === OTHER_CATEGORY_LABEL
+                    ? [d.data.name]
+                    : (() => {
+                      try {
+                        return abbr(new Country(d.data.code).name);
+                      } catch (e) {
+                        return d.data.name;
+                      }
+                    })().split(/(?=[A-Z][^A-Z])/g)
+                  )
                     .concat(d.value)
                     .map((line, i, nodes) => (
                       <tspan x={3} y={`${(i === nodes.length - 1) * 0.3 + 1.1 + i * 0.9}em`}>

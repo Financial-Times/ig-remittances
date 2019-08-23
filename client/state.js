@@ -25,6 +25,7 @@ export const reducers = (state, { type, ...action }) => {
     case 'SET_ARTICLE_COUNTRY':
       return {
         ...state,
+        showSelector: false,
         articleCountry: action.articleCountry,
       };
     case 'TOGGLE_TREEMAP_ZOOM':
@@ -42,6 +43,12 @@ export const reducers = (state, { type, ...action }) => {
         ...state,
         activeStep: action.activeStep,
       };
+    case 'SET_SHOW_SELECTOR':
+      return {
+        ...state,
+        treemapIsZoomed: true,
+        showSelector: action.showSelector,
+      };
     default:
       return { ...state };
   }
@@ -54,4 +61,5 @@ export const initialState = {
   blurred: false,
   treemapIsZoomed: false,
   activeStep: 0,
+  showSelector: false,
 };

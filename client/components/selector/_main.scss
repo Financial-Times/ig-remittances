@@ -4,7 +4,18 @@
   align-items: center;
   flex-direction: column;
   font-size: 20px;
-  &__dropdown {
+  margin-bottom: 38px;
+
+  &__dropdown-holder {
+    font-size: 20px;
+    line-height: 40px;
+    text-align: center;
+    @include oGridRespondTo($until: M) {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
   }
 
   &__preset-holder {
@@ -32,6 +43,24 @@
 
 .o-forms-input.o-forms-input--select {
   select.selector__dropdown {
+    @include oGridRespondTo($until: M) {
+      display: flex;
+    }
+    line-height: 24px;
+    display: inline-flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
     width: auto;
+    background-color: rgba(0, 0, 0, 0.07);
+    border: none;
+    border-radius: 5px;
+    font-weight: 600;
+    background-image: linear-gradient(45deg, transparent 50%, gray 50%),
+      linear-gradient(135deg, gray 50%, transparent 50%);
+    background-position: calc(100% - 20px) calc(1em + 2px),
+      calc(100% - 15px) calc(1em + 2px);
+    background-size: 5px 5px, 5px 5px;
+    background-repeat: no-repeat;
   }
 }

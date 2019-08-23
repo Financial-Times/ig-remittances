@@ -46,7 +46,7 @@ const Selector = () => {
   return (
     <section className="selector">
       <div className="selector__dropdown-holder">
-        In 2018, the total of remittances
+        In 2017, the total of remittances
         {' '}
         <CountryDropdown
           countries={countryNames}
@@ -60,7 +60,7 @@ const Selector = () => {
         {' '}
         received from other countries was
         {' '}
-        <strong>
+        <strong style={{ fontSize: '28px', color: '#ff1a66', fontWeight: 600 }}>
           $
           {highlightCountryData.children
             .find(d => d.name === 'Incoming remittances')
@@ -70,6 +70,15 @@ const Selector = () => {
               maximumFractionDigits: 0,
             })}
           m
+          {' '}
+          <span style={{ fontWeight: 400 }}>
+            (
+            {(highlightCountryData.net_gdppct * 100).toLocaleString('en', {
+              minimumFractionDigits: 0,
+              maximumFractionDigits: 0,
+            })}
+            % of GDP)
+          </span>
         </strong>
       </div>
     </section>
