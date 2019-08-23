@@ -241,6 +241,7 @@ Loading data…
             </GridChild>
           </GridRow>
         </GridContainer>
+
         <section style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
           {remittancesData && remittancesData.length && (
             <Treemap
@@ -253,6 +254,18 @@ Loading data…
             />
           )}
         </section>
+
+        <GridContainer>
+          <GridRow>
+            <GridChild>
+              <p>
+                <em>
+Additional design and development by Caroline Nevitt, Cale Tilford and Adrienne Klasa
+                </em>
+              </p>
+            </GridChild>
+          </GridRow>
+        </GridContainer>
       </Layout>
     </userStateContext.Provider>
   );
