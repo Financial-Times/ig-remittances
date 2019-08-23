@@ -11,7 +11,7 @@ export default (environment = 'development') => ({
 
   // canonical URL of the published page
   // url below gets filled in by the ./configure script
-  url: 'https://ig.ft.com/ig-remittances',
+  url: 'http://www.ft.com/remittances-capital-flow-emerging-markets',
 
   // To set an exact publish date do this:
   //       new Date('2016-05-17T17:11:22Z')
