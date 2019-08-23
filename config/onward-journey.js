@@ -14,5 +14,5 @@
 
 // eslint-disable-next-line no-unused-vars
 export default (environment = 'development') => ({
-  relatedContent: [{ rows: 2, list: 'thing/adae44ca-4ea7-3cf8-8332-bf85ec89a558' }],
+  relatedContent: [{ rows: 2, list: 'thing/c36f737a-91f6-4b69-99de-2124f3dee680' }],
 });

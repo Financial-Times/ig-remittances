@@ -4,7 +4,9 @@
  */
 
 import React, { useEffect, useReducer, Fragment } from 'react';
-import Layout, { GridContainer, GridRow, GridChild } from '@financial-times/g-components';
+import Layout, {
+  GridContainer, GridRow, GridChild, Byline, Share,
+} from '@financial-times/g-components';
 import { getCurrentLayout } from 'o-grid/main'; // eslint-disable-line import/no-unresolved
 import { ContextPropType, ContextDefaultProps } from './util/prop-types';
 import svgDimensions from './util/svg-dimensions';
@@ -20,14 +22,16 @@ import lineChartData from '../data/remittances-line.csv';
 import { OTHER_CATEGORY_LABEL } from './util/constants';
 
 const App = (context) => {
-  const { copy, scrollSteps } = context;
+  const {
+    copy, scrollSteps, bylines, publishedDate,
+  } = context;
   const [state, dispatch] = useReducer(reducers, initialState);
   const {
-    remittancesData, userCountry, articleCountry, highlightCountry, treemapIsZoomed, activeStep,
+    remittancesData, userCountry, articleCountry, treemapIsZoomed,
   } = state;
 
   // Custom hooks
-  const { width: windowWidth, height } = useWindowDimensions();
+  const { width: windowWidth } = useWindowDimensions();
 
   // Asynchronous effects should update state as per below
   useEffect(() => {
@@ -63,7 +67,6 @@ const App = (context) => {
     })();
   }, []);
 
-  const treemapSteps = ['Zero', 'One', 'Two', 'Three'];
   const matrixIndex = copy.indexOf('MATRIXMOBILE1');
   const treemapIndex = copy.indexOf('INTERACTIVETREEMAP');
   const section1Pars = copy.slice(0, matrixIndex);
@@ -84,7 +87,18 @@ const App = (context) => {
         customArticleHead={(
           <Fragment>
             <SeriesNavbar series={{ name: 'Cash Trails', url: 'https://www.ft.com/cash-trails' }} isSticky />
+
             <FullBleedOffsetTopper {...context} />
+
+            <GridContainer>
+              <GridRow>
+                <GridChild>
+                  <Share {...context} />
+
+                  <Byline names={bylines} date={publishedDate} />
+                </GridChild>
+              </GridRow>
+            </GridContainer>
           </Fragment>
 )}
       >
@@ -228,6 +242,7 @@ Loading data…
             </GridChild>
           </GridRow>
         </GridContainer>
+
         <section style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
           {remittancesData && remittancesData.length && (
             <Treemap
@@ -240,6 +255,18 @@ Loading data…
             />
           )}
         </section>
+
+        <GridContainer>
+          <GridRow>
+            <GridChild>
+              <p>
+                <em>
+Additional design and development by Caroline Nevitt, Cale Tilford and Adrienne Klasa
+                </em>
+              </p>
+            </GridChild>
+          </GridRow>
+        </GridContainer>
       </Layout>
     </userStateContext.Provider>
   );

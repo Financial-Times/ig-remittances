@@ -7,15 +7,15 @@
 
 export default (environment = 'development') => ({
   // link file UUID
-  id: environment === 'development' ? '3a499586-b2e0-11e4-a058-00144feab7de' : '',
+  id: environment === 'development' ? '88bade38-c590-11e9-a8e9-296ca66511c9' : '',
 
   // canonical URL of the published page
   // url below gets filled in by the ./configure script
-  url: 'https://ig.ft.com/ig-remittances',
+  url: 'http://www.ft.com/remittances-capital-flow-emerging-markets',
 
   // To set an exact publish date do this:
   //       new Date('2016-05-17T17:11:22Z')
-  publishedDate: new Date(),
+  publishedDate: new Date('2019-08-28T05:00:00Z'),
 
   headline: 'Remittances become biggest capital flow into emerging economies',
 
@@ -23,8 +23,8 @@ export default (environment = 'development') => ({
   summary: 'Growth of migration turns trickle of funds from workers around the world into a flood',
 
   topic: {
-    name: 'Starter Kit',
-    url: '/foo',
+    name: 'Global remittances',
+    url: 'https://www.ft.com/stream/c36f737a-91f6-4b69-99de-2124f3dee680',
   },
 
   relatedArticle: {
@@ -48,13 +48,20 @@ export default (environment = 'development') => ({
 
   // Byline can by a plain string, markdown, or array of authors
   // if array of authors, url is optional
-  bylines: [{ name: 'Author One', url: '/foo/bar' }, { name: 'Author Two' }],
+  bylines: [
+    { name: 'Jonathan Wheatley', url: 'https://www.ft.com/stream/63b29c5e-250d-3158-8f46-3facf556189a' },
+    { name: 'Federica Cocco', url: 'https://www.ft.com/federica-cocco' },
+    { name: 'Jane Pong', url: 'https://www.ft.com/jane-pong' },
+    { name: 'David Blood', url: 'https://www.ft.com/david-blood' },
+    { name: 'Ændrew Rininsland', url: 'https://www.ft.com/aendrew-rininsland' },
+    { name: 'Martin Stabe', url: 'https://www.ft.com/martin-stabe' },
+  ],
 
   // Appears in the HTML <title>
-  title: '',
+  title: 'Remittances become biggest capital flow into emerging economies | Financial Times',
 
   // meta data
-  description: '',
+  description: 'Growth of migration turns trickle of funds from workers around the world into a flood',
 
   /*
   TODO: Select Twitter card type -
@@ -71,12 +78,13 @@ export default (environment = 'development') => ({
   */
   // General social
   // socialImage: '',
-  // socialHeadline: '',
-  // socialDescription: '',
+  socialHeadline: 'Remittances become biggest capital flow into emerging economies',
+  socialDescription: 'Growth of migration turns trickle of funds from workers around the world into a flood',
   // twitterCreator: '@author's_account', // shows up in summary_large_image cards
 
   // TWEET BUTTON CUSTOM TEXT
-  // tweetText: '',
+  tweetText:
+    'As globalisation has advanced and migration has increased over the past quarter of a century, remittances have swelled from a trickle into a flood',
   //
   // Twitter lists these as suggested accounts to follow after a user tweets (do not include @)
   // twitterRelatedAccounts: ['authors_account_here', 'ftdata'],

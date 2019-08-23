@@ -11,7 +11,7 @@ const parseDate = d3.timeParse('%Y');
 
 const x = d3.scaleTime();
 const y = d3.scaleLinear();
-const colour = d3.scaleOrdinal(['#eb5e8d', '#9dbf57', '#70dce6', '#0f5499']);
+const colour = d3.scaleOrdinal(['#ff1a66', '#9dbf57', '#70dce6', '#208fce']);
 
 const xAxis = d3.axisBottom().scale(x);
 const yAxis = d3
@@ -215,7 +215,7 @@ as the largest inflow of capital to emerging economies
               const currentColour = colour(d.name);
 
               return (
-                <g className="line" key={d.name} opacity={d.name === 'Remittances' ? 1 : 0.4}>
+                <g className="line" key={d.name} opacity={d.name === 'Remittances' ? 1 : 0.6}>
                   <path
                     id={`line-${d.name}`}
                     d={pathDefinitions[i]}
