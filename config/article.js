@@ -15,7 +15,7 @@ export default (environment = 'development') => ({
 
   // To set an exact publish date do this:
   //       new Date('2016-05-17T17:11:22Z')
-  publishedDate: new Date('2019-08-23T05:00:00Z'),
+  publishedDate: new Date('2019-08-28T05:00:00Z'),
 
   headline: 'Remittances become biggest capital flow into emerging economies',
 
