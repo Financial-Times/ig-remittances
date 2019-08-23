@@ -65,7 +65,9 @@ const Treemap = ({
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
       {showSelector && <Selector />}
-      {!showSelector && <ChartHead title={`Remittances to ${countryFormattedName}`} subHead="$USm" width={width} />}
+      {!showSelector && (
+        <ChartHead title={`Remittances received by ${countryFormattedName}`} subHead="$m" width={width} />
+      )}
 
       <svg width={width} height={height}>
         <g>
