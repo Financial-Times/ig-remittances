@@ -92,7 +92,7 @@ const App = (context) => {
             <GridContainer>
               <GridRow>
                 <GridChild>
-                  <Share />
+                  <Share {...context} />
 
                   <Byline names={bylines} date={publishedDate} />
                 </GridChild>

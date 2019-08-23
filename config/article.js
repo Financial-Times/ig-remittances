@@ -58,10 +58,10 @@ export default (environment = 'development') => ({
   ],
 
   // Appears in the HTML <title>
-  title: '',
+  title: 'Remittances become biggest capital flow into emerging economies | Financial Times',
 
   // meta data
-  description: '',
+  description: 'Growth of migration turns trickle of funds from workers around the world into a flood',
 
   /*
   TODO: Select Twitter card type -
@@ -78,12 +78,13 @@ export default (environment = 'development') => ({
   */
   // General social
   // socialImage: '',
-  // socialHeadline: '',
-  // socialDescription: '',
+  socialHeadline: 'Remittances become biggest capital flow into emerging economies',
+  socialDescription: 'Growth of migration turns trickle of funds from workers around the world into a flood',
   // twitterCreator: '@author's_account', // shows up in summary_large_image cards
 
   // TWEET BUTTON CUSTOM TEXT
-  // tweetText: '',
+  tweetText:
+    'As globalisation has advanced and migration has increased over the past quarter of a century, remittances have swelled from a trickle into a flood',
   //
   // Twitter lists these as suggested accounts to follow after a user tweets (do not include @)
   // twitterRelatedAccounts: ['authors_account_here', 'ftdata'],
