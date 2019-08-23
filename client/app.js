@@ -5,7 +5,7 @@
 
 import React, { useEffect, useReducer, Fragment } from 'react';
 import Layout, {
-  GridContainer, GridRow, GridChild, ArticleHead, Byline, Share,
+  GridContainer, GridRow, GridChild, Byline, Share,
 } from '@financial-times/g-components';
 import { getCurrentLayout } from 'o-grid/main'; // eslint-disable-line import/no-unresolved
 import { ContextPropType, ContextDefaultProps } from './util/prop-types';
@@ -27,11 +27,11 @@ const App = (context) => {
   } = context;
   const [state, dispatch] = useReducer(reducers, initialState);
   const {
-    remittancesData, userCountry, articleCountry, highlightCountry, treemapIsZoomed, activeStep,
+    remittancesData, userCountry, articleCountry, treemapIsZoomed,
   } = state;
 
   // Custom hooks
-  const { width: windowWidth, height } = useWindowDimensions();
+  const { width: windowWidth } = useWindowDimensions();
 
   // Asynchronous effects should update state as per below
   useEffect(() => {
@@ -67,7 +67,6 @@ const App = (context) => {
     })();
   }, []);
 
-  const treemapSteps = ['Zero', 'One', 'Two', 'Three'];
   const matrixIndex = copy.indexOf('MATRIXMOBILE1');
   const treemapIndex = copy.indexOf('INTERACTIVETREEMAP');
   const section1Pars = copy.slice(0, matrixIndex);
@@ -88,7 +87,9 @@ const App = (context) => {
         customArticleHead={(
           <Fragment>
             <SeriesNavbar series={{ name: 'Cash Trails', url: 'https://www.ft.com/cash-trails' }} isSticky />
+
             <FullBleedOffsetTopper {...context} />
+
             <GridContainer>
               <GridRow>
                 <GridChild>
