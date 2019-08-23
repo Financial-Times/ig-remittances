@@ -7,7 +7,7 @@
 
 export default (environment = 'development') => ({
   // link file UUID
-  id: environment === 'development' ? '3a499586-b2e0-11e4-a058-00144feab7de' : '',
+  id: environment === 'development' ? '88bade38-c590-11e9-a8e9-296ca66511c9' : '',
 
   // canonical URL of the published page
   // url below gets filled in by the ./configure script
