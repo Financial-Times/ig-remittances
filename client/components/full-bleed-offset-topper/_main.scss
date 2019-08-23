@@ -1,0 +1,9 @@
+.o-topper--full-bleed-offset {
+  @include oGridRespondTo(L) {
+    grid-template-columns: 120px minmax(0, auto) 20px minmax(600px, 800px) 20px minmax(0, auto) 120px;
+  }
+
+  @include oGridRespondTo(XL) {
+    grid-template-columns: 170px 40px 20px minmax(500px, 700px) 40px minmax(0, auto) 170px;
+  }
+}

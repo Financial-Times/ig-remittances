@@ -4,7 +4,9 @@
  */
 
 import React, { useEffect, useReducer, Fragment } from 'react';
-import Layout, { GridContainer, GridRow, GridChild } from '@financial-times/g-components';
+import Layout, {
+  GridContainer, GridRow, GridChild, Byline, Share,
+} from '@financial-times/g-components';
 import { getCurrentLayout } from 'o-grid/main'; // eslint-disable-line import/no-unresolved
 import { ContextPropType, ContextDefaultProps } from './util/prop-types';
 import svgDimensions from './util/svg-dimensions';
@@ -20,14 +22,14 @@ import lineChartData from '../data/remittances-line.csv';
 import { OTHER_CATEGORY_LABEL } from './util/constants';
 
 const App = (context) => {
-  const { copy, scrollSteps, gdps } = context;
+  const { copy, scrollSteps, gdps, bylines, publishedDate } = context;
   const [state, dispatch] = useReducer(reducers, initialState);
   const {
     blurred, remittancesData, showSelector, userCountry, articleCountry, treemapIsZoomed,
   } = state;
 
   // Custom hooks
-  const { width: windowWidth, height } = useWindowDimensions();
+  const { width: windowWidth } = useWindowDimensions();
 
   // Asynchronous effects should update state as per below
   useEffect(() => {
@@ -96,7 +98,18 @@ const App = (context) => {
         customArticleHead={(
           <Fragment>
             <SeriesNavbar series={{ name: 'Cash Trails', url: 'https://www.ft.com/cash-trails' }} isSticky />
+
             <FullBleedOffsetTopper {...context} />
+
+            <GridContainer>
+              <GridRow>
+                <GridChild>
+                  <Share {...context} />
+
+                  <Byline names={bylines} date={publishedDate} />
+                </GridChild>
+              </GridRow>
+            </GridContainer>
           </Fragment>
 )}
       >
@@ -254,6 +267,30 @@ Loading data…
                   dangerouslySetInnerHTML={{ __html: p }}
                 />
               ))}
+            </GridChild>
+          </GridRow>
+        </GridContainer>
+        <section style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+          {remittancesData && remittancesData.length && (
+            <Treemap
+              zoomed
+              selected={userCountry}
+              showSelector
+              width={svgDimensions(windowWidth).width}
+              height={svgDimensions(windowWidth).height}
+              remittances={remittancesData}
+            />
+          )}
+        </section>
+
+        <GridContainer>
+          <GridRow>
+            <GridChild>
+              <p>
+                <em>
+Additional design and development by Caroline Nevitt, Cale Tilford and Adrienne Klasa
+                </em>
+              </p>
             </GridChild>
           </GridRow>
         </GridContainer>
