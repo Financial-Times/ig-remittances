@@ -22,12 +22,10 @@ import lineChartData from '../data/remittances-line.csv';
 import { OTHER_CATEGORY_LABEL } from './util/constants';
 
 const App = (context) => {
-  const {
-    copy, scrollSteps, bylines, publishedDate,
-  } = context;
+  const { copy, scrollSteps, gdps, bylines, publishedDate } = context;
   const [state, dispatch] = useReducer(reducers, initialState);
   const {
-    remittancesData, userCountry, articleCountry, treemapIsZoomed,
+    blurred, remittancesData, showSelector, userCountry, articleCountry, treemapIsZoomed,
   } = state;
 
   // Custom hooks
@@ -39,26 +37,39 @@ const App = (context) => {
       const { default: remittances } = await import('../data/remittances.json');
       // @TODO replace with data for realsies
       // const { default: flareData } = await import('../data/flare.json');
-      const segmented = remittances.map(d => ({
-        name: d.name,
-        children: [
-          {
-            name: 'Incoming remittances',
-            children: d.children.filter(g => +g.net_mdollars > 0),
-          },
-          {
-            name: OTHER_CATEGORY_LABEL,
-            children: [],
-            remainderGdp: Number(d.total_mdollars) / Number(d.total_gdppct),
-            // children: d.children
-            //   .filter(g => +g.net_mdollars < 0)
-            //   .map(({ net_mdollars, ...g }) => ({
-            //     ...g,
-            //     net_mdollars: Math.abs(net_mdollars),
-            //   })),
-          },
-        ],
-      }));
+      const segmented = remittances.map(({ name, net_gdppct, ...d }) => {
+        const gdpData = gdps.find(e => name === e.country);
+        return {
+          name,
+          net_gdppct,
+          code: gdpData ? gdpData.code : name,
+          children: [
+            {
+              name: 'Incoming remittances',
+              children: d.children
+                .filter(g => +g.net_mdollars > 0)
+                .map((e) => {
+                  const gdp = gdps.find(f => e.name === f.country);
+                  return {
+                    ...e,
+                    code: gdp ? gdp.code : e.name,
+                  };
+                }),
+            },
+            {
+              name: OTHER_CATEGORY_LABEL,
+              children: [],
+              remainderGdp: Number(d.total_mdollars) / Number(d.total_gdppct),
+              // children: d.children
+              //   .filter(g => +g.net_mdollars < 0)
+              //   .map(({ net_mdollars, ...g }) => ({
+              //     ...g,
+              //     net_mdollars: Math.abs(net_mdollars),
+              //   })),
+            },
+          ],
+        };
+      });
 
       dispatch({
         type: 'SET_REMITTANCES_DATA',
@@ -176,13 +187,13 @@ const App = (context) => {
         </GridContainer>
 
         <section>
-          <Sticky svgDimensions={svgDimensions(windowWidth)}>
+          <Sticky blurred={blurred} svgDimensions={svgDimensions(windowWidth)}>
             {remittancesData && remittancesData.length ? (
               <Fragment>
                 <Treemap
                   zoomed={treemapIsZoomed}
-                  selected={articleCountry}
-                  showSelector={false}
+                  selected={showSelector ? userCountry : articleCountry}
+                  showSelector={showSelector}
                   width={svgDimensions(windowWidth).width}
                   height={svgDimensions(windowWidth).height}
                   remittances={remittancesData}
@@ -197,37 +208,54 @@ Loading data…
             )}
           </Sticky>
 
-          {scrollSteps.map(({ content }, i) => (
-            <ScrollStep
-              key={`step-${i}`} // eslint-disable-line react/no-array-index-key
-              stepIndex={i}
-              content={content}
-              onInView={(stepIndex) => {
-                switch (stepIndex) {
-                  case 0:
-                  default:
-                    dispatch({ type: 'SET_TREEMAP_ZOOM', zoomed: false });
-                    dispatch({ type: 'SET_ARTICLE_COUNTRY', articleCountry: 'Tonga' });
-                    break;
-                  case 1:
-                    dispatch({ type: 'TOGGLE_TREEMAP_ZOOM' });
-                    break;
-                  case 2:
-                    dispatch({ type: 'SET_TREEMAP_ZOOM', zoomed: false });
-                    dispatch({ type: 'SET_ARTICLE_COUNTRY', articleCountry: 'Brazil' });
-                    break;
-                  case 3:
-                    dispatch({ type: 'TOGGLE_TREEMAP_ZOOM' });
-                    break;
-                  case 4:
-                    dispatch({ type: 'SET_TREEMAP_ZOOM', zoomed: false });
-                    dispatch({ type: 'SET_ARTICLE_COUNTRY', articleCountry: 'Congo' });
-                    break;
-                }
-                // dispatch({ type: 'SET_ACTIVE_STEP', activeStep: stepIndex });
-              }}
-            />
-          ))}
+          {scrollSteps
+            .map(({ content }, i) => (
+              <ScrollStep
+                key={`step-${i}`} // eslint-disable-line react/no-array-index-key
+                stepIndex={i}
+                content={content}
+                onInView={(stepIndex) => {
+                  switch (stepIndex) {
+                    case 0:
+                    default:
+                      dispatch({ type: 'SET_TREEMAP_ZOOM', zoomed: false });
+                      dispatch({ type: 'SET_ARTICLE_COUNTRY', articleCountry: 'Tonga' });
+                      break;
+                    case 1:
+                      dispatch({ type: 'SET_ARTICLE_COUNTRY', articleCountry: 'Tonga' });
+                      dispatch({ type: 'SET_TREEMAP_ZOOM', zoomed: true });
+                      break;
+                    case 2:
+                      dispatch({ type: 'SET_TREEMAP_ZOOM', zoomed: false });
+                      dispatch({ type: 'SET_ARTICLE_COUNTRY', articleCountry: 'Mexico' });
+                      break;
+                    case 3:
+                      dispatch({ type: 'SET_TREEMAP_ZOOM', zoomed: true });
+                      dispatch({ type: 'SET_ARTICLE_COUNTRY', articleCountry: 'Mexico' });
+                      break;
+                  }
+                  // dispatch({ type: 'SET_ACTIVE_STEP', activeStep: stepIndex });
+                }}
+              />
+            ))
+            .concat([
+              <ScrollStep
+                key="step-instructions" // eslint-disable-line react/no-array-index-key
+                stepIndex={5}
+                content={`<div class="instructions">
+                 <h1>Where do your country’s remittance flows come from?</h1>
+                 <h2>Explore more than 190 countries’ remittances using the drop-down menu</h2>
+                 <img alt="down arrow" style="width: 2em;" src="https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:arrow-down?source=test" />
+                </div>`}
+                onInView={() => {
+                  dispatch({ type: 'SET_BLUR', blurred: true });
+                  dispatch({ type: 'SET_SHOW_SELECTOR', showSelector: true });
+                }}
+                onOutView={() => {
+                  dispatch({ type: 'SET_BLUR', blurred: false });
+                }}
+              />,
+            ])}
         </section>
 
         <GridContainer>
@@ -242,7 +270,6 @@ Loading data…
             </GridChild>
           </GridRow>
         </GridContainer>
-
         <section style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
           {remittancesData && remittancesData.length && (
             <Treemap

@@ -41,14 +41,15 @@ export default async (environment = 'development') => {
     bilateralData.filter(d => d.source === 'WORLD').map(({ target, source, ...d }) => [target, { ...d, children: [] }]),
   );
   const copy = await loadCopy(COPY_BERTHA);
-
   bilateralData
     .filter(({ source }) => source !== 'WORLD')
     .forEach(({ target, source, ...d }) => {
+      const gdpData = gdps.find(e => e.country === source);
       const current = countries.get(target) || countries.set(target, { children: [] }).get(target);
       if (current.children) {
         current.children.push({
           name: source,
+          code: gdpData.code,
           ...d,
         });
       } else {
