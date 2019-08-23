@@ -31,6 +31,10 @@
     @include oGridRespondTo(M) {
       padding: oGridGutter(M);
     }
+
+    p {
+      margin-bottom: 0;
+    }
   }
 
   &:last-of-type {
