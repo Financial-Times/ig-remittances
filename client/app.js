@@ -4,7 +4,9 @@
  */
 
 import React, { useEffect, useReducer, Fragment } from 'react';
-import Layout, { GridContainer, GridRow, GridChild } from '@financial-times/g-components';
+import Layout, {
+  GridContainer, GridRow, GridChild, ArticleHead, Byline, Share,
+} from '@financial-times/g-components';
 import { getCurrentLayout } from 'o-grid/main'; // eslint-disable-line import/no-unresolved
 import { ContextPropType, ContextDefaultProps } from './util/prop-types';
 import svgDimensions from './util/svg-dimensions';
@@ -20,7 +22,9 @@ import lineChartData from '../data/remittances-line.csv';
 import { OTHER_CATEGORY_LABEL } from './util/constants';
 
 const App = (context) => {
-  const { copy, scrollSteps } = context;
+  const {
+    copy, scrollSteps, bylines, publishedDate,
+  } = context;
   const [state, dispatch] = useReducer(reducers, initialState);
   const {
     remittancesData, userCountry, articleCountry, highlightCountry, treemapIsZoomed, activeStep,
@@ -85,6 +89,15 @@ const App = (context) => {
           <Fragment>
             <SeriesNavbar series={{ name: 'Cash Trails', url: 'https://www.ft.com/cash-trails' }} isSticky />
             <FullBleedOffsetTopper {...context} />
+            <GridContainer>
+              <GridRow>
+                <GridChild>
+                  <Share />
+
+                  <Byline names={bylines} date={publishedDate} />
+                </GridChild>
+              </GridRow>
+            </GridContainer>
           </Fragment>
 )}
       >
