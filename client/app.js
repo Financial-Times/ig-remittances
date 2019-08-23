@@ -35,7 +35,7 @@ const App = (context) => {
       const { default: remittances } = await import('../data/remittances.json');
       // @TODO replace with data for realsies
       // const { default: flareData } = await import('../data/flare.json');
-      const segmented = remittances.map(({name, net_gdppct, ...d}) => {
+      const segmented = remittances.map(({ name, net_gdppct, ...d }) => {
         const gdpData = gdps.find(e => name === e.country);
         return {
           name,
@@ -231,7 +231,7 @@ Loading data…
                 stepIndex={5}
                 content={`<div class="instructions">
                  <h1>Where do your country’s remittance flows come from?</h1>
-                 <h2>Please explore by using the dropdown</h2>
+                 <h2>Explore more than 190 countries’ remittances using the drop-down menu</h2>
                 </div>`}
                 onInView={() => {
                   dispatch({ type: 'SET_BLUR', blurred: true });

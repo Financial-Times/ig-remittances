@@ -33,7 +33,13 @@ const Treemap = ({
   };
 
   const country = remittances.find(d => d.name === selected);
-  const countryFormattedName = new Country(country.code).name;
+  const countryFormattedName = (() => {
+    try {
+      return new Country(country.code).name;
+    } catch (e) {
+      return country.name;
+    }
+  })();
   country.children.forEach(collapse);
 
   const [firstChild] = country.children;
