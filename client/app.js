@@ -22,7 +22,9 @@ import lineChartData from '../data/remittances-line.csv';
 import { OTHER_CATEGORY_LABEL } from './util/constants';
 
 const App = (context) => {
-  const { copy, scrollSteps, gdps, bylines, publishedDate } = context;
+  const {
+    copy, scrollSteps, gdps, bylines, publishedDate,
+  } = context;
   const [state, dispatch] = useReducer(reducers, initialState);
   const {
     blurred, remittancesData, showSelector, userCountry, articleCountry, treemapIsZoomed,
@@ -270,18 +272,6 @@ Loading data…
             </GridChild>
           </GridRow>
         </GridContainer>
-        <section style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
-          {remittancesData && remittancesData.length && (
-            <Treemap
-              zoomed
-              selected={userCountry}
-              showSelector
-              width={svgDimensions(windowWidth).width}
-              height={svgDimensions(windowWidth).height}
-              remittances={remittancesData}
-            />
-          )}
-        </section>
 
         <GridContainer>
           <GridRow>
