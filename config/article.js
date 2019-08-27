@@ -7,7 +7,7 @@
 
 export default (environment = 'development') => ({
   // link file UUID
-  id: environment === 'development' ? '88bade38-c590-11e9-a8e9-296ca66511c9' : '',
+  id: '88bade38-c590-11e9-a8e9-296ca66511c9',
 
   // canonical URL of the published page
   // url below gets filled in by the ./configure script
@@ -27,16 +27,16 @@ export default (environment = 'development') => ({
     url: 'https://www.ft.com/stream/c36f737a-91f6-4b69-99de-2124f3dee680',
   },
 
-  relatedArticle: {
-    text: 'Related article »',
-    url: 'https://en.wikipedia.org/wiki/Esperanto',
-  },
+  // relatedArticle: {
+  //   text: 'Related article »',
+  //   url: 'https://en.wikipedia.org/wiki/Esperanto',
+  // },
 
   mainImage: {
-    title: 'Map of Esperanto groups in Europe in 1905',
-    description:
-      'Disvastiĝo de Esperanto. Mapo pri Esperanto-grupoj en Eŭropo, farita de la frankfurta grupo, en Germana Esperantisto, marto 1905',
-    credit: 'Wikipedia',
+    // title: 'Map of Esperanto groups in Europe in 1905',
+    // description:
+    // 'Disvastiĝo de Esperanto. Mapo pri Esperanto-grupoj en Eŭropo, farita de la frankfurta grupo, en Germana Esperantisto, marto 1905',
+    // credit: 'Wikipedia',
 
     // You can provide a UUID to an image and it was populate everything else
     // uuid: 'c4bf0be4-7c15-11e4-a7b8-00144feabdc0',
@@ -54,7 +54,6 @@ export default (environment = 'development') => ({
     { name: 'Jane Pong', url: 'https://www.ft.com/jane-pong' },
     { name: 'David Blood', url: 'https://www.ft.com/david-blood' },
     { name: 'Ændrew Rininsland', url: 'https://www.ft.com/aendrew-rininsland' },
-    { name: 'Martin Stabe', url: 'https://www.ft.com/martin-stabe' },
   ],
 
   // Appears in the HTML <title>

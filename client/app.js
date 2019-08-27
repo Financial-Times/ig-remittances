@@ -278,7 +278,7 @@ Loading data…
             <GridChild>
               <p>
                 <em>
-Additional design and development by Caroline Nevitt, Cale Tilford and Adrienne Klasa
+                  Additional design and development by Caroline Nevitt, Cale Tilford, Martin Stabe and Adrienne Klasa
                 </em>
               </p>
             </GridChild>
