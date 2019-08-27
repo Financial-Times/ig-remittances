@@ -80,7 +80,7 @@ const Treemap = ({
 
       <svg width={width} height={height}>
         <g>
-          {transitions.map(({ item: d, props: { transform }, key }) => (
+          {transitions.map(({ item: d, props: { transform }, key }, idx) => (
             <animated.g
               key={key}
               transform={transform.interpolate((x, y, scale) => `translate(${x}, ${y}) scale(${scale})`)}
@@ -94,7 +94,7 @@ const Treemap = ({
               <clipPath id={`clip-${key}`}>
                 <use href={`#rect-${key}`} />
               </clipPath>
-              {d.x1 - d.x0 > 50 ? (
+              {idx < 3 ? (
                 <text fill={d.data.name === OTHER_CATEGORY_LABEL ? 'black' : 'white'} clipPath={`url(#clip-${key})`}>
                   {// I'm sorry, this code makes me cry too. :'(
                   (d.data.name === OTHER_CATEGORY_LABEL
