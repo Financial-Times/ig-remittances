@@ -17,10 +17,10 @@ export default (environment = 'development') => ({
   //       new Date('2016-05-17T17:11:22Z')
   publishedDate: new Date('2019-08-28T05:00:00Z'),
 
-  headline: 'Remittances become biggest capital flow into emerging economies',
+  headline: 'Remittances: the hidden engine of globalisation',
 
   // summary === standfirst (Summary is what the content API calls it)
-  summary: 'Growth of migration turns trickle of funds from workers around the world into a flood',
+  summary: 'With 270m migrants around the world, the money they send home now exceeds foreign direct investment',
 
   topic: {
     name: 'Global remittances',
@@ -57,10 +57,10 @@ export default (environment = 'development') => ({
   ],
 
   // Appears in the HTML <title>
-  title: 'Remittances become biggest capital flow into emerging economies | Financial Times',
+  title: 'Remittances: the hidden engine of globalisation',
 
   // meta data
-  description: 'Growth of migration turns trickle of funds from workers around the world into a flood',
+  description: 'With 270m migrants around the world, the money they send home now exceeds foreign direct investment',
 
   /*
   TODO: Select Twitter card type -
