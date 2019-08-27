@@ -38,7 +38,9 @@ const App = (context) => {
     (async () => {
       // @TODO replace with data for realsies
       // const { default: flareData } = await import('../data/flare.json');
-      const segmented = bilateralData.map(({ name, totalmdollarsold, totalgdppct, ...d }) => {
+      const segmented = bilateralData.map(({
+        name, totalmdollarsold, totalgdppct, ...d
+      }) => {
         const gdpData = gdps.find(e => name === e.country);
         return {
           name,
@@ -278,7 +280,22 @@ Loading data…
             <GridChild>
               <p>
                 <em>
-                  Additional design and development by Caroline Nevitt, Cale Tilford, Martin Stabe and Adrienne Klasa
+                  Additional design and development by
+                  {' '}
+                  <a href="https://www.ft.com/cale-tilford" target="_blank">
+                    Cale Tilford
+                  </a>
+                  ,
+                  {' '}
+                  <a href="https://www.ft.com/martin-stabe" target="_blank">
+                    Martin Stabe
+                  </a>
+                  {' '}
+                  and
+                  {' '}
+                  <a href="https://www.ft.com/stream/77159e71-8204-37ea-aaf8-7fce8c4eaf70" target="_blank">
+                    Adrienne Klasa
+                  </a>
                 </em>
               </p>
             </GridChild>
