@@ -9,32 +9,43 @@ import CountryDropdown from './country-dropdown';
 
 // These are countries has no incoming remittance data
 const NO_INCOMING_DATA = [
-  'United Arab Emirates',
-  'Libya',
-  'Gabon',
-  'Puerto Rico',
-  'Singapore',
-  'Equatorial Guinea',
-  'Bahrain',
-  'Chad',
-  'Brunei',
-  'Central African Republic',
-  'Eritrea',
-  'Somalia',
-  'San Marino',
-  'Andorra',
-  'Guam',
-  'Monaco',
-  'Cayman Islands',
-  'Channel Islands',
-  'Northern Mariana Islands',
-  'US Virgin Islands',
-  'Cuba',
   'American Samoa',
-  'Liechtenstein',
-  'Sint Maarten (Dutch part)',
-  'Isle of Man',
+  'Andorra',
+  'Bahamas',
+  'Bahrain',
+  'British Virgin Islands',
+  'Brunei',
+  'Cayman Islands',
+  'Central African Republic',
+  'Chad',
+  'Channel Islands',
+  'Cuba',
+  'Equatorial Guinea',
+  'Eritrea',
+  'Gabon',
+  'Gibraltar',
   'Greenland',
+  'Guam',
+  'Isle of Man',
+  'Libya',
+  'Liechtenstein',
+  'Mauritania',
+  'Monaco',
+  'Nauru',
+  'North Korea',
+  'Northern Mariana Islands',
+  'Puerto Rico',
+  'Republic of Congo',
+  'San Marino',
+  'Singapore',
+  'Somalia',
+  'South Sudan',
+  'St. Martin (French part)',
+  'Turks and Caicos Islands',
+  'US Virgin Islands',
+  'United Arab Emirates',
+  'Zimbabwe',
+  'Sint Maarten (Dutch part)',
 ];
 
 const Selector = () => {
@@ -42,7 +53,7 @@ const Selector = () => {
   const { userCountry, remittancesData } = state;
   const countryNames = remittancesData.map(({ name }) => name).filter(d => !NO_INCOMING_DATA.includes(d));
   const highlightCountryData = remittancesData.find(d => d.name === userCountry);
-
+  console.dir(highlightCountryData);
   return (
     <section className="selector">
       <div className="selector__dropdown-holder">
@@ -62,18 +73,15 @@ const Selector = () => {
         {' '}
         <strong style={{ fontSize: '28px', color: '#ff1a66', fontWeight: 600 }}>
           $
-          {highlightCountryData.children
-            .find(d => d.name === 'Incoming remittances')
-            .children.reduce((a, { net_mdollars }) => a + Number(net_mdollars), 0)
-            .toLocaleString('en', {
-              minimumFractionDigits: 0,
-              maximumFractionDigits: 0,
-            })}
+          {highlightCountryData.totalmdollarsold.toLocaleString('en', {
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 0,
+          })}
           m
           {' '}
           <span style={{ fontWeight: 400 }}>
             (
-            {(highlightCountryData.net_gdppct * 100).toLocaleString('en', {
+            {highlightCountryData.totalgdppct.toLocaleString('en', {
               minimumFractionDigits: 0,
               maximumFractionDigits: 0,
             })}

@@ -45,8 +45,8 @@ const Treemap = ({
   const [firstChild] = country.children;
 
   const hierarchy = createHierarchy(zoomed ? firstChild : country)
-    .sum(({ net_mdollars, remainderGdp }) => net_mdollars || remainderGdp)
-    .sort((a, b) => (b.net_mdollars || b.remainderGdp) - (a.net_mdollars || a.remainderGdp));
+    .sum(({ totalmdollarsold, remainderGdp }) => totalmdollarsold || remainderGdp)
+    .sort((a, b) => (b.totalmdollarsold || b.remainderGdp) - (a.totalmdollarsold || a.remainderGdp));
 
   const leaves = treemap()
     .tile(treemapResquarify)
