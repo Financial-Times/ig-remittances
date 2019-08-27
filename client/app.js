@@ -249,7 +249,7 @@ Loading data…
                 content={`<div class="instructions">
                  <h1>Where do your country’s remittance flows come from?</h1>
                  <h2>Explore more than 190 countries’ remittances using the drop-down menu</h2>
-                 <img alt="down arrow" style="width: 2em;" src="https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:arrow-down?source=test" />
+                 <img alt="down arrow" style="width: 2em;" src="https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:arrow-down?source=ig" />
                 </div>`}
                 onInView={() => {
                   dispatch({ type: 'SET_BLUR', blurred: true });
