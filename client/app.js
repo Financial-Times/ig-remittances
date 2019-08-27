@@ -90,11 +90,16 @@ const App = (context) => {
   const mobileImages = [
     {
       s:
+        'https://www.ft.com/__origami/service/image/v2/images/raw/ftcms%3Af46cce62-c8d7-11e9-a1f4-3669401ba76f?source=ig&width=600&format=png&quality=lossless',
+      m:
+        'https://www.ft.com/__origami/service/image/v2/images/raw/ftcms%3Af6b8b816-c8d7-11e9-a1f4-3669401ba76f?source=ig&width=1400&format=png&quality=lossless',
+    },
+    {
+      s:
         'https://www.ft.com/__origami/service/image/v2/images/raw/http%3A%2F%2Fim.ft-static.com%2Fcontent%2Fimages%2F000dcf90-c8ca-11e9-a1f4-3669401ba76f.img?source=ig',
       m:
         'https://www.ft.com/__origami/service/image/v2/images/raw/http%3A%2F%2Fim.ft-static.com%2Fcontent%2Fimages%2Ffdf2326e-c8c9-11e9-a1f4-3669401ba76f.img?source=ig',
     },
-    { s: 'https://via.placeholder.com/300x400.png', m: 'https://via.placeholder.com/700x500.png' },
     { s: 'https://via.placeholder.com/300x400.png', m: 'https://via.placeholder.com/700x500.png' },
   ];
 
@@ -147,7 +152,10 @@ const App = (context) => {
 
             <div data-o-grid-colspan="hide L12 Lcenter">
               <figure className="graphic inline">
-                <img src="https://via.placeholder.com/1180x1180.png" alt="" />
+                <img
+                  src="https://www.ft.com/__origami/service/image/v2/images/raw/ftcms%3Af6b7d15e-c8d6-11e9-a1f4-3669401ba76f?source=ig&width=2360&format=png&quality=lossless"
+                  alt=""
+                />
 
                 <figcaption className="o-typography-caption">
                   Graphic: TKTK
