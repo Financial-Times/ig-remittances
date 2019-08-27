@@ -34,7 +34,7 @@ const LineChart = ({ data, layout }) => {
   });
 
   // Hooks
-  const [containerRef, inView] = useInView({ threshold: 1, triggerOnce: true });
+  const [containerRef, inView] = useInView({ threshold: 0.66, triggerOnce: true });
 
   // Refs
   const svgRef = useRef(null);
