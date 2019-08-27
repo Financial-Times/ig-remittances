@@ -38,7 +38,9 @@ const App = (context) => {
     (async () => {
       // @TODO replace with data for realsies
       // const { default: flareData } = await import('../data/flare.json');
-      const segmented = bilateralData.map(({ name, totalmdollarsold, totalgdppct, ...d }) => {
+      const segmented = bilateralData.map(({
+        name, totalmdollarsold, totalgdppct, ...d
+      }) => {
         const gdpData = gdps.find(e => name === e.country);
         return {
           name,
@@ -86,7 +88,12 @@ const App = (context) => {
   const section2Pars = copy.slice(matrixIndex, treemapIndex);
   const section3Pars = copy.slice(treemapIndex + 1);
   const mobileImages = [
-    { s: 'https://via.placeholder.com/300x400.png', m: 'https://via.placeholder.com/700x500.png' },
+    {
+      s:
+        'https://www.ft.com/__origami/service/image/v2/images/raw/http%3A%2F%2Fim.ft-static.com%2Fcontent%2Fimages%2F000dcf90-c8ca-11e9-a1f4-3669401ba76f.img?source=ig',
+      m:
+        'https://www.ft.com/__origami/service/image/v2/images/raw/http%3A%2F%2Fim.ft-static.com%2Fcontent%2Fimages%2Ffdf2326e-c8c9-11e9-a1f4-3669401ba76f.img?source=ig',
+    },
     { s: 'https://via.placeholder.com/300x400.png', m: 'https://via.placeholder.com/700x500.png' },
     { s: 'https://via.placeholder.com/300x400.png', m: 'https://via.placeholder.com/700x500.png' },
   ];
