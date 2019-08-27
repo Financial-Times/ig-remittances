@@ -280,6 +280,17 @@ Loading data…
             <GridChild>
               <p>
                 <em>
+                  The following countries were excluded from the interactive graphic because inbound bilateral
+                  remittance flow data was unavailable: American Samoa, Andorra, Bahamas, Bahrain, British Virgin
+                  Islands, Brunei, Cayman Islands, Central African Republic, Chad, Channel Islands, Cuba, Equatorial
+                  Guinea, Eritrea, French Polynesia, Gabon, Gibraltar, Greenland, Guam, Isle of Man, Libya,
+                  Liechtenstein, Mauritania, Monaco, New Caledonia, North Korea, Northern Mariana Islands, Puerto Rico,
+                  Republic of Congo, San Marino, Singapore, Sint Maarten (Dutch part), Somalia, South Sudan, St. Martin
+                  (French part), Turks and Caicos Islands, US Virgin Islands, United Arab Emirates and Zimbabwe
+                </em>
+              </p>
+              <p>
+                <em>
                   Additional design and development by Caroline Nevitt, Cale Tilford, Martin Stabe and Adrienne Klasa
                 </em>
               </p>
