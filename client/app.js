@@ -44,7 +44,7 @@ const App = (context) => {
         const gdpData = gdps.find(e => name === e.country);
         return {
           name,
-          totalmdollarsold,
+          totalGdp: totalmdollarsold,
           totalgdppct,
           gdpSource: gdpData ? gdpData.gdpsource : null,
           gdpYear: gdpData? gdpData.gdpyear : null,

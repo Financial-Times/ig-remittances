@@ -55,7 +55,7 @@ const Selector = () => {
   const { userCountry, remittancesData } = state;
   const countryNames = remittancesData.map(({ name }) => name).filter(d => !NO_INCOMING_DATA.includes(d));
   const highlightCountryData = remittancesData.find(d => d.name === userCountry);
-  const formattedTotalDollars = formatDollars(highlightCountryData.totalmdollarsold);
+  const formattedTotalDollars = formatDollars(highlightCountryData.totalGdp);
   return (
     <section className="selector">
       <div className="selector__dropdown-holder">
