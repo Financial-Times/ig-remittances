@@ -43,7 +43,7 @@ export default (environment = 'development') => ({
 
     // You can also provide a URL
     url:
-      'https://www.ft.com/__origami/service/image/v2/images/raw/https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2F3%2F3a%2F1905-03-ge-frankf-mapo.jpg?source=ig',
+      'https://www.ft.com/__origami/service/image/v2/images/raw/http://prod-upp-image-read.ft.com/36758558-c8bd-11e9-a1f4-3669401ba76f?source=ig&amp;fit=scale-down&amp;quality=highest&amp;width=1220',
   },
 
   // Byline can by a plain string, markdown, or array of authors
@@ -76,7 +76,8 @@ export default (environment = 'development') => ({
         optional social meta data?
   */
   // General social
-  // socialImage: '',
+  socialImage:
+    'https://www.ft.com/__origami/service/image/v2/images/raw/http://prod-upp-image-read.ft.com/36758558-c8bd-11e9-a1f4-3669401ba76f?source=ig&amp;fit=scale-down&amp;quality=highest&amp;width=1220',
   socialHeadline: 'Remittances become biggest capital flow into emerging economies',
   socialDescription: 'Growth of migration turns trickle of funds from workers around the world into a flood',
   // twitterCreator: '@author's_account', // shows up in summary_large_image cards

@@ -112,7 +112,23 @@ const Treemap = ({
         </g>
         )
       </svg>
-      <ChartFooter sources={['World Bank']} width={width} />
+      <div className="chart-footer">
+        <footer className="o-typography-footer">
+          Sources:
+          {' '}
+          <a href="https://www.knomad.org/sites/default/files/2018-08/bilateralremittancematrix2017_Apr2018.xlsx">
+            Knomad bilateral remittance matrix
+          </a>
+          , 2017
+          {showSelector
+            ? `, and ${country.gdpSource} GDP data, ${country.gdpYear}`
+            : ''}
+          <br />
+          <em>
+© FT
+          </em>
+        </footer>
+      </div>
     </div>
   );
 };
