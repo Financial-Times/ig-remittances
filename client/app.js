@@ -44,6 +44,8 @@ const App = (context) => {
           name,
           totalmdollarsold,
           totalgdppct,
+          gdpSource: gdpData ? gdpData.gdpsource : null,
+          gdpYear: gdpData? gdpData.gdpyear : null,
           code: gdpData ? gdpData.code : name,
           children: [
             {
