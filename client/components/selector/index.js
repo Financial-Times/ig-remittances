@@ -64,11 +64,23 @@ const Selector = () => {
         <CountryDropdown
           countries={countryNames}
           country={userCountry}
-          setHighlighted={({ target }) => dispatch({
-            type: 'SET_COUNTRY_FILTER',
-            target,
-          })
-          }
+          setHighlighted={({ target }) => {
+            const event = new CustomEvent('oTracking.event', {
+              detail: Object.assign(
+                {
+                  category: 'ig-remittances',
+                  action: 'country-dropdown',
+                },
+                { countryName: target.options[target.selectedIndex].text },
+              ),
+              bubbles: true,
+            });
+            document.body.dispatchEvent(event);
+            dispatch({
+              type: 'SET_COUNTRY_FILTER',
+              target,
+            });
+          }}
         />
         {' '}
         received from other countries was
