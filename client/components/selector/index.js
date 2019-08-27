@@ -47,6 +47,7 @@ const NO_INCOMING_DATA = [
   'United Arab Emirates',
   'Zimbabwe',
   'Sint Maarten (Dutch part)',
+  'WORLD',
 ];
 
 const Selector = () => {
