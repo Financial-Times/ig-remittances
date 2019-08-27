@@ -90,9 +90,9 @@ const App = (context) => {
   const mobileImages = [
     {
       s:
-        'https://www.ft.com/__origami/service/image/v2/images/raw/ftcms%3Af46cce62-c8d7-11e9-a1f4-3669401ba76f?source=ig&width=600&format=png&quality=lossless',
+        'https://www.ft.com/__origami/service/image/v2/images/raw/ftcms%3A89129a12-c8e0-11e9-a1f4-3669401ba76f?source=ig&width=600&format=png&quality=lossless',
       m:
-        'https://www.ft.com/__origami/service/image/v2/images/raw/ftcms%3Af6b8b816-c8d7-11e9-a1f4-3669401ba76f?source=ig&width=1400&format=png&quality=lossless',
+        'https://www.ft.com/__origami/service/image/v2/images/raw/ftcms%3A86663a9e-c8e0-11e9-a1f4-3669401ba76f?source=ig&width=1400&format=png&quality=lossless',
       alt:
         'A heatmap matrix showing bilateral remittance flow between countries. The graphic shows that South Asian workers in the Middle East are sending lots of remittances back home, and flows within sub-Saharan Africa are increasingly significant.',
     },
@@ -156,7 +156,7 @@ const App = (context) => {
             <div data-o-grid-colspan="hide L12 Lcenter">
               <figure className="graphic inline">
                 <img
-                  src="https://www.ft.com/__origami/service/image/v2/images/raw/ftcms%3Adc43003a-c8dd-11e9-a1f4-3669401ba76f?source=ig&width=2360&format=png&quality=lossless"
+                  src="https://www.ft.com/__origami/service/image/v2/images/raw/ftcms%3A9ad94f98-c8e0-11e9-a1f4-3669401ba76f?source=ig&width=2360&format=png&quality=lossless"
                   alt="A heatmap matrix showing bilateral remittance flow between countries, categorised by region. Cells in each column represent a country receiving remittances, while cells in each row represent a country sending remittances. Darker coloured cells means higher share of receiving country's GDP in percent. The graphic shows that countries in EU (pre-2004 expansion) and North America are the biggest senders of global remittances. Other notes include South Asian workers in the Middle East sending lots of remittances back home, and flows within sub-Saharan Africa are increasingly significant."
                 />
               </figure>
