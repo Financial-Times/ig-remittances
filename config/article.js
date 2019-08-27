@@ -49,8 +49,8 @@ export default (environment = 'development') => ({
   // Byline can by a plain string, markdown, or array of authors
   // if array of authors, url is optional
   bylines: [
-    { name: 'Jonathan Wheatley', url: 'https://www.ft.com/stream/63b29c5e-250d-3158-8f46-3facf556189a' },
     { name: 'Federica Cocco', url: 'https://www.ft.com/federica-cocco' },
+    { name: 'Jonathan Wheatley', url: 'https://www.ft.com/stream/63b29c5e-250d-3158-8f46-3facf556189a' },
     { name: 'Jane Pong', url: 'https://www.ft.com/jane-pong' },
     { name: 'David Blood', url: 'https://www.ft.com/david-blood' },
     { name: 'Ændrew Rininsland', url: 'https://www.ft.com/aendrew-rininsland' },
