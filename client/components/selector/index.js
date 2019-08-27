@@ -81,7 +81,7 @@ const Selector = () => {
             (
             {highlightCountryData.totalgdppct.toLocaleString('en', {
               minimumFractionDigits: 0,
-              maximumFractionDigits: 0,
+              maximumFractionDigits: 1,
             })}
             % of GDP)
           </span>
