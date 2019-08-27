@@ -278,7 +278,14 @@ Loading data…
         <GridContainer>
           <GridRow>
             <GridChild>
-              <p>
+              <p
+                style={{
+                  fontSize: '14px',
+                  lineHeight: '20px',
+                  borderTop: '1px solid black',
+                  paddingTop: '1em',
+                }}
+              >
                 <em>
                   The following countries were excluded from the interactive graphic because inbound bilateral
                   remittance flow data was unavailable: American Samoa, Andorra, Bahamas, Bahrain, British Virgin
