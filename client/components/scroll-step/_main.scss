@@ -1,5 +1,5 @@
 .scroll-step {
-  height: 100vh;
+  padding-bottom: 100vh;
 
   .instructions {
     display: flex;
@@ -50,6 +50,7 @@
   }
 
   &:last-of-type {
+    height: 100vh;
     padding-bottom: 66vh;
 
     .card {
