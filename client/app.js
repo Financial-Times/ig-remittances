@@ -93,14 +93,17 @@ const App = (context) => {
         'https://www.ft.com/__origami/service/image/v2/images/raw/ftcms%3Af46cce62-c8d7-11e9-a1f4-3669401ba76f?source=ig&width=600&format=png&quality=lossless',
       m:
         'https://www.ft.com/__origami/service/image/v2/images/raw/ftcms%3Af6b8b816-c8d7-11e9-a1f4-3669401ba76f?source=ig&width=1400&format=png&quality=lossless',
+      alt:
+        'A heatmap matrix showing bilateral remittance flow between countries. The graphic shows that South Asian workers in the Middle East are sending lots of remittances back home, and flows within sub-Saharan Africa are increasingly significant.',
     },
     {
       s:
         'https://www.ft.com/__origami/service/image/v2/images/raw/http%3A%2F%2Fim.ft-static.com%2Fcontent%2Fimages%2F000dcf90-c8ca-11e9-a1f4-3669401ba76f.img?source=ig',
       m:
         'https://www.ft.com/__origami/service/image/v2/images/raw/http%3A%2F%2Fim.ft-static.com%2Fcontent%2Fimages%2Ffdf2326e-c8c9-11e9-a1f4-3669401ba76f.img?source=ig',
+      alt: '',
     },
-    { s: 'https://via.placeholder.com/300x400.png', m: 'https://via.placeholder.com/700x500.png' },
+    { s: 'https://via.placeholder.com/300x400.png', m: 'https://via.placeholder.com/700x500.png', alt: '' },
   ];
 
   return (
@@ -153,17 +156,9 @@ const App = (context) => {
             <div data-o-grid-colspan="hide L12 Lcenter">
               <figure className="graphic inline">
                 <img
-                  src="https://www.ft.com/__origami/service/image/v2/images/raw/ftcms%3Af6b7d15e-c8d6-11e9-a1f4-3669401ba76f?source=ig&width=2360&format=png&quality=lossless"
-                  alt=""
+                  src="https://www.ft.com/__origami/service/image/v2/images/raw/ftcms%3Adc43003a-c8dd-11e9-a1f4-3669401ba76f?source=ig&width=2360&format=png&quality=lossless"
+                  alt="A heatmap matrix showing bilateral remittance flow between countries, categorised by region. Cells in each column represent a country receiving remittances, while cells in each row represent a country sending remittances. Darker coloured cells means higher share of receiving country's GDP in percent. The graphic shows that countries in EU (pre-2004 expansion) and North America are the biggest senders of global remittances. Other notes include South Asian workers in the Middle East sending lots of remittances back home, and flows within sub-Saharan Africa are increasingly significant."
                 />
-
-                <figcaption className="o-typography-caption">
-                  Graphic: TKTK
-                  <br />
-                  <em>
-&#xA9;&nbsp;FT
-                  </em>
-                </figcaption>
               </figure>
             </div>
 
@@ -177,8 +172,8 @@ const App = (context) => {
                     data-o-grid-colspan="12 S11 Scenter M9 Lhide"
                   >
                     <figure className="graphic inline">
-                      {windowWidth <= 490 && <img alt="" src={mobileImages[imgIndex].s} />}
-                      {windowWidth > 490 && <img alt="" src={mobileImages[imgIndex].m} />}
+                      {windowWidth <= 490 && <img alt={mobileImages[imgIndex].alt} src={mobileImages[imgIndex].s} />}
+                      {windowWidth > 490 && <img alt={mobileImages[imgIndex].alt} src={mobileImages[imgIndex].m} />}
 
                       <figcaption className="o-typography-caption">
                         Graphic: TKTK
