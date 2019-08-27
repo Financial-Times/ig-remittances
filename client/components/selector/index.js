@@ -6,6 +6,7 @@
 import React, { useContext } from 'react';
 import { userStateContext } from '../../state';
 import CountryDropdown from './country-dropdown';
+import { formatDollars } from '../../util/format-dollars';
 
 // These are countries has no incoming remittance data
 const NO_INCOMING_DATA = [
@@ -53,7 +54,7 @@ const Selector = () => {
   const { userCountry, remittancesData } = state;
   const countryNames = remittancesData.map(({ name }) => name).filter(d => !NO_INCOMING_DATA.includes(d));
   const highlightCountryData = remittancesData.find(d => d.name === userCountry);
-  console.dir(highlightCountryData);
+  const formattedTotalDollars = formatDollars(highlightCountryData.totalmdollarsold);
   return (
     <section className="selector">
       <div className="selector__dropdown-holder">
@@ -73,11 +74,7 @@ const Selector = () => {
         {' '}
         <strong style={{ fontSize: '28px', color: '#ff1a66', fontWeight: 600 }}>
           $
-          {highlightCountryData.totalmdollarsold.toLocaleString('en', {
-            minimumFractionDigits: 0,
-            maximumFractionDigits: 0,
-          })}
-          m
+          {formattedTotalDollars}
           {' '}
           <span style={{ fontWeight: 400 }}>
             (

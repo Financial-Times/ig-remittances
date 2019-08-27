@@ -14,6 +14,7 @@ import { OTHER_CATEGORY_LABEL } from '../../util/constants';
 import ChartHead from '../chart-head';
 import ChartFooter from '../chart-footer';
 import abbr from '../../util/formatted-names';
+import { formatDollars } from '../../util/format-dollars';
 
 const colors = [categorical_bar[4], categorical_bar[5]];
 
@@ -101,12 +102,7 @@ const Treemap = ({
                     .concat(d.value)
                     .map((line, i, nodes) => (
                       <tspan x={3} y={`${(i === nodes.length - 1) * 0.3 + 1.1 + i * 0.9}em`}>
-                        {i === nodes.length - 1
-                          ? `$${line.toLocaleString('en', {
-                            minimumFractionDigits: 0,
-                            maximumFractionDigits: 0,
-                          })}m`
-                          : line}
+                        {i === nodes.length - 1 ? `$${formatDollars(line)}` : line}
                       </tspan>
                     ))}
                 </text>
