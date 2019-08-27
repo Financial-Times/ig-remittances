@@ -95,7 +95,7 @@ const Treemap = ({
                 <use href={`#rect-${key}`} />
               </clipPath>
               {d.x1 - d.x0 > 50 ? (
-                <text fill="white" clipPath={`url(#clip-${key})`}>
+                <text fill={d.data.name === OTHER_CATEGORY_LABEL ? 'black' : 'white'} clipPath={`url(#clip-${key})`}>
                   {// I'm sorry, this code makes me cry too. :'(
                   (d.data.name === OTHER_CATEGORY_LABEL
                     ? [d.data.name]
@@ -128,9 +128,7 @@ const Treemap = ({
             Knomad bilateral remittance matrix
           </a>
           , 2017
-          {showSelector
-            ? `, and ${country.gdpSource} GDP data, ${country.gdpYear}`
-            : ''}
+          {showSelector ? `, and ${country.gdpSource} GDP data, ${country.gdpYear}` : ''}
           <br />
           <em>
 © FT
