@@ -1,5 +1,5 @@
 .scroll-step {
-  height: 100vh;
+  padding-bottom: 100vh;
 
   .instructions {
     display: flex;
@@ -9,16 +9,28 @@
 
     h1 {
       text-align: center;
-      font-size: 32px;
-      line-height: 40px;
+      font-size: 24px;
+      line-height: 32px;
       font-family: MetricWeb, sans-serif;
+
+      @include oGridRespondTo(M) {
+        font-size: 32px;
+        line-height: 40px;
+      }
     }
 
     h2 {
       text-align: center;
-      font-size: 20px;
-      line-height: 24px;
+      font-size: 18px;
+      line-height: 20px;
       font-family: MetricWeb, sans-serif;
+      color: #66605c;
+      font-weight: 400;
+
+      @include oGridRespondTo(M) {
+        font-size: 20px;
+        line-height: 24px;
+      }
     }
   }
 
@@ -38,7 +50,8 @@
   }
 
   &:last-of-type {
-    padding-bottom: 50vh;
+    height: 100vh;
+    padding-bottom: 66vh;
 
     .card {
       padding-right: 0;
