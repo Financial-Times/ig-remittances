@@ -8,9 +8,14 @@ import PropTypes from 'prop-types';
 
 const CountrySelector = ({ country, countries, setHighlighted }) => (
   <span className="o-forms-input o-forms-input--select">
-    <select className="selector__dropdown selector__dropdown--country" value={country} onChange={setHighlighted}>
+    <select
+      className="selector__dropdown selector__dropdown--country"
+      value={country}
+      onChange={setHighlighted}
+      data-trackable
+    >
       {countries.sort().map(name => (
-        <option key={name} value={name}>
+        <option key={name} value={name} id={`countriesdropdown__${name}`}>
           {name}
         </option>
       ))}
