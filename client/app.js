@@ -90,9 +90,22 @@ const App = (context) => {
   const section2Pars = copy.slice(matrixIndex, treemapIndex);
   const section3Pars = copy.slice(treemapIndex + 1);
   const mobileImages = [
-    { s: 'https://via.placeholder.com/300x400.png', m: 'https://via.placeholder.com/700x500.png' },
-    { s: 'https://via.placeholder.com/300x400.png', m: 'https://via.placeholder.com/700x500.png' },
-    { s: 'https://via.placeholder.com/300x400.png', m: 'https://via.placeholder.com/700x500.png' },
+    {
+      s:
+        'https://www.ft.com/__origami/service/image/v2/images/raw/ftcms%3A89129a12-c8e0-11e9-a1f4-3669401ba76f?source=ig&width=600&format=png&quality=lossless',
+      m:
+        'https://www.ft.com/__origami/service/image/v2/images/raw/ftcms%3A86663a9e-c8e0-11e9-a1f4-3669401ba76f?source=ig&width=1400&format=png&quality=lossless',
+      alt:
+        'A heatmap matrix showing bilateral remittance flow between countries. The graphic shows that South Asian workers in the Middle East are sending lots of remittances back home, and flows within sub-Saharan Africa are increasingly significant.',
+    },
+    {
+      s:
+        'https://www.ft.com/__origami/service/image/v2/images/raw/http%3A%2F%2Fim.ft-static.com%2Fcontent%2Fimages%2F000dcf90-c8ca-11e9-a1f4-3669401ba76f.img?source=ig',
+      m:
+        'https://www.ft.com/__origami/service/image/v2/images/raw/http%3A%2F%2Fim.ft-static.com%2Fcontent%2Fimages%2Ffdf2326e-c8c9-11e9-a1f4-3669401ba76f.img?source=ig',
+      alt:
+        'Chart showing top recipients of remittances from the US in 2017. Mexico is  top with around thirty billion dollars, nearly twice as much as next country China. Then comes India, Phillipines and Vietnam',
+    },
   ];
 
   return (
@@ -144,15 +157,10 @@ const App = (context) => {
 
             <div data-o-grid-colspan="hide L12 Lcenter">
               <figure className="graphic inline">
-                <img src="https://via.placeholder.com/1180x1180.png" alt="" />
-
-                <figcaption className="o-typography-caption">
-                  Graphic: TKTK
-                  <br />
-                  <em>
-&#xA9;&nbsp;FT
-                  </em>
-                </figcaption>
+                <img
+                  src="https://www.ft.com/__origami/service/image/v2/images/raw/ftcms%3Afffbf878-c8e3-11e9-a1f4-3669401ba76f?source=ig&width=2360&format=png&quality=lossless"
+                  alt="A heatmap matrix showing bilateral remittance flow between countries, categorised by region. Cells in each column represent a country receiving remittances, while cells in each row represent a country sending remittances. Darker coloured cells means higher share of receiving country's GDP in percent. The graphic shows that countries in EU (pre-2004 expansion) and North America are the biggest senders of global remittances. Other notes include South Asian workers in the Middle East sending lots of remittances back home, and flows within sub-Saharan Africa are increasingly significant."
+                />
               </figure>
             </div>
 
@@ -166,16 +174,8 @@ const App = (context) => {
                     data-o-grid-colspan="12 S11 Scenter M9 Lhide"
                   >
                     <figure className="graphic inline">
-                      {windowWidth <= 490 && <img alt="" src={mobileImages[imgIndex].s} />}
-                      {windowWidth > 490 && <img alt="" src={mobileImages[imgIndex].m} />}
-
-                      <figcaption className="o-typography-caption">
-                        Graphic: TKTK
-                        <br />
-                        <em>
-&#xA9;&nbsp;FT
-                        </em>
-                      </figcaption>
+                      {windowWidth <= 490 && <img alt={mobileImages[imgIndex].alt} src={mobileImages[imgIndex].s} />}
+                      {windowWidth > 490 && <img alt={mobileImages[imgIndex].alt} src={mobileImages[imgIndex].m} />}
                     </figure>
                   </div>
                 );
@@ -280,6 +280,24 @@ Loading data…
         <GridContainer>
           <GridRow>
             <GridChild>
+              <p
+                style={{
+                  fontSize: '14px',
+                  lineHeight: '20px',
+                  borderTop: '1px solid black',
+                  paddingTop: '1em',
+                }}
+              >
+                <em>
+                  The following countries were excluded from the interactive graphic because inbound bilateral
+                  remittance flow data was unavailable: American Samoa, Andorra, Bahamas, Bahrain, British Virgin
+                  Islands, Brunei, Cayman Islands, Central African Republic, Chad, Channel Islands, Cuba, Equatorial
+                  Guinea, Eritrea, French Polynesia, Gabon, Gibraltar, Greenland, Guam, Isle of Man, Libya,
+                  Liechtenstein, Mauritania, Monaco, New Caledonia, North Korea, Northern Mariana Islands, Puerto Rico,
+                  Republic of Congo, San Marino, Singapore, Sint Maarten (Dutch part), Somalia, South Sudan, St. Martin
+                  (French part), Turks and Caicos Islands, US Virgin Islands, United Arab Emirates and Zimbabwe
+                </em>
+              </p>
               <p>
                 <em>
                   Additional design and development by
