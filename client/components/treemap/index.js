@@ -67,7 +67,15 @@ const Treemap = ({
     <div style={{ display: 'flex', flexDirection: 'column' }}>
       {showSelector && <Selector />}
       {!showSelector && (
-        <ChartHead title={`Remittances received by ${countryFormattedName}`} subHead="$m" width={width} />
+        <ChartHead
+          title={
+            !zoomed
+              ? `Remittances as a proportion of ${countryFormattedName}’s economy`
+              : `Sources of remittances received by ${countryFormattedName}`
+          }
+          subHead="$m"
+          width={width}
+        />
       )}
 
       <svg width={width} height={height}>
