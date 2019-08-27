@@ -6,6 +6,10 @@
   font-size: 20px;
   margin-bottom: 38px;
 
+  @include oGridRespondTo(M) {
+    height: 60px;
+  }
+
   &__dropdown-holder {
     font-size: 24px;
     line-height: 44px;
