@@ -59,7 +59,7 @@ const Selector = () => {
   return (
     <section className="selector">
       <div className="selector__dropdown-holder">
-        In 2017, the total of remittances
+        In 2017, the total remittances
         {' '}
         <CountryDropdown
           countries={countryNames}
@@ -73,11 +73,11 @@ const Selector = () => {
         {' '}
         received from other countries was
         {' '}
-        <strong style={{ fontSize: '28px', color: '#ff1a66', fontWeight: 600 }}>
+        <strong className="dollar-total">
           $
           {formattedTotalDollars}
           {' '}
-          <span style={{ fontWeight: 400 }}>
+          <span className="gdp-total">
             (
             {highlightCountryData.totalgdppct.toLocaleString('en', {
               minimumFractionDigits: 0,
