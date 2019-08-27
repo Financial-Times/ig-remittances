@@ -23,7 +23,7 @@ import { OTHER_CATEGORY_LABEL } from './util/constants';
 
 const App = (context) => {
   const {
-    copy, scrollSteps, gdps, bylines, publishedDate,
+    copy, scrollSteps, gdps, bilateralData, bylines, publishedDate,
   } = context;
   const [state, dispatch] = useReducer(reducers, initialState);
   const {
@@ -36,20 +36,20 @@ const App = (context) => {
   // Asynchronous effects should update state as per below
   useEffect(() => {
     (async () => {
-      const { default: remittances } = await import('../data/remittances.json');
       // @TODO replace with data for realsies
       // const { default: flareData } = await import('../data/flare.json');
-      const segmented = remittances.map(({ name, net_gdppct, ...d }) => {
+      const segmented = bilateralData.map(({ name, totalmdollarsold, totalgdppct, ...d }) => {
         const gdpData = gdps.find(e => name === e.country);
         return {
           name,
-          net_gdppct,
+          totalmdollarsold,
+          totalgdppct,
           code: gdpData ? gdpData.code : name,
           children: [
             {
               name: 'Incoming remittances',
               children: d.children
-                .filter(g => +g.net_mdollars > 0)
+                .filter(g => +g.totalmdollarsold > 0)
                 .map((e) => {
                   const gdp = gdps.find(f => e.name === f.country);
                   return {
@@ -61,7 +61,7 @@ const App = (context) => {
             {
               name: OTHER_CATEGORY_LABEL,
               children: [],
-              remainderGdp: Number(d.total_mdollars) / Number(d.total_gdppct),
+              remainderGdp: Number(totalmdollarsold) / (Number(totalgdppct) / 100),
               // children: d.children
               //   .filter(g => +g.net_mdollars < 0)
               //   .map(({ net_mdollars, ...g }) => ({

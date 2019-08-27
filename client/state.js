@@ -54,7 +54,7 @@ export const reducers = (state, { type, ...action }) => {
   }
 };
 export const initialState = {
-  userCountry: 'Tonga',
+  userCountry: 'Mexico',
   articleCountry: 'Tonga',
   direction: 'sent',
   remittancesData: [],
