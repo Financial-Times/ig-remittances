@@ -101,9 +101,9 @@ const App = (context) => {
         'https://www.ft.com/__origami/service/image/v2/images/raw/http%3A%2F%2Fim.ft-static.com%2Fcontent%2Fimages%2F000dcf90-c8ca-11e9-a1f4-3669401ba76f.img?source=ig',
       m:
         'https://www.ft.com/__origami/service/image/v2/images/raw/http%3A%2F%2Fim.ft-static.com%2Fcontent%2Fimages%2Ffdf2326e-c8c9-11e9-a1f4-3669401ba76f.img?source=ig',
-      alt: '',
+      alt:
+        'Chart showing top recipients of remittances from the US in 2017. Mexico is  top with around thirty billion dollars, nearly twice as much as next country China. Then comes India, Phillipines and Vietnam',
     },
-    { s: 'https://via.placeholder.com/300x400.png', m: 'https://via.placeholder.com/700x500.png', alt: '' },
   ];
 
   return (
