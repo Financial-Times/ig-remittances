@@ -94,7 +94,7 @@ const Treemap = ({
               <clipPath id={`clip-${key}`}>
                 <use href={`#rect-${key}`} />
               </clipPath>
-              {idx < 3 ? (
+              {d.x1 - d.x0 > 100 ? (
                 <text fill={d.data.name === OTHER_CATEGORY_LABEL ? 'black' : 'white'} clipPath={`url(#clip-${key})`}>
                   {// I'm sorry, this code makes me cry too. :'(
                   (d.data.name === OTHER_CATEGORY_LABEL
