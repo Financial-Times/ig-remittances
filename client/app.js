@@ -174,14 +174,6 @@ const App = (context) => {
                     <figure className="graphic inline">
                       {windowWidth <= 490 && <img alt={mobileImages[imgIndex].alt} src={mobileImages[imgIndex].s} />}
                       {windowWidth > 490 && <img alt={mobileImages[imgIndex].alt} src={mobileImages[imgIndex].m} />}
-
-                      <figcaption className="o-typography-caption">
-                        Graphic: TKTK
-                        <br />
-                        <em>
-&#xA9;&nbsp;FT
-                        </em>
-                      </figcaption>
                     </figure>
                   </div>
                 );
