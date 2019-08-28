@@ -29,6 +29,15 @@ $o-topper-is-silent: false;
 
 .graphic.inline {
   margin: 0 auto oGridGutter();
+  max-width: 300px;
+
+  @include oGridRespondTo(S) {
+    max-width: 520px;
+  }
+
+  @include oGridRespondTo(L) {
+    max-width: 1180px;
+  }
 }
 
 .o-topper--full-bleed-offset {
